@@ -88,7 +88,7 @@ module.exports = {
           {
             type: "button",
             text: "打赏",
-            link: "/",
+            link: "/east-white/",
           },
         ],
       },
