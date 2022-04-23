@@ -8,7 +8,19 @@ module.exports = {
         },
         {
           text: "基础",
-          link: "/html/html_basics/",
+          link: "/html/basics/",
+        },
+      ],
+    },
+    {
+      text: "CSS",
+      items: [{
+          text: "资源",
+          link: "/css/source/",
+        },
+        {
+          text: "基础",
+          link: "/css/basics/",
         },
       ],
     },
@@ -20,7 +32,7 @@ module.exports = {
         },
         {
           text: "进阶",
-          link: "/javascript/js-advanced/",
+          link: "/javascript/advanced/",
         },
       ],
     },

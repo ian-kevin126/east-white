@@ -8,7 +8,7 @@ module.exports = {
       text: "",
       items: [{
         text: "基础",
-        link: "/go/go-basics/",
+        link: "/go/basics/",
       }, ],
     },
   ],

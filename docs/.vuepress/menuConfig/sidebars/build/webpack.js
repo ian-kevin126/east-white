@@ -1,9 +1,9 @@
 module.exports = [
   // '/js-advanced/',
   {
-    title: "Node基础",
+    title: "webpack",
     children: [
-      "/node/basics/jsx/",
+      "/build/webpack/basics/",
     ],
   },
 ];
