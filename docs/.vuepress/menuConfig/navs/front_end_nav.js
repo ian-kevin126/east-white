@@ -34,6 +34,14 @@ module.exports = {
           text: "进阶",
           link: "/javascript/advanced/",
         },
+        {
+          text: "ECMAScript",
+          link: "/javascript/es6/",
+        },
+        {
+          text: "TypeScript",
+          link: "/javascript/ts/",
+        },
       ],
     },
     {
