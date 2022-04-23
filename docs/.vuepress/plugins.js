@@ -44,7 +44,7 @@ module.exports = [
       title: "消息提示",
       body: [{
           type: "title",
-          content: "添加East_White好友，一起探索程序世界~",
+          content: "一起探索新世界~",
           style: "text-align: center; height: 30px; line-height: 30px;",
         },
         {

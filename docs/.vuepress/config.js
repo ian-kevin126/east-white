@@ -38,7 +38,7 @@ module.exports = {
     sidebar: {
       "/html/basics/": html_basics_collection,
       "/css/basics/": css_basics_collection,
-      "/js/advanced/": js_advanced_collection,
+      "/javascript/advanced/": js_advanced_collection,
       "/go/basics/": go_basics_collection,
       "/data_algo/data/": data_collection,
       "/react/basics/": react_basics_collection,
