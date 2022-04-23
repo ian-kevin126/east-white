@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg
-heroText: East_White的秘密花园
+heroText: East_White’s Space
 tagline: 命定的局限尽可永在，不屈的挑战却不可须臾或缺。
 actionText: 一个人的朝圣路 →
 actionLink: /js/js-advanced/
