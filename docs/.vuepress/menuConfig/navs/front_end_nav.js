@@ -43,12 +43,9 @@ module.exports = {
           link: "/react/source/",
         },
         {
-          text: "",
-          items: [{
-            text: "基础",
-            link: "/react/basics/",
-          }, ],
-        },
+          text: "基础",
+          link: "/react/basics/",
+        }
       ],
     },
     {
@@ -58,12 +55,9 @@ module.exports = {
           link: "/vue/source/",
         },
         {
-          text: "",
-          items: [{
-            text: "基础",
-            link: "/vue/basics/",
-          }, ],
-        },
+          text: "基础",
+          link: "/vue/basics/",
+        }
       ],
     }
   ],
