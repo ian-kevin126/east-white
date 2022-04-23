@@ -2,6 +2,7 @@ const plugins = require("./plugins")
 
 const home_nav = require("./menuConfig/navs/home_nav");
 const front_end_nav = require("./menuConfig/navs/front_end_nav");
+const back_end_nav = require("./menuConfig/navs/back_end_nav");
 const go_nav = require("./menuConfig/navs/go_nav");
 const library_nav = require("./menuConfig/navs/library_nav");
 const data_algo_nav = require("./menuConfig/navs/data_algo_nav");
@@ -34,7 +35,7 @@ module.exports = {
     logo: "https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/logo.png",
     subSidebar: "auto",
     lastUpdated: "上次更新",
-    nav: [home_nav, front_end_nav, react_nav, vue_nav, go_nav, node_nav, build_nav, data_algo_nav, library_nav],
+    nav: [home_nav, front_end_nav, back_end_nav, build_nav, data_algo_nav, library_nav],
     sidebar: {
       "/html/basics/": html_basics_collection,
       "/css/basics/": css_basics_collection,
