@@ -1,14 +1,14 @@
 module.exports = {
-  text: "Go",
+  text: "Node",
   items: [{
       text: "资源",
-      link: "/go/source/",
+      link: "/node/source/",
     },
     {
       text: "",
       items: [{
         text: "基础",
-        link: "/go/go-basics/",
+        link: "/node/basics/",
       }, ],
     },
   ],

@@ -1,10 +1,8 @@
 module.exports = {
   text: "FE",
-  items: [
-    {
+  items: [{
       text: "HTML",
-      items: [
-        {
+      items: [{
           text: "资源",
           link: "/html/source/",
         },
@@ -16,8 +14,7 @@ module.exports = {
     },
     {
       text: "JS",
-      items: [
-        {
+      items: [{
           text: "资源",
           link: "/javascript/source/",
         },

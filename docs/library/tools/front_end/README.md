@@ -3,59 +3,6 @@ title: 前端
 author: ian_kevin
 date: 2022-04-23
 ---
-
-# React
-
-## 官方文档
-
-- [React中文官网](https://zh-hans.reactjs.org/)
-- [Create-React-App中文官网](https://create-react-app.bootcss.com/)
-
-## 状态管理
-
-- [Redux中文官网](http://cn.redux.js.org/)
-
-## 路由
-
-- [React-Router官网](https://reactrouter.com/)
-
-## 数据处理
-
-- [React-Query中文官网](https://cangsdarm.github.io/react-query-web-i18n/)
-
-
-
-
-
-# Vue
-
-## 官方文档
-
-- [Vue1 & Vue2](https://vuejs.bootcss.com/guide/)
-- [Vue3中文官网](https://v3.cn.vuejs.org/)   
--  [Vue3文档-Vue爱好者共同搭建](https://vue3js.cn/)
-- [全新的 Vue3 官网——目前还处于预览版（推荐）](https://staging-cn.vuejs.org/)      [正式发布后的官网](http://vuejs.org)
-
-## 状态管理
-
-- [Vuex](https://vuex.vuejs.org/zh/)
-- [Pinia](https://pinia.vuejs.org/)     [Pinia中文文档](https://pinia.web3doc.top/introduction.html)
-
-## 路由
-
-- [Vue-Router](https://router.vuejs.org/zh/)
-
-
-
-
-
-# 构建工具
-
-- [webpack](https://webpack.docschina.org/)
-- [vite——下一代前端开发与构建工具](https://cn.vitejs.dev/)
-
-
-
 # 预处理器
 
 三大预处理器（Sass、Less、Stylus）中，Sass 满意度最高，其他两者相对较低，其中很大一部分人转投了后处理器 PostCSS 的阵营。 Sass 社区的 LibSass 宣布已弃用，不再支持新的功能的开发，LibSass 和 node-sass 将在最大努力的基础上继续无限期维护，包括修复主要的错误和安全性问题，并保持与最新版本的 Node.js 相兼容。
@@ -65,8 +12,6 @@ date: 2022-04-23
 - [Sass教程Sass中文文档 - Sass中文网](https://www.sass.hk/docs/)：诞生于2007年，最早也是最成熟的一款CSS预处理器语言。可以使用常量、变量、函数、混入、函数等功能，最后会编译成合法的CSS让浏览器使用。
 - [Less 快速入门| Less.js 中文文档- Less 中文网](https://less.bootcss.com/)：2009年开源，受Sass影响较大，但使用CSS语法。
 - [Stylus - 富于表现力、健壮、功能丰富的CSS 预处理器| Stylus ](https://www.stylus-lang.cn/)：2010年诞生，来自Node.js社区，主要用来给Node项目进行CSS预处理支持，在此社区内有一定人气，广泛意义上支持率不如Sass和Less。
-
-
 
 ## CSS-in-JS
 

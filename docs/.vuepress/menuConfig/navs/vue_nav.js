@@ -1,14 +1,14 @@
 module.exports = {
-  text: "Go",
+  text: "Vue",
   items: [{
       text: "资源",
-      link: "/go/source/",
+      link: "/vue/source/",
     },
     {
       text: "",
       items: [{
         text: "基础",
-        link: "/go/go-basics/",
+        link: "/vue/basics/",
       }, ],
     },
   ],
