@@ -1,9 +1,7 @@
 module.exports = [
-  // '/go/go-basics/',
+  // "/go/go-basics/",
   {
-    title: 'Go基础',
-    children: [
-      '/go/go-basics/variable/'
-    ]
-  }
-]
+    title: "Go基础",
+    children: ["/go/go-basics/variable/"],
+  },
+];

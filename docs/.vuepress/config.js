@@ -1,12 +1,13 @@
-const home_nav = require("./menuConfig/navs/home");
-const front_end_nav = require("./menuConfig/navs/front_end");
-const go_nav = require("./menuConfig/navs/go");
-const library_nav = require("./menuConfig/navs/library");
-const data_algo = require("./menuConfig/navs/data_algo");
+const home_nav = require("./menuConfig/navs/home_nav");
+const front_end_nav = require("./menuConfig/navs/front_end_nav");
+const go_nav = require("./menuConfig/navs/go_nav");
+const library_nav = require("./menuConfig/navs/library_nav");
+const data_algo = require("./menuConfig/navs/data_algo_nav");
 
 const js_advanced_collection = require("./menuConfig/sidebars/js/js_advanced");
 const go_basics_collection = require("./menuConfig/sidebars/go/go_basics");
 const data_collection = require("./menuConfig/sidebars/algo/data/data");
+const html_basics_collection = require("./menuConfig/sidebars/html/html_basics");
 
 module.exports = {
   title: "east-white",
@@ -27,6 +28,7 @@ module.exports = {
       "/js/js-advanced/": js_advanced_collection,
       "/go/go-basics/": go_basics_collection,
       "/data_algo/data/": data_collection,
+      "/html/html_basics/": html_basics_collection,
     },
   },
   plugins: [
