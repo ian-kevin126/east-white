@@ -7,11 +7,11 @@ actionText: 一个人的朝圣路 →
 actionLink: /js/js-advanced/
 features:
 - title: 独上高楼
-  details: 种一棵树最好的时间是二十年前，其次是现在。
+  details: Bet on Yourself.
 - title: 衣宽不悔
-  details: The Road Ahead is Vast and Expectable.
+  details: Tired of Life, there Must be some Gentle Dream.
 - title: 灯火阑珊
-  details: 不枉此生，不负所爱。
+  details: The Road Ahead is Vast and Expectable.
 footer: MIT Licensed | Copyright © 2022-present Ian KevinLiao
 ---
 
