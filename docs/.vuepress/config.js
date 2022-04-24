@@ -1,4 +1,4 @@
-const plugins = require("./plugins")
+const plugins = require("./plugins");
 
 const home_nav = require("./menuConfig/navs/home_nav");
 const front_end_nav = require("./menuConfig/navs/front_end_nav");
@@ -6,6 +6,7 @@ const back_end_nav = require("./menuConfig/navs/back_end_nav");
 const library_nav = require("./menuConfig/navs/library_nav");
 const data_algo_nav = require("./menuConfig/navs/data_algo_nav");
 const build_nav = require("./menuConfig/navs/build_nav");
+const app_nav = require("./menuConfig/navs/app_nav");
 
 const js_advanced_collection = require("./menuConfig/sidebars/js");
 const go_basics_collection = require("./menuConfig/sidebars/go/basics");
@@ -18,6 +19,7 @@ const node_basics_collection = require("./menuConfig/sidebars/node/basics");
 const webpack_collection = require("./menuConfig/sidebars/build/webpack");
 const es6_collection = require("./menuConfig/sidebars/es6");
 const ts_collection = require("./menuConfig/sidebars/ts");
+const flutter_basics_collection = require("./menuConfig/sidebars/flutter/basics");
 
 module.exports = {
   title: "east-white",
@@ -36,10 +38,11 @@ module.exports = {
     nav: [
       home_nav,
       front_end_nav,
+      app_nav,
       back_end_nav,
       build_nav,
       data_algo_nav,
-      library_nav
+      library_nav,
     ],
     sidebar: {
       // about front_end
@@ -52,6 +55,8 @@ module.exports = {
       "/react/basics/": react_basics_collection,
       // about vue
       "/vue/basics/": vue_basics_collection,
+      // about app
+      "/flutter/basics/": flutter_basics_collection,
       // about go
       "/go/basics/": go_basics_collection,
       // about node
