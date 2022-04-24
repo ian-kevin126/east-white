@@ -28,4 +28,21 @@ module.exports = [
       "/go/basics/package/net/",
     ],
   },
+  {
+    title: "web框架",
+    children: [
+      "/go/basics/web/gin/",
+      "/go/basics/web/beego/",
+      "/go/basics/web/iris/",
+      "/go/basics/web/echo/",
+    ],
+  },
+  {
+    title: "ORM",
+    children: [
+      "/go/basics/orm/gorm/",
+      "/go/basics/orm/xorm/",
+      "/go/basics/orm/gosql/",
+    ],
+  },
 ];
