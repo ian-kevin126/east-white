@@ -175,6 +175,18 @@ date: 2022-04-19
 
 
 
+## 四、优质博客和文章
+
+### 1、博客
+
+
+
+
+
+### 2、文章
+
+- [golang 中的零值问题与判断为空](https://youwu.today/skill/backend/golang-zero-value-and-reference-and-null-value-testing/)
+
 
 
 ## 参考：

@@ -855,7 +855,7 @@ func ExampleSplit() {
 
 为你的代码编写示例代码有如下三个用处：
 
-```
+```go
 示例函数能够作为文档直接使用，例如基于web的godoc中能把示例函数与对应的函数或包相关联。
 
 示例函数只要包含了// Output:也是可以通过go test运行的可执行测试。
@@ -874,3 +874,4 @@ ok      github.com/pprof/studygo/code_demo/test_demo/split       0.006s
 ## 参考
 
 - [单元测试](https://www.topgoer.com/%E5%87%BD%E6%95%B0/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html)
+- [Go 语言中的测试（go Testing）](https://youwu.today/skill/backend/how-to-test-your-go-code/)

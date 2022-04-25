@@ -45,6 +45,8 @@ var (
 )
 ```
 
+- [golang 中的零值问题与判断为空](https://books.studygolang.com/Mastering_Go_ZH_CN/)
+
 ### 2、变量的初始化
 
 Go语言在声明变量的时候，会自动对变量对应的内存区域进行初始化操作。每个变量会被初始化成其类型的默认值，例如： 整型和浮点型变量的默认值为0。 字符串变量的默认值为空字符串。 布尔型变量默认为`false`。 切片、函数、指针变量的默认为`nil`。
@@ -496,6 +498,10 @@ type error interface {
 
 ## 五、init函数和main函数
 
+初始化函数，是编程语言、编程框架为程序运行过程中的函数调用提供数据初始设置的手段。比如在大家熟悉的 java、python 中，我们可以为类实例成对象时，在构造函数或者初始化函数中对对象的初始值进行设置。在非面向对象的编程中，我们通过按照某种约定或者人为的，在一个重任务启动之前，调用一个数据设置方法用来对环境数据进行初始化。
+
+golang 不是面向对象的语言，没有构造函数，但同样提供了可以用来实现数据初始化的机制，这是语言级别的原生支持。
+
 ### 1、init函数
 
 Go语言中，init函数用于包（package）的初始化，该函数是Go语言的一个重要特性，有如下的特征：
@@ -506,6 +512,155 @@ Go语言中，init函数用于包（package）的初始化，该函数是Go语�
 4. 同一个包中多个init函数的执行顺序，go语言没有明确的定义（说明）
 5. 不同包的init函数按照包导入的依赖关系决定该初始化函数的执行顺序
 6. init函数不能被其他函数调用，而是main函数执行之前，自动被调用
+
+#### 1）在 init 函数中初始化
+
+golang 为我们提供了 `init()` 函数，这个函数是隐式调用的，即会在包引入就执行。
+
+```go
+// helloinit.go
+package main
+
+import (
+  "fmt"
+)
+
+var initA string
+var initB = "我是 initB"
+var initC string
+
+func init() {
+  initC = "设置为 hello"
+}
+
+func main() {
+  fmt.Println("youwu.today say hi...😀")
+
+  fmt.Println("* 变量 initA: ", initA)
+  fmt.Println("* 变量 initB: ", initB)
+  fmt.Println("* 变量 initC: ", initC)
+}
+```
+
+输出：
+
+```go
+* 变量 initA:
+* 变量 initB:  我是 initB
+* 变量 initC:  设置为 hello
+```
+
+在 `main()` 函数中并没有直接调用`init()`，go在编译的时候，已经确保 `init` 会在 `main`执行之前就被调用，这种方式就是隐式。
+
+#### 2）在包中的init函数
+
+上节演示变量在被声明时、`init` 函数中进行初始化的手段，那么问题来了。如果你的代码比较长，又使用包的方式组织，为了更清楚的表达，你想在包中每个 go 代码中都来一个 `init` 函数，不知道是否可行？因为我们知道，在一个 go 的包(package)中，全局变量与函数一样，不管在哪个 go 代码文件中声明，名称是全包内唯一，不能重复的。
+
+例如，像以下的样子，该怎么办？`init`函数应该怎么样组织，又可以有哪些作为？
+
+```
+┌──────────────────────────────────────────┐
+│Package initdemo                          │
+│                                          │
+│     ┌──────────────────────────────────┐ │
+│     │   initdemo1.go  init()?          │ │
+│     └──────────────────────────────────┘ │
+│     ┌──────────────────────────────────┐ │
+│     │   initdemo2.go  init()?          │ │
+│     └──────────────────────────────────┘ │
+└──────────────────────────────────────────┘
+```
+
+`init` 是 go 中的特殊函数，接受特别的对待。它是 go 中唯一可以在一个包内的不同代码文件中多次定义的函数名称。
+
+> 即使可以这么做，事实上可能不建议，因为这会让初始化代码看起来很混乱，对维护不友好。你应该根据实际需要来设计代码的组织方式。不过下面我们还是来看看被引用包中的 `init` 函数。
+
+我们来改进下例子，创建一个名为 `demo` 的 `package`，并新建两个 go 文件，*initdemoA.go* 和 *initdemo2.go*（它们都包含了 init 函数，内容如下），并在 *helloinit.go* 中引用，看看它们的初始化函数执行顺序：
+
+```go
+// initdemoA.go
+package demo
+
+import "fmt"
+
+func init() {
+    fmt.Println("initdemo1.go 的 init 函数给你打招呼了")
+    VarInDemo_Initdemo1 = "VarInDemo_Initdemo1"
+}
+
+var VarInDemo_Initdemo1 string
+```
+
+```go
+// initdemo2.go
+package demo
+
+import "fmt"
+
+func init() {
+  fmt.Println("initdemo2.go 的 init 函数给你打招呼了")
+  VarInDemo_Initdemo2 = "VarInDemo_Initdemo2"
+}
+
+var VarInDemo_Initdemo2 string
+```
+
+```go
+// helloinit.go
+package main
+
+import (
+  "fmt"
+  "initdemo/demo"
+)
+
+var initA string
+var initB = "我是 initB"
+var initC string
+
+func init() {
+  fmt.Println("main 初始化")
+  initC = "设置为 hello"
+}
+
+func main() {
+  fmt.Println("youwu.today say hi...😀")
+  fmt.Println("* 变量 initA: ", initA)
+  fmt.Println("* 变量 initB: ", initB)
+  fmt.Println("* 变量 initC: ", initC)
+
+  fmt.Println(demo.VarInDemo_Initdemo1)
+}
+```
+
+输出：
+
+```go
+* 变量 initA:
+* 变量 initB:  我是 initB
+* 变量 initC:  设置为 hello
+VarInDemo_Initdemo1
+```
+
+在 *helloinit.go* 中引入 `initdemo/demo`，在 `main` 函数执行之前，先是执行被引入包的 `init` 函数，再执行当前 `main` 包的 `init` 函数。 上面还体现了一个细节，就是包 `demo` 中的多个 `init` 函数的执行顺序，是按所在 go 代码文件名称的排序来确定执行顺序的。
+
+```
+┌────────────────────────────────┐    ┌───────────────────────────────┐
+│package main                    │    │package demo                   │
+│                                │    │   ┌───────────────────────┐   │
+│  ┌──────────────────────────┐  │    │   │                       │   │
+│  │  import "initdemo/demo"  │◀─┼────│   │init() in initdemoA.go │   │
+│  └──────────────────────────┘  │    │   │ [2]                   │   │
+│                                │    │   └───────────────────────┘   │
+│  ┌──────────────────────────┐  │    │   ┌───────────────────────┐   │
+│  │ init() in helloinit.go   │  │    │   │                       │   │
+│  │  [3]                     │  │    │   │init() in initdemo2.go │   │
+│  │ main() in helloinit.go   │  │    │   │ [1]                   │   │
+│  └──────────────────────────┘  │    │   └───────────────────────┘   │
+└────────────────────────────────┘    └───────────────────────────────┘ 
+```
+
+> 再次强调，如果包中有多个需要初始化的地方，把 `init()` 函数定义在每一个 go 代码文件中可能不是你想要的代码组织方式，尽可能将多个 `init` 函数的逻辑放到一个文件单独管理起来可能是更好的选择，比如你还可以将该文件命名为 *init.go*，看到文件名会能猜到它的用途。
 
 ### 2、main函数
 
@@ -543,3 +698,4 @@ func main(){
 - [Golang内置类型和函数](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Golang%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%87%BD%E6%95%B0.html)
 - [init函数和main函数](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Init%E5%87%BD%E6%95%B0%E5%92%8Cmain%E5%87%BD%E6%95%B0.html)
 - [基本类型](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B.html)
+- [Go语言的初始化函数init](https://youwu.today/skill/backend/init-function-in-golang/)
