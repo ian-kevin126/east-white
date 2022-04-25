@@ -3,6 +3,7 @@ module.exports = [
   {
     title: "Go基础",
     children: [
+      "/go/basics/syntax/preface/",
       "/go/basics/syntax/concept/",
       "/go/basics/syntax/install/",
       "/go/basics/syntax/variable/",
@@ -13,8 +14,11 @@ module.exports = [
       "/go/basics/syntax/process/",
       "/go/basics/syntax/function/",
       "/go/basics/syntax/interface/",
+      "/go/basics/syntax/reflect/",
       "/go/basics/syntax/goroutine/",
       "/go/basics/syntax/channel/",
+      "/go/basics/syntax/unit_test/",
+      "/go/basics/syntax/stress_test/",
     ],
   },
   {
