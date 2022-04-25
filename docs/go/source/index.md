@@ -4,19 +4,15 @@ author: ian_kevin
 date: 2022-04-19
 ---
 
-# 一、Go 语言
-
-## 1、基础
+## 一、Go 基础
 
 - [《Mastering Go》](https://books.studygolang.com/Mastering_Go_ZH_CN/)
 - [《Go 语言设计与实现》](https://draveness.me/golang/)
 - [topgoer](https://www.topgoer.com/)
 
+### 1、交流社区
 
-
-## 交流社区
-
-### 中文社区
+#### 1）中文社区
 
 - [Golang 中国](http://www.golangtc.com/)：国内较早的 Go 社区，汇聚各类信息与服务
 - [Study Golang](http://studygolang.com/)：国内 Go 社区先驱，同样汇聚各类信息与服务
@@ -32,16 +28,20 @@ date: 2022-04-19
   - Martini&Macaron 交流群：371440803
   - Golang 新手群：369793160
 
-### 英文社区
+#### 2）英文社区
 
 - [Go Forum](https://forum.golangbridge.org/)：Go 语言爱好者英文交流论坛
 - [golang-nuts 邮件列表](https://groups.google.com/forum/#!forum/golang-nuts)：Go 语言官方指定邮件列表讨论区
 
-### 知识图谱
+### 2、知识图谱
 
 - [Go Knowledge Graph](https://github.com/gocn/knowledge)：Go 知识图谱
+- [Go语言思维导图](https://mm.edrawsoft.cn/template/167682)
+- [Golang：Go语言圣经笔记-思维导图](https://www.cnblogs.com/souther-blog/p/10632117.html)
 
-### 网址导航
+![img](https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/1596164-20190331170932599-1297220989-20220424225110789.png)
+
+### 3、网址导航
 
 - 官方：
   - [Go 中国站点](https://golang.google.cn/): Go 语言中国官方站点(无需翻墙)
@@ -71,44 +71,26 @@ date: 2022-04-19
   - [Json To Go struct](https://mholt.github.io/json-to-go/):Convert JSON to Go struct在线工具
 
 - 开发工具：
-
   - [Emacs24](http://ftp.gnu.org/gnu/emacs/)：[配置脚本](https://github.com/wackonline/hack/blob/master/install-mint-dev/install-emacs.d.sh) / [(中文社区)](http://emacser.com/)
   - [LiteIDE](https://github.com/visualfc/liteide)
   - [Sublime Text 2/3](http://sublimetext.com/)：[配置教程](http://my.oschina.net/Obahua/blog/110767)
   - [GoLand](https://www.jetbrains.com/go/?fromMenu)
   - [Atom](https://atom.io/)：[配置插件](https://atom.io/packages/go-plus)（感觉还不错，类似 Sublime，配置比较简单）
   - [VIM](http://www.vim.org/)：[配置插件](https://github.com/humiaozuzu/dot-vimrc)（嫌 vim 配置麻烦的童鞋可以直接用这个）
-
 - 学习站点：
-
   - [Go by Example](https://gobyexample.com/)
   - [Go database/sql tutorial](http://go-database-sql.org/)
-
 - 支持 Go 的云平台：
-
   - [Koding](https://koding.com/)
-
   - [Nitrous.IO](https://www.nitrous.io/)
-
   - [Get up and running with Go on Google Cloud Platform](https://cloud.google.com/go/)
-
   - [AWS SDK for Go - Developer Preview](http://aws.amazon.com/cn/sdk-for-go/):=>[github](https://github.com/aws/aws-sdk-go)
-
-  - azure sdk for go
-
-    :=>
-
-    github
-
+  - azure sdk for go :=> github
     - [How to Use CoreOS on Azure](https://azure.microsoft.com/zh-cn/documentation/articles/virtual-machines-linux-coreos-how-to/)
     - [Create Azure Web app with GoLang extension](https://azure.microsoft.com/zh-cn/documentation/templates/101-webapp-with-golang/)
-
   - Qiniu
-
     - [Qiniu SDK for Go](http://developer.qiniu.com/docs/v6/sdk/go-sdk.html):=>[github](https://github.com/qiniu/api.v6)
-
 - 其它站点：
-
   - [Golang 杂志](https://flipboard.com/section/the-golang-magazine-bJ1GqB)：[订阅说明](http://bbs.go-china.org/post/476)
   - [Reddit](http://www.reddit.com/r/golang/)
   - [Newspaper.IO](http://www.newspaper.io/golang)：Golang 新闻订阅
@@ -116,9 +98,9 @@ date: 2022-04-19
 
 
 
-## 资料汇总
+## 二、资料汇总
 
-### 中文资料
+### 1、中文资料
 
 - 书籍：
   - [《深入解析Go》](https://github.com/tiancaiamao/go-internals)
@@ -140,7 +122,7 @@ date: 2022-04-19
   - [《Go名库讲解》](https://github.com/Unknwon/go-rock-libraries-showcases)
   - [Go 命令教程](https://github.com/hyper-carrot/go_command_tutorial)
 
-### 英文资料
+### 2、英文资料
 
 - 文档：
   - [Go Code Review Comments](https://code.google.com/p/go-wiki/wiki/CodeReviewComments)：Go 语言代码风格指导
@@ -160,7 +142,7 @@ date: 2022-04-19
   - [The Go Programming Language(Published Oct 30, 2015,Not Yet Published)](http://www.gopl.io/)
   - [Practical Go: Real world advice for writing maintainable Go programs](https://dave.cheney.net/practical-go/presentations/qcon-china.html)
 
-### 视频资料
+### 3、视频资料
 
 - 基础：
   - Go Slices and Bytes - Shakeel Mahate：[优酷视频](http://v.youku.com/v_show/id_XNjkzMjM1Mjg4.html) - [Youtube](http://www.youtube.com/watch?v=dKlNSIUSfz0)
@@ -181,13 +163,9 @@ date: 2022-04-19
   - 2019：[Youtube](https://www.youtube.com/playlist?list=PLDWZ5uzn69ezokLCB-nGgYInxL0uP1PeZ)
 - GopherCon India 2015: [Youtube](https://www.youtube.com/playlist?list=PLxFC1MYuNgJTY3uQ5Ja4F5Sz305nnrBOq)
 
+## 三、Web框架
 
-
-
-
-# 二、Web框架
-
-## 1、Gin
+### 1、Gin
 
 - [gin 框架封装 1](https://juejin.cn/user/3658790323624637/posts)
 - [gin 框架封装 2](https://juejin.cn/user/1591748569600904/posts)
@@ -198,7 +176,7 @@ date: 2022-04-19
 
 
 
-# 参考：
+## 参考：
 
 - [https://github.com/Unknwon/go-study-index](https://github.com/Unknwon/go-study-index)
 - [Go知识图谱](https://www.processon.com/view/link/5a9ba4c8e4b0a9d22eb3bdf0#map)
