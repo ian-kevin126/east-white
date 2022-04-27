@@ -22,10 +22,16 @@ module.exports = [
     ],
   },
   {
-    title: "常用包(package)",
+    title: "包(package)",
     children: [
+      "/go/basics/package/concept/",
+      "/go/basics/package/gopath/",
+      "/go/basics/package/packaging/",
+      "/go/basics/package/import/",
+      "/go/basics/package/gomod/",
       "/go/basics/package/file/",
       "/go/basics/package/date/",
+      "/go/basics/package/operation_system/",
       "/go/basics/package/format/",
       "/go/basics/package/string/",
       "/go/basics/package/regexp/",
@@ -34,20 +40,25 @@ module.exports = [
     ],
   },
   {
-    title: "web框架",
+    title: "Gin",
     children: [
-      "/go/basics/web/gin/",
-      "/go/basics/web/beego/",
-      "/go/basics/web/iris/",
-      "/go/basics/web/echo/",
+      "/go/basics/gin/01/",
+      "/go/basics/gin/02/",
+      "/go/basics/gin/03/",
+      "/go/basics/gin/04/",
+      "/go/basics/gin/05/",
+      "/go/basics/gin/06/",
+      "/go/basics/gin/07/",
+      "/go/basics/gin/08/",
+      "/go/basics/gin/09/",
     ],
   },
-  {
-    title: "ORM",
-    children: [
-      "/go/basics/orm/gorm/",
-      "/go/basics/orm/xorm/",
-      "/go/basics/orm/gosql/",
-    ],
-  },
+  // {
+  //   title: "ORM",
+  //   children: [
+  //     "/go/basics/orm/gorm/",
+  //     "/go/basics/orm/xorm/",
+  //     "/go/basics/orm/gosql/",
+  //   ],
+  // },
 ];
