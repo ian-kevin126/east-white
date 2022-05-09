@@ -8,7 +8,7 @@ date: 2022-04-19
 
 ## 一、Go 语言中的 Map
 
-map 是一种无序的基于 key-value 的数据结构，Go 语言中的 map 是引用类型，必须初始化才能使用。
+map 是一种无序的基于 `key-value` 的数据结构，Go 语言中的 map 是引用类型，必须初始化才能使用。
 
 ### 1、map 定义
 
@@ -20,12 +20,10 @@ map[KeyType]ValueType
 
 其中，
 
-```go
-KeyType:表示键的类型。
-ValueType:表示键对应的值的类型。
-```
+- `KeyType`：表示键的类型。
+- `ValueType`：表示键对应的值的类型。
 
-map 类型的变量默认初始值为 nil，需要使用 make()函数来分配内存。语法为：
+map 类型的变量默认初始值为 nil，需要使用 `make()` 函数来分配内存。语法为：
 
 ```go
 make(map[KeyType]ValueType, [cap])
@@ -123,7 +121,51 @@ func main() {
 }
 ```
 
-注意： 遍历 map 时的元素顺序与添加键值对的顺序无关。
+只想遍历value的时候，可以按照下面的写法：
+
+```go
+func main() {
+  scoreMap := make(map[string]int)
+  scoreMap["张三"] = 90
+  scoreMap["小明"] = 100
+  scoreMap["王五"] = 60
+  for _, v := range scoreMap {
+    fmt.Println(v)
+  }
+}
+```
+
+> 注意： 遍历 map 时的元素顺序与添加键值对的顺序无关。
+
+#### 4.1 按照指定顺序遍历 map
+
+```go
+func main() {
+  rand.Seed(time.Now().UnixNano()) //初始化随机数种子
+
+  var scoreMap = make(map[string]int, 200)
+
+  for i := 0; i < 100; i++ {
+    key := fmt.Sprintf("stu%02d", i) //生成stu开头的字符串
+    value := rand.Intn(100)          //生成0~99的随机整数
+    scoreMap[key] = value
+  }
+  
+  //取出map中的所有key存入切片keys
+  var keys = make([]string, 0, 200)
+  for key := range scoreMap {
+    keys = append(keys, key)
+  }
+  
+  //对切片进行排序
+  sort.Strings(keys)
+  
+  //按照排序后的key遍历map
+  for _, key := range keys {
+    fmt.Println(key, scoreMap[key])
+  }
+}
+```
 
 ### 5、使用 delete()函数删除键值对
 
@@ -156,34 +198,7 @@ func main(){
 }
 ```
 
-### 6、按照指定顺序遍历 map
-
-```go
-func main() {
-  rand.Seed(time.Now().UnixNano()) //初始化随机数种子
-
-  var scoreMap = make(map[string]int, 200)
-
-  for i := 0; i < 100; i++ {
-    key := fmt.Sprintf("stu%02d", i) //生成stu开头的字符串
-    value := rand.Intn(100)          //生成0~99的随机整数
-    scoreMap[key] = value
-  }
-  //取出map中的所有key存入切片keys
-  var keys = make([]string, 0, 200)
-  for key := range scoreMap {
-    keys = append(keys, key)
-  }
-  //对切片进行排序
-  sort.Strings(keys)
-  //按照排序后的key遍历map
-  for _, key := range keys {
-    fmt.Println(key, scoreMap[key])
-  }
-}
-```
-
-### 7、元素为 map 类型的切片
+### 6、元素为 map 类型的切片
 
 下面的代码演示了切片中的元素为 map 类型时的操作：
 
@@ -193,19 +208,22 @@ func main() {
   for index, value := range mapSlice {
     fmt.Printf("index:%d value:%v\n", index, value)
   }
+  
   fmt.Println("after init")
+  
   // 对切片中的map元素进行初始化
   mapSlice[0] = make(map[string]string, 10)
   mapSlice[0]["name"] = "王五"
   mapSlice[0]["password"] = "123456"
   mapSlice[0]["address"] = "红旗大街"
+  
   for index, value := range mapSlice {
     fmt.Printf("index:%d value:%v\n", index, value)
   }
 }
 ```
 
-### 8、值为切片类型的 map
+### 7、值为切片类型的 map
 
 下面的代码演示了 map 中值为切片类型的操作：
 
@@ -214,22 +232,86 @@ func main() {
   var sliceMap = make(map[string][]string, 3)
   fmt.Println(sliceMap)
   fmt.Println("after init")
+  
   key := "中国"
   value, ok := sliceMap[key]
   if !ok {
     value = make([]string, 0, 2)
   }
   value = append(value, "北京", "上海")
+  
   sliceMap[key] = value
   fmt.Println(sliceMap)
 }
+```
+
+### 8、练习题
+
+1. 写一个程序，统计一个字符串中每个单词出现的次数。比如：”how do you do”中how=1 do=2 you=1。
+
+```go
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	var s = "how do you do"
+	var wordCount = make(map[string]int, 10)
+
+	words := strings.Split(s, " ")
+
+	for _, word := range words {
+		v, ok := wordCount[word]
+
+		if ok {
+			wordCount[word] = v + 1
+		} else {
+			wordCount[word] = 1
+		}
+	}
+
+	for k, v := range wordCount {
+		fmt.Println(k, v)
+	}
+}
+
+/*
+do 2
+you 1
+how 1
+*/
+```
+
+2. 观察下面代码，写出最终的打印结果。
+
+```go
+func main() {
+	type Map map[string][]int
+	m := make(Map)
+	s := []int{1, 2}
+	s = append(s, 3)
+	fmt.Printf("%+v\n", s)
+	m["q1mi"] = s
+	s = append(s[:1], s[2:]...)
+	fmt.Printf("%+v\n", s)
+	fmt.Printf("%+v\n", m["q1mi"])
+}
+
+/*
+[1 2 3]
+[1 3]
+[1 3 3]
+*/
 ```
 
 ## 二、Map 实现原理
 
 ### 1、什么是 Map
 
-#### 1）key，value 存储
+#### 1.1 key，value 存储
 
 最通俗的话说 Map 是一种通过 key 来获取 value 的一个数据结构，其底层存储方式为数组，在存储时 key 不能重复，当 key 重复时，value 进行覆盖，我们通过 key 进行 hash 运算（可以简单理解为把 key 转化为一个整形数字）然后对数组的长度取余，得到 key 存储在数组的哪个下标位置，最后将 key 和 value 组装为一个结构体，放入数组下标处，看下图：
 
@@ -243,7 +325,7 @@ index2  = hashkey2% length= 2
 
 ![img](https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/1-20220425102146227.png)
 
-#### hash 冲突
+#### 1.2 hash 冲突
 
 如上图所示，数组一个下标处只能存储一个元素，也就是说一个数组下标只能存储一对 key，value, hashkey(xiaoming)=4 占用了下标 0 的位置，假设我们遇到另一个 key，hashkey(xiaowang)也是 4，这就是 hash 冲突（不同的 key 经过 hash 之后得到的值一样），那么 key=xiaowang 的怎么存储？ hash 冲突的常见解决方法
 
@@ -435,3 +517,4 @@ func mapassign(t *maptype, h *hmap, key unsafe.Pointer) unsafe.Pointer {
 - [Map](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Map.html)
 - [Map 实现原理](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Map%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.html)
 - [深入 Go 的 Map 使用和实现原理](https://cloud.tencent.com/developer/article/1468799)
+- [Go语言基础之map](https://www.liwenzhou.com/posts/Go/08_map/)

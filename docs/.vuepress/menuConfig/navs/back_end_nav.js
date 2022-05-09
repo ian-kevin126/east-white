@@ -1,28 +1,40 @@
 module.exports = {
   text: "Server",
-  items: [{
+  items: [
+    {
       text: "Go",
-      items: [{
+      items: [
+        {
           text: "资源",
           link: "/go/source/",
         },
         {
           text: "基础",
           link: "/go/basics/",
-        }
+        },
       ],
     },
     {
       text: "Node",
-      items: [{
+      items: [
+        {
           text: "资源",
           link: "/node/source/",
         },
         {
           text: "基础",
           link: "/node/basics/",
-        }
+        },
       ],
-    }
+    },
+    {
+      text: "Tools",
+      items: [
+        {
+          text: "工具",
+          link: "/server_tools/",
+        },
+      ],
+    },
   ],
 };

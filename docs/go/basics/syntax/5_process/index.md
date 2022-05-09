@@ -61,11 +61,13 @@ import "fmt"
 func main() {
   /* 定义局部变量 */
   var a int = 10
+  
   /* 使用 if 语句判断布尔表达式 */
   if a < 20 {
     /* 如果条件为 true 则执行以下语句 */
     fmt.Printf("a 小于 20\n" )
   }
+  
   fmt.Printf("a 的值为 : %d\n", a)
 }
 ```
@@ -81,7 +83,7 @@ a 的值为 : 10
 
 > if 语句 后可以使用可选的 else 语句, else 语句中的表达式在布尔表达式为 false 时执行。
 
-#### 语法
+#### 1.1 语法
 
 Go 编程语言中 if...else 语句的语法如下：
 
@@ -95,7 +97,7 @@ if 布尔表达式 {
 
 if 在布尔表达式为 true 时，其后紧跟的语句块执行，如果为 false 则执行 else 语句块。
 
-#### 实例:
+#### 1.2 实例
 
 ```go
 package main
@@ -125,11 +127,46 @@ a 不小于 20
 a 的值为 : 100
 ```
 
+#### 1.3 特殊写法
+
+Go语言规定与`if`匹配的左括号`{`必须与`if和表达式`放在同一行，`{`放在其他位置会触发编译错误。 同理，与`else`匹配的`{`也必须与`else`写在同一行，`else`也必须与上一个`if`或`else if`右边的大括号在同一行。
+
+举个例子：
+
+```go
+func ifDemo1() {
+	score := 65
+	if score >= 90 {
+		fmt.Println("A")
+	} else if score > 75 {
+		fmt.Println("B")
+	} else {
+		fmt.Println("C")
+	}
+}
+```
+
+if条件判断还有一种特殊的写法，可以在 if 表达式之前添加一个执行语句，再根据变量值进行判断，举个例子：
+
+```go
+func ifDemo2() {
+	if score := 65; score >= 90 {
+		fmt.Println("A")
+	} else if score > 75 {
+		fmt.Println("B")
+	} else {
+		fmt.Println("C")
+	}
+}
+```
+
+**思考题：** 上下两种写法的区别在哪里？`score`这个变量只会在 `if` 语句块内生效，而上面那种写法可以在`ifDemo1`函数内生效。
+
 ### 4、if 嵌套语句
 
 > 你可以在 if 或 else if 语句中嵌入一个或多个 if 或 else if 语句。
 
-#### 语法
+#### 1.1 语法
 
 Go 编程语言中 if...else 语句的语法如下：
 
@@ -144,7 +181,7 @@ if 布尔表达式 1 {
 
 你可以以同样的方式在 if 语句中嵌套 else if...else 语句
 
-#### 实例
+#### 1.2 实例
 
 ```go
 package main
@@ -182,7 +219,7 @@ b 值为 : 200
 
 switch 语句用于基于不同条件执行不同动作，每一个 case 分支都是唯一的，从上直下逐一测试，直到匹配为止。 Golang switch 分支表达式可以是任意类型，不限于常量。可省略 break，默认自动终止。
 
-#### 语法
+#### 1.1 语法
 
 Go 编程语言中 switch 语句的语法如下：
 
@@ -199,7 +236,7 @@ switch var1 {
 
 变量 var1 可以是任何类型，而 val1 和 val2 则可以是同类型的任意值。类型不被局限于常量或整数，但必须是相同的类型；或者最终结果为相同类型的表达式。 您可以同时测试多个可能符合条件的值，使用逗号分割它们，例如：case val1, val2, val3。
 
-#### 实例:
+#### 1.2 实例
 
 ```go
 package main
@@ -213,10 +250,10 @@ func main() {
 
   switch marks {
     case 90: grade = "A"
-  case 80: grade = "B"
-  case 50,60,70 : grade = "C"
-  default: grade = "D"
-    }
+  	case 80: grade = "B"
+  	case 50,60,70 : grade = "C"
+  	default: grade = "D"
+  }
 
   switch {
     case grade == "A" :
@@ -241,25 +278,110 @@ func main() {
 你的等级是 A
 ```
 
+使用`switch`语句可方便地对大量的值进行条件判断。
+
+```go
+func switchDemo1() {
+	finger := 3
+	switch finger {
+	case 1:
+		fmt.Println("大拇指")
+	case 2:
+		fmt.Println("食指")
+	case 3:
+		fmt.Println("中指")
+	case 4:
+		fmt.Println("无名指")
+	case 5:
+		fmt.Println("小拇指")
+	default:
+		fmt.Println("无效的输入！")
+	}
+}
+```
+
+Go语言规定每个`switch`只能有一个`default`分支。
+
+一个分支可以有多个值，多个case值中间使用英文逗号分隔。
+
+```go
+func testSwitch3() {
+	switch n := 7; n {
+	case 1, 3, 5, 7, 9:
+		fmt.Println("奇数")
+	case 2, 4, 6, 8:
+		fmt.Println("偶数")
+	default:
+		fmt.Println(n)
+	}
+}
+```
+
+分支还可以使用表达式，这时候switch语句后面不需要再跟判断变量。例如：
+
+```go
+func switchDemo4() {
+	age := 30
+	switch {
+    case age < 25:
+      fmt.Println("好好学习吧")
+    case age > 25 && age < 35:
+      fmt.Println("好好工作吧")
+    case age > 60:
+      fmt.Println("好好享受吧")
+    default:
+      fmt.Println("活着真好")
+	}
+}
+```
+
+#### 1.3 fallthrough
+
+`fallthrough`语法可以执行满足条件的case的下一个case，是为了兼容C语言中的case设计的。
+
+```go
+func switchDemo5() {
+	s := "a"
+	switch {
+	case s == "a":
+		fmt.Println("a")
+		fallthrough
+	case s == "b":
+		fmt.Println("b")
+	case s == "c":
+		fmt.Println("c")
+	default:
+		fmt.Println("...")
+	}
+}
+```
+
+输出：
+
+```bash
+a
+b
+```
+
 ### 2、Type Switch
 
 switch 语句还可以被用于 type-switch 来判断某个 interface 变量中实际存储的变量类型。
 
-#### Type Switch 语法格式如下：
+#### 2.1 语法
 
 ```go
 switch x.(type){
   case type:
-  statement(s)
+  	statement(s)
   case type:
-  statement(s)
+  	statement(s)
   /* 你可以定义任意个数的case */
   default: /* 可选 */
-  statement(s)
+  	statement(s)
 }
 ```
 
-#### 实例：
+#### 2.2 实例
 
 ```go
 package main
@@ -343,12 +465,12 @@ func main() {
 
 以上代码执行结果为：
 
-```
-    x 的类型 :<nil>
-    fallthrough
-    1
-    1
-    def
+```go
+x 的类型 :<nil>
+fallthrough
+1
+1
+def
 ```
 
 ## 三、条件语句 select
@@ -359,7 +481,7 @@ select 语句类似于 switch 语句，但是 select 会随机执行一个可运
 
 select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。 select 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。
 
-#### 语法
+#### 1.1 语法
 
 Go 编程语言中 select 语句的语法如下：
 
@@ -377,19 +499,18 @@ select {
 
 以下描述了 select 语句的语法：
 
-```
-每个case都必须是一个通信
-所有channel表达式都会被求值
-所有被发送的表达式都会被求值
-如果任意某个通信可以进行，它就执行；其他被忽略。
-如果有多个case都可以运行，Select会随机公平地选出一个执行。其他不会执行。
+- 每个case都必须是一个通信
+- 所有channel表达式都会被求值
+- 所有被发送的表达式都会被求值
+- 如果任意某个通信可以进行，它就执行；其他被忽略。
+- 如果有多个case都可以运行，Select会随机公平地选出一个执行。其他不会执行。
 
 否则：
-如果有default子句，则执行该语句。
-如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。
-```
 
-#### 实例：
+- 如果有default子句，则执行该语句。
+- 如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。
+
+#### 1.2 实例
 
 ```go
 package main
@@ -448,17 +569,18 @@ select { //不停的在这里检测
 
 ### 2、select 的使用及典型用法
 
-#### 基本使用
+#### 2.1 基本使用
 
 select 是 Go 中的一个控制结构，类似于 switch 语句，用于处理异步 IO 操作。select 会监听 case 语句中 channel 的读写操作，当 case 中 channel 读写操作为非阻塞状态（即能读写）时，将会触发相应的动作。 select 中的 case 语句必须是一个 channel 操作
 
-select 中的 default 子句总是可运行的。
+select 中的 default 子句总是可运行的：
 
-如果有多个 case 都可以运行，select 会随机公平地选出一个执行，其他不会执行。
+- 如果有多个 case 都可以运行，select 会随机公平地选出一个执行，其他不会执行。
 
-如果没有可运行的 case 语句，且有 default 语句，那么就会执行 default 的动作。
+- 如果没有可运行的 case 语句，且有 default 语句，那么就会执行 default 的动作。
 
-如果没有可运行的 case 语句，且没有 default 语句，select 将阻塞，直到某个 case 通信可以运行
+- 如果没有可运行的 case 语句，且没有 default 语句，select 将阻塞，直到某个 case 通信可以运行
+
 
 例如：
 
@@ -489,9 +611,9 @@ func main() {
 //输出：no communication
 ```
 
-### 3、典型用法
+#### 2.2 典型用法
 
-#### 1）超时判断
+##### 2.2.1 超时判断
 
 ```go
 //比如在下面的场景中，使用全局resChan来接受response，如果时间超过3S,resChan中还没有数据返回，则第二条case将执行
@@ -511,7 +633,7 @@ func doData(data int) {
 }
 ```
 
-#### 2）退出
+##### 2.2.2 退出
 
 ```go
 //主线程（协程）中如下：
@@ -534,7 +656,7 @@ fun main(){
 close(shouldQuit)
 ```
 
-#### 3）判断 channel 是否阻塞
+##### 2.2.3 判断 channel 是否阻塞
 
 ```go
 //在某些情况下是存在不希望channel缓存满了的需求的，可以用如下方法判断
@@ -550,11 +672,19 @@ default:
 
 ## 四、循环语句 for
 
-### 1、for 支持三种循环方式，包括类似 while 的语法。
+### 1、循环方式
 
-for 循环是一个循环控制结构，可以执行指定次数的循环。
+for 支持三种循环方式，包括类似 while 的语法。for 循环是一个循环控制结构，可以执行指定次数的循环。
 
-#### 语法
+#### 1.1 语法
+
+Go 语言中的所有循环类型均可以使用`for`关键字来完成。for循环的基本格式如下：
+
+```bash
+for 初始语句;条件表达式;结束语句{
+    循环体语句
+}
+```
 
 Go 语言的 For 循环有 3 中形式，只有其中的一种使用分号。
 
@@ -620,7 +750,7 @@ call length.
 3 100
 ```
 
-#### 实例：
+#### 1.2 实例
 
 ```go
 package main
@@ -686,11 +816,46 @@ a 的值为: 15
 第 5 位 x 的值 = 0
 ```
 
+条件表达式返回`true`时循环体不停地进行循环，直到条件表达式返回`false`时自动退出循环。
+
+```go
+func forDemo() {
+	for i := 0; i < 10; i++ {
+		fmt.Println(i)
+	}
+}
+```
+
+for循环的初始语句可以被忽略，但是初始语句后的分号必须要写，例如：
+
+```go
+func forDemo2() {
+	i := 0
+	for ; i < 10; i++ {
+		fmt.Println(i)
+	}
+}
+```
+
+for循环的初始语句和结束语句都可以省略，例如：
+
+```go
+func forDemo3() {
+	i := 0
+	for i < 10 {
+		fmt.Println(i)
+		i++
+	}
+}
+```
+
+这种写法类似于其他编程语言中的`while`，在`while`后添加一个条件表达式，满足条件表达式时持续循环，否则结束循环。
+
 ### 2、循环嵌套
 
 在 for 循环中嵌套一个或多个 for 循环
 
-#### 语法
+#### 1.1 语法
 
 以下为 Go 语言嵌套循环的格式：
 
@@ -705,7 +870,7 @@ for [condition |  ( init; condition; increment ) | Range]
 }
 ```
 
-#### 实例：
+#### 1.2 实例
 
 以下实例使用循环嵌套来输出 2 到 100 间的素数：
 
@@ -776,6 +941,16 @@ func main() {
   }
 }
 ```
+
+或者：
+
+```go
+for {
+    循环体语句
+}
+```
+
+for循环可以通过`break`、`goto`、`return`、`panic`语句强制退出循环。
 
 ## 五、循环语句 range
 
@@ -921,14 +1096,102 @@ for 和 for range 有什么区别？主要是使用场景不同
 
 GO 语言支持以下几种循环控制语句：
 
-### Goto、Break、Continue
+### 1、Goto、Break、Continue
+
+1. 三个语句都可以配合标签(label)使用
+2. 标签名区分大小写，定以后若不使用会造成编译错误
+3. continue、break配合标签(label)可用于多层循环跳出
+4. goto是调整执行位置，与continue、break配合标签(label)的结果并不相同
+
+### 2、goto(跳转到指定标签)
+
+`goto`语句通过标签进行代码间的无条件跳转。`goto`语句可以在快速跳出循环、避免重复退出上有一定的帮助。Go语言中使用`goto`语句能简化一些代码的实现过程。 例如双层嵌套的for循环要退出时：
 
 ```go
-1.三个语句都可以配合标签(label)使用
-2.标签名区分大小写，定以后若不使用会造成编译错误
-3.continue、break配合标签(label)可用于多层循环跳出
-4.goto是调整执行位置，与continue、break配合标签(label)的结果并不相同
+func gotoDemo1() {
+	var breakFlag bool
+	for i := 0; i < 10; i++ {
+		for j := 0; j < 10; j++ {
+			if j == 2 {
+				// 设置退出标签
+				breakFlag = true
+				break
+			}
+			fmt.Printf("%v-%v\n", i, j)
+		}
+    
+		// 外层for循环判断
+		if breakFlag {
+			break
+		}
+	}
+}
 ```
+
+使用`goto`语句能简化代码：
+
+```go
+func gotoDemo2() {
+  for i := 0; i < 10; i++ {
+    for j := 0; j < 10; j++ {
+      if j == 2 {
+        // 设置退出标签
+        goto breakTag
+      }
+      fmt.Printf("%v-%v\n", i, j)
+    }
+  }
+  return
+  
+  // 标签
+  breakTag:
+  	fmt.Println("结束for循环")
+}
+```
+
+### 3、break(跳出循环)
+
+`break`语句可以结束`for`、`switch`和`select`的代码块。
+
+`break`语句还可以在语句后面添加标签，表示退出某个标签对应的代码块，标签要求必须定义在对应的`for`、`switch`和 `select`的代码块上。 举个例子：
+
+```go
+func breakDemo1() {
+BREAKDEMO1:
+	for i := 0; i < 10; i++ {
+		for j := 0; j < 10; j++ {
+			if j == 2 {
+				break BREAKDEMO1
+			}
+			fmt.Printf("%v-%v\n", i, j)
+		}
+	}
+	fmt.Println("...")
+}
+```
+
+### 4、continue(继续下次循环)
+
+`continue`语句可以结束当前循环，开始下一次的循环迭代过程，仅限在`for`循环内使用。
+
+在 `continue`语句后添加标签时，表示开始标签对应的循环。例如：
+
+```go
+func continueDemo() {
+forloop1:
+	for i := 0; i < 5; i++ {
+		// forloop2:
+		for j := 0; j < 5; j++ {
+			if i == 2 && j == 2 {
+				continue forloop1
+			}
+			fmt.Printf("%v-%v\n", i, j)
+		}
+	}
+}
+```
+
+
 
 ## 参考
 
@@ -938,3 +1201,4 @@ GO 语言支持以下几种循环控制语句：
 - [循环语句 for](https://www.topgoer.com/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5for.html)
 - [循环语句 range](https://www.topgoer.com/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5range.html)
 - [循环控制 Goto、Break、Continue](https://www.topgoer.com/%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6gotobreakcontinue.html)
+- [Go语言基础之流程控制](https://www.liwenzhou.com/posts/Go/04_basic/)

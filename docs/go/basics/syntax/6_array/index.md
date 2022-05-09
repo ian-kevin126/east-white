@@ -17,13 +17,19 @@ Golang Array 和以往我们认知的数组有很大不同：
 2. 数组定义：
 
    ```go
+   var 数组变量名 [元素数量]T
    var a [len]int
-
+   
+   /*
+   比如：var a [5]int， 数组的长度必须是常量，并且长度是数组类型的一部分。
+   一旦定义，长度不能变。 [5]int和[10]int是不同的类型。
+   */
+   
    // example
-   var a [5]int
+   var a [3]int
+   var b [4]int
+   a = b //不可以这样做，因为此时a和b是不同的类型
    ```
-
-   数组长度必须是常量，而且是类型的组成部分，一旦定义，长度不能改变。
 
 3. 长度是数组类型的一部分
 
@@ -34,30 +40,75 @@ Golang Array 和以往我们认知的数组有很大不同：
    // 是不同的类型
    ```
 
-4. 数组可以通过下标进行访问，下标从 0 开始，最后一个元素下标是 len - 1
+4. 数组可以通过下标进行访问，下标是从`0`开始，最后一个元素下标是：`len-1`，访问越界（下标在合法范围之外），则触发访问越界，会panic。
 
    ```go
    for i := 0; i < len(a); i++ {
      // todo
    }
-
+   
    // 或者通过 range 遍历
    for index, v := range a {
      // todo
    }
    ```
 
-5. 访问越界：如果下标在数组合法范围之外，会触发访问越界，抛出 panic
+5. 数组是值类型，赋值和传参会复制整个数组，而不是其指针。因此改变副本的值，不会改变本身的值
 
-6. 数组是值类型，赋值和传参会复制整个数组，而不是其指针。因此改变副本的值，不会改变本身的值
+6. 支持 "=="、"!=" 操作符，因为内存总是被初始化过的。
 
-7. 支持 "=="、"!=" 操作符，因为内存总是被初始化过的。
+7. 指针数组：`[n]*T`
 
-8. 指针数组：`[n]*T`
-
-9. 数组指针：`*[n]T`
+8. 数组指针：`*[n]T`
 
 ### 2、数组初始化
+
+#### 2.1 方法一
+
+初始化数组时可以使用初始化列表来设置数组元素的值。
+
+```go
+func main() {
+	var testArray [3]int                            //数组会初始化为int类型的零值
+	var numArray = [3]int{1, 2}                     //使用指定的初始值完成初始化
+	var cityArray = [3]string{"北京", "上海", "深圳"} //使用指定的初始值完成初始化
+  
+	fmt.Println(testArray)                          //[0 0 0]
+	fmt.Println(numArray)                           //[1 2 0]
+	fmt.Println(cityArray)                          //[北京 上海 深圳]
+}
+```
+
+#### 2.2 方法二
+
+按照上面的方法每次都要确保提供的初始值和数组长度一致，一般情况下我们可以让编译器根据初始值的个数自行推断数组的长度，例如：
+
+```go
+func main() {
+	var testArray [3]int
+	var numArray = [...]int{1, 2}
+	var cityArray = [...]string{"北京", "上海", "深圳"}
+	fmt.Println(testArray)                          //[0 0 0]
+	fmt.Println(numArray)                           //[1 2]
+	fmt.Printf("type of numArray:%T\n", numArray)   //type of numArray:[2]int
+	fmt.Println(cityArray)                          //[北京 上海 深圳]
+	fmt.Printf("type of cityArray:%T\n", cityArray) //type of cityArray:[3]string
+}
+```
+
+#### 2.3 方法三
+
+我们还可以使用指定索引值的方式来初始化数组，例如:
+
+```go
+func main() {
+	a := [...]int{1: 1, 3: 5}
+	fmt.Println(a)                  // [0 1 0 5]
+	fmt.Printf("type of a:%T\n", a) //type of a:[4]int
+}
+```
+
+#### 2.4 方法四
 
 ```go
 package main
@@ -95,7 +146,40 @@ func main() {
 }
 ```
 
-### 3、多维数组
+### 3、数组的遍历
+
+遍历数组a有以下两种方法：
+
+```go
+func main() {
+	var a = [...]string{"北京", "上海", "深圳"}
+	// 方法1：for循环遍历
+	for i := 0; i < len(a); i++ {
+		fmt.Println(a[i])
+	}
+
+	// 方法2：for range遍历
+	for index, value := range a {
+		fmt.Println(index, value)
+	}
+}
+```
+
+### 4、多维数组
+
+#### 4.1 二维数组的定义
+
+```go
+func main() {
+	a := [3][2]string{
+		{"北京", "上海"},
+		{"广州", "深圳"},
+		{"成都", "重庆"},
+	}
+	fmt.Println(a) //[[北京 上海] [广州 深圳] [成都 重庆]]
+	fmt.Println(a[2][1]) //支持索引取值:重庆
+}
+```
 
 ```go
 package main
@@ -115,7 +199,36 @@ func main() {
 }
 ```
 
-多维数组遍历：
+#### 4.2 多维数组遍历
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	a := [3][2]string{
+		{"北京", "上海"},
+		{"广州", "深圳"},
+		{"成都", "重庆"},
+	}
+
+	for _, v1 := range a {
+		for _, v2 := range v1 {
+			fmt.Printf("%s\t", v2)
+		}
+		fmt.Println()
+	}
+}
+
+/*
+北京    上海
+广州    深圳
+成都    重庆
+*/
+```
 
 ```go
 package main
@@ -135,16 +248,65 @@ func main() {
     fmt.Println()
   }
 }
-```
 
-输出结果：
-
-```go
+/*
 (0,0)=1 (0,1)=2 (0,2)=3
 (1,0)=7 (1,1)=8 (1,2)=9
+*/
 ```
 
-### 4、数组拷贝和传参
+**注意：** 多维数组**只有第一层**可以使用`...`来让编译器推导数组长度。例如：
+
+```go
+//支持的写法
+a := [...][2]string{
+	{"北京", "上海"},
+	{"广州", "深圳"},
+	{"成都", "重庆"},
+}
+
+//不支持多维数组的内层使用...
+b := [3][...]string{
+	{"北京", "上海"},
+	{"广州", "深圳"},
+	{"成都", "重庆"},
+}
+```
+
+### 5、数组拷贝和传参
+
+#### 5.1 数组是值类型
+
+数组是值类型，赋值和传参会复制整个数组。因此改变副本的值，不会改变本身的值。
+
+```go
+func modifyArray(x [3]int) {
+	x[0] = 100
+}
+
+func modifyArray2(x [3][2]int) {
+	x[2][0] = 100
+}
+func main() {
+	a := [3]int{10, 20, 30}
+	modifyArray(a) //在modify中修改的是a的副本x
+	fmt.Println(a) //[10 20 30]
+	b := [3][2]int{
+		{1, 1},
+		{1, 1},
+		{1, 1},
+	}
+	modifyArray2(b) //在modify中修改的是b的副本x
+	fmt.Println(b)  //[[1 1] [1 1] [1 1]]
+}
+```
+
+**注意：**
+
+1. 数组支持 “==“、”!=” 操作符，因为内存总是被初始化过的。
+2. `[n]*T`表示指针数组，`*[n]T`表示数组指针 。
+
+#### 5.2 数组拷贝和传参
 
 ```go
 package main
@@ -217,7 +379,7 @@ func main() {
 2 2
 ```
 
-### 5、求数组元素之和
+### 6、求数组元素之和
 
 ```go
 package main
@@ -253,7 +415,7 @@ func main() {
 }
 ```
 
-### 6、两数之和
+### 7、两数之和
 
 ```go
 package main
@@ -285,16 +447,155 @@ func main() {
 
 ## 二、切片
 
+因为数组的长度是固定的并且数组长度属于类型的一部分，所以数组有很多的局限性。 例如：
+
+```go
+func arraySum(x [3]int) int{
+    sum := 0
+    for _, v := range x{
+        sum = sum + v
+    }
+    return sum
+}
+```
+
+这个求和函数只能接受`[3]int`类型，其他的都不支持。 再比如，
+
+```go
+a := [3]int{1, 2, 3}
+```
+
+数组a中已经有三个元素了，我们不能再继续往数组a中添加新元素了。
+
 需要说明的是，slice 并不是数组或数组指针。它通过内部指针和相关属性引用数组片段，以实现长度可变。
 
 ### 1、切片定义
 
-1. 切片：切片是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
-2. 切片的长度可以改变，因此，切片是一个可变的数组。
-3. 切片遍历方式和数组一样，可以用 len()求长度。表示可用元素数量，读写操作不能超过该限制。
-4. cap 可以求出 slice 最大扩张容量，不能超出数组限制。0 <= len(slice) <= len(array)，其中 array 是 slice 引用的数组。
-5. 切片的定义：var 变量名 []类型，比如 var str []string var arr []int。
-6. 如果 slice == nil，那么 len、cap 结果都等于 0。
+切片（Slice）是一个拥有相同类型元素的可变长度的序列。它是基于数组类型做的一层封装。它非常灵活，支持自动扩容。
+
+切片是一个引用类型，它的内部结构包含`地址`、`长度`和`容量`。切片一般用于快速地操作一块数据集合。
+
+- 切片：切片是数组的一个引用，因此切片是引用类型。但自身是结构体，值拷贝传递。
+- 切片的长度可以改变，因此，切片是一个可变的数组。
+- 切片遍历方式和数组一样，可以用 len()求长度。表示可用元素数量，读写操作不能超过该限制。
+- cap 可以求出 slice 最大扩张容量，不能超出数组限制。0 <= len(slice) <= len(array)，其中 array 是 slice 引用的数组。
+- 切片的定义：var 变量名 []类型，比如 var str []string var arr []int。
+- 如果 slice == nil，那么 len、cap 结果都等于 0。
+
+
+
+声明切片类型的基本语法如下：
+
+```go
+var name []T
+```
+
+其中，
+
+- name:表示变量名
+- T:表示切片中的元素类型
+
+举个例子：
+
+```go
+func main() {
+	// 声明切片类型
+	var a []string              //声明一个字符串切片
+	var b = []int{}             //声明一个整型切片并初始化
+	var c = []bool{false, true} //声明一个布尔切片并初始化
+	var d = []bool{false, true} //声明一个布尔切片并初始化
+	fmt.Println(a)              //[]
+	fmt.Println(b)              //[]
+	fmt.Println(c)              //[false true]
+	fmt.Println(a == nil)       //true
+	fmt.Println(b == nil)       //false
+	fmt.Println(c == nil)       //false
+	// fmt.Println(c == d)   //切片是引用类型，不支持直接比较，只能和nil比较
+}
+```
+
+#### 1.1 切片的长度和容量
+
+切片拥有自己的长度和容量，我们可以通过使用内置的`len()`函数求长度，使用内置的`cap()`函数求切片的容量。
+
+#### 1.2 切片表达式
+
+切片表达式从字符串、数组、指向数组或切片的指针构造子字符串或切片。它有两种变体：一种指定low和high两个索引界限值的简单的形式，另一种是除了low和high索引界限值外还指定容量的完整的形式。
+
+##### 1.2.1 简单切片表达式
+
+切片的底层就是一个数组，所以我们可以基于数组通过切片表达式得到切片。 切片表达式中的`low`和`high`表示一个索引范围（左包含，右不包含），也就是下面代码中从数组a中选出`1<=索引值<4`的元素组成切片s，得到的切片`长度=high-low`，容量等于得到的切片的底层数组的容量。
+
+```go
+func main() {
+	a := [5]int{1, 2, 3, 4, 5}
+	s := a[1:3]  // s := a[low:high]
+	fmt.Printf("s:%v len(s):%v cap(s):%v\n", s, len(s), cap(s))
+}
+```
+
+输出：
+
+```bash
+s:[2 3] len(s):2 cap(s):4
+```
+
+为了方便起见，可以省略切片表达式中的任何索引。省略了`low`则默认为0；省略了`high`则默认为切片操作数的长度:
+
+```go
+a[2:]  // 等同于 a[2:len(a)]
+a[:3]  // 等同于 a[0:3]
+a[:]   // 等同于 a[0:len(a)]
+```
+
+**注意：**
+
+对于数组或字符串，如果`0 <= low <= high <= len(a)`，则索引合法，否则就会索引越界（out of range）。
+
+对切片再执行切片表达式时（切片再切片），`high`的上限边界是切片的容量`cap(a)`，而不是长度。**常量索引**必须是非负的，并且可以用int类型的值表示;对于数组或常量字符串，常量索引也必须在有效范围内。如果`low`和`high`两个指标都是常数，它们必须满足`low <= high`。如果索引在运行时超出范围，就会发生运行时`panic`。
+
+```go
+func main() {
+	a := [5]int{1, 2, 3, 4, 5}
+	s := a[1:3]  // s := a[low:high]
+	fmt.Printf("s:%v len(s):%v cap(s):%v\n", s, len(s), cap(s))
+	s2 := s[3:4]  // 索引的上限是cap(s)而不是len(s)
+	fmt.Printf("s2:%v len(s2):%v cap(s2):%v\n", s2, len(s2), cap(s2))
+}
+```
+
+输出：
+
+```bash
+s:[2 3] len(s):2 cap(s):4
+s2:[5] len(s2):1 cap(s2):1
+```
+
+##### 1.2.2 完整切片表达式
+
+对于数组，指向数组的指针，或切片a(**注意不能是字符串**)支持完整切片表达式：
+
+```go
+a[low : high : max]
+```
+
+上面的代码会构造与简单切片表达式`a[low: high]`相同类型、相同长度和元素的切片。另外，它会将得到的结果切片的容量设置为`max-low`。在完整切片表达式中只有第一个索引值（low）可以省略；它默认为0。
+
+```go
+func main() {
+	a := [5]int{1, 2, 3, 4, 5}
+	t := a[1:3:5]
+	fmt.Printf("t:%v len(t):%v cap(t):%v\n", t, len(t), cap(t))
+}
+```
+
+输出结果：
+
+```bash
+t:[2 3] len(t):2 cap(t):4
+```
+
+完整切片表达式需要满足的条件是`0 <= low <= high <= max <= cap(a)`，其他条件和简单切片表达式相同。
 
 ### 2、创建切片
 
@@ -334,6 +635,33 @@ func main() {
 	fmt.Println(s6) // [2 3 4]
 }
 ```
+
+#### 使用make()函数构造切片
+
+我们上面都是基于数组来创建的切片，如果需要动态的创建一个切片，我们就需要使用内置的`make()`函数，格式如下：
+
+```bash
+make([]T, size, cap)
+```
+
+其中：
+
+- T:切片的元素类型
+- size:切片中元素的数量
+- cap:切片的容量
+
+举个例子：
+
+```go
+func main() {
+	a := make([]int, 2, 10)
+	fmt.Println(a)      //[0 0]
+	fmt.Println(len(a)) //2
+	fmt.Println(cap(a)) //10
+}
+```
+
+上面代码中`a`的内部存储空间已经分配了10个，但实际上只用了2个。 容量并不会影响当前元素的个数，所以`len(a)`返回2，`cap(a)`则返回该切片的容量。
 
 ### 3、切片初始化
 
@@ -547,7 +875,306 @@ func main() {
 }
 ```
 
-### 5、用 append 内置函数操作切片（切片追加）
+### 5、切片 resize（调整大小）
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  var a = []int{1, 3, 4, 5}
+  fmt.Printf("slice a : %v , len(a) : %v\n", a, len(a))
+  b := a[1:2]
+  fmt.Printf("slice b : %v , len(b) : %v\n", b, len(b))
+  c := b[0:3]
+  fmt.Printf("slice c : %v , len(c) : %v\n", c, len(c))
+}
+```
+
+输出结果：
+
+```go
+slice a : [1 3 4 5] , len(a) : 4
+slice b : [3] , len(b) : 1
+slice c : [3 4 5] , len(c) : 3
+```
+
+### 6、数组和切片的内存布局
+
+![切片](https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/3.jpg)
+
+### 7、字符串和切片（string and slice）
+
+string 底层就是一个 byte 的数组，因此，也可以进行切片操作。
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  str := "hello world"
+  s1 := str[0:5]
+  fmt.Println(s1) // hello
+
+  s2 := str[6:]
+  fmt.Println(s2) // world
+}
+```
+
+string 本身是不可变的，因此要改变 string 中字符。需要如下操作： 英文字符串：
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  str := "Hello world"
+  s := []byte(str) //中文字符需要用[]rune(str)
+  s[6] = 'G'
+  s = s[:8]
+  s = append(s, '!')
+  str = string(s)
+  fmt.Println(str) // Hello Go!
+}
+```
+
+### 8、含有中文字符串：
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  str := "你好，世界！hello world！"
+  s := []rune(str)
+  s[3] = '够'
+  s[4] = '浪'
+  s[12] = 'g'
+  s = s[:14]
+  str = string(s)
+  fmt.Println(str) // 你好，够浪！hello go
+}
+```
+
+golang slice data[:6:8] 两个冒号的理解
+
+- 常规 slice , data[6:8]，从第 6 位到第 8 位（返回 6， 7），长度 len 为 2， 最大可扩充长度 cap 为 4（6-9）
+
+- 另一种写法： data[:6:8] 每个数字前都有个冒号， slice 内容为 data 从 0 到第 6 位，长度 len 为 6，最大扩充项 cap 设置为 8
+
+- a[x:y:z] 切片内容 [x:y]
+  - 切片长度: y-x
+  - 切片容量: z-x
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	slice := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	d1 := slice[6:8]
+	fmt.Println(d1, len(d1), cap(d1)) // [6 7] 2 4
+
+	d2 := slice[:6:8]
+	fmt.Println(d2, len(d2), cap(d2)) // [0 1 2 3 4 5] 6 8
+}
+```
+
+数组 or 切片转字符串：
+
+```go
+strings.Replace(strings.Trim(fmt.Sprint(array_or_slice), "[]"), " ", ",", -1)
+```
+
+## 三、切片的本质
+
+### 1、切片的本质
+
+切片的本质就是对底层数组的封装，它包含了三个信息：底层数组的指针、切片的长度（len）和切片的容量（cap）。
+
+举个例子，现在有一个数组`a := [8]int{0, 1, 2, 3, 4, 5, 6, 7}`，切片`s1 := a[:5]`，相应示意图如下。
+
+![slice_01](https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/slice_01.png)切片`s2 := a[3:6]`，相应示意图如下：
+
+![slice_02](https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/slice_02.png)
+
+##### 判断切片是否为空
+
+要检查切片是否为空，请始终使用`len(s) == 0`来判断，而不应该使用`s == nil`来判断。
+
+### 2、切片不能直接比较
+
+切片之间是不能比较的，我们不能使用`==`操作符来判断两个切片是否含有全部相等元素。 切片唯一合法的比较操作是和`nil`比较。 一个`nil`值的切片并没有底层数组，一个`nil`值的切片的长度和容量都是0。但是我们不能说一个长度和容量都是0的切片一定是`nil`，例如下面的示例：
+
+```go
+var s1 []int         //len(s1)=0;cap(s1)=0;s1==nil
+s2 := []int{}        //len(s2)=0;cap(s2)=0;s2!=nil
+s3 := make([]int, 0) //len(s3)=0;cap(s3)=0;s3!=nil
+```
+
+所以要判断一个切片是否是空的，要是用`len(s) == 0`来判断，不应该使用`s == nil`来判断。
+
+### 3、切片的赋值拷贝
+
+下面的代码中演示了拷贝前后两个变量共享底层数组，对一个切片的修改会影响另一个切片的内容，这点需要特别注意。
+
+```go
+func main() {
+	s1 := make([]int, 3) //[0 0 0]
+	s2 := s1             //将s1直接赋值给s2，s1和s2共用一个底层数组
+	s2[0] = 100
+	fmt.Println(s1) //[100 0 0]
+	fmt.Println(s2) //[100 0 0]
+}
+```
+
+### 4、切片遍历
+
+切片的遍历方式和数组是一致的，支持索引遍历和`for range`遍历。
+
+```go
+func main() {
+	s := []int{1, 3, 5}
+
+	for i := 0; i < len(s); i++ {
+		fmt.Println(i, s[i])
+	}
+
+	for index, value := range s {
+		fmt.Println(index, value)
+	}
+}
+```
+
+#### 实例
+
+```go
+package main
+
+import (
+  "fmt"
+)
+
+func main() {
+  data := [...]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+  slice := data[:]
+  for index, value := range slice {
+    fmt.Printf("inde : %v , value : %v\n", index, value)
+  }
+}
+```
+
+输出结果：
+
+```go
+inde : 0 , value : 0
+inde : 1 , value : 1
+inde : 2 , value : 2
+inde : 3 , value : 3
+inde : 4 , value : 4
+inde : 5 , value : 5
+inde : 6 , value : 6
+inde : 7 , value : 7
+inde : 8 , value : 8
+inde : 9 , value : 9
+```
+
+### 5、append()方法为切片添加元素
+
+Go语言的内建函数`append()`可以为切片动态添加元素。 可以一次添加一个元素，可以添加多个元素，也可以添加另一个切片中的元素（后面加…）。
+
+```go
+func main(){
+	var s []int
+	s = append(s, 1)        // [1]
+	s = append(s, 2, 3, 4)  // [1 2 3 4]
+	s2 := []int{5, 6, 7}  
+	s = append(s, s2...)    // [1 2 3 4 5 6 7]
+}
+```
+
+**注意：**通过var声明的零值切片可以在`append()`函数直接使用，无需初始化。
+
+```go
+var s []int
+s = append(s, 1, 2, 3)
+```
+
+没有必要像下面的代码一样初始化一个切片再传入`append()`函数使用，
+
+```go
+s := []int{}  // 没有必要初始化
+s = append(s, 1, 2, 3)
+
+var s = make([]int)  // 没有必要初始化
+s = append(s, 1, 2, 3)
+```
+
+每个切片会指向一个底层数组，这个数组的容量够用就添加新增元素。当底层数组不能容纳新增的元素时，切片就会自动按照一定的策略进行“扩容”，此时该切片指向的底层数组就会更换。“扩容”操作往往发生在`append()`函数调用时，所以我们通常都需要用原变量接收append函数的返回值。
+
+举个例子：
+
+```go
+func main() {
+	//append()添加元素和切片扩容
+	var numSlice []int
+	for i := 0; i < 10; i++ {
+		numSlice = append(numSlice, i)
+		fmt.Printf("%v  len:%d  cap:%d  ptr:%p\n", numSlice, len(numSlice), cap(numSlice), numSlice)
+	}
+}
+```
+
+输出：
+
+```bash
+[0]  len:1  cap:1  ptr:0xc0000a8000
+[0 1]  len:2  cap:2  ptr:0xc0000a8040
+[0 1 2]  len:3  cap:4  ptr:0xc0000b2020
+[0 1 2 3]  len:4  cap:4  ptr:0xc0000b2020
+[0 1 2 3 4]  len:5  cap:8  ptr:0xc0000b6000
+[0 1 2 3 4 5]  len:6  cap:8  ptr:0xc0000b6000
+[0 1 2 3 4 5 6]  len:7  cap:8  ptr:0xc0000b6000
+[0 1 2 3 4 5 6 7]  len:8  cap:8  ptr:0xc0000b6000
+[0 1 2 3 4 5 6 7 8]  len:9  cap:16  ptr:0xc0000b8000
+[0 1 2 3 4 5 6 7 8 9]  len:10  cap:16  ptr:0xc0000b8000
+```
+
+从上面的结果可以看出：
+
+1. `append()`函数将元素追加到切片的最后并返回该切片。
+2. 切片numSlice的容量按照1，2，4，8，16这样的规则自动进行扩容，每次扩容后都是扩容前的2倍。
+
+append()函数还支持一次性追加多个元素。 例如：
+
+```go
+var citySlice []string
+// 追加一个元素
+citySlice = append(citySlice, "北京")
+// 追加多个元素
+citySlice = append(citySlice, "上海", "广州", "深圳")
+// 追加切片
+a := []string{"成都", "重庆"}
+citySlice = append(citySlice, a...)
+fmt.Println(citySlice) //[北京 上海 广州 深圳 成都 重庆]
+```
+
+#### 完整的append例子
 
 ```go
 package main
@@ -596,7 +1223,43 @@ func main() {
 }
 ```
 
-### 6、超出原 slice.cap 限制
+### 6、切片的扩容策略
+
+可以通过查看`$GOROOT/src/runtime/slice.go`源码，其中扩容相关代码如下：
+
+```go
+newcap := old.cap
+doublecap := newcap + newcap
+if cap > doublecap {
+	newcap = cap
+} else {
+	if old.len < 1024 {
+		newcap = doublecap
+	} else {
+		// Check 0 < newcap to detect overflow
+		// and prevent an infinite loop.
+		for 0 < newcap && newcap < cap {
+			newcap += newcap / 4
+		}
+		// Set newcap to the requested cap when
+		// the newcap calculation overflowed.
+		if newcap <= 0 {
+			newcap = cap
+		}
+	}
+}
+```
+
+从上面的代码可以看出以下内容：
+
+- 首先判断，如果新申请容量（cap）大于2倍的旧容量（old.cap），最终容量（newcap）就是新申请的容量（cap）。
+- 否则判断，如果旧切片的长度小于1024，则最终容量(newcap)就是旧容量(old.cap)的两倍，即（newcap=doublecap），
+- 否则判断，如果旧切片长度大于等于1024，则最终容量（newcap）从旧容量（old.cap）开始循环增加原来的1/4，即（newcap=old.cap,for {newcap += newcap/4}）直到最终容量（newcap）大于等于新申请的容量(cap)，即（newcap >= cap）
+- 如果最终容量（cap）计算值溢出，则最终容量（cap）就是新申请容量（cap）。
+
+需要注意的是，切片扩容还会根据切片中元素的类型不同而做不同的处理，比如`int`和`string`类型的处理方式就不一样。
+
+#### 6.1 超出原 slice.cap 限制
 
 > 就会重新分配底层数组，即便原数组并未填满。
 
@@ -621,7 +1284,7 @@ func main() {
 
 从输出结果可以看出，append 后的 s 重新分配了底层数组，并复制数据。如果只追加一个值，则不会超过 s.cap 限制，也就不会重新分配。 通常以 2 倍容量重新分配底层数组。在大批量添加数据时，建议一次性分配足够大的空间，以减少内存分配和数据复制开销。或初始化足够长的 len 属性，改用索引号进行操作。及时释放不再使用的 slice 对象，避免持有过期数组，造成 GC 无法回收。
 
-### 7、slice 中 cap 重新分配规律：
+#### 6.2 slice 中 cap 重新分配规律：
 
 ```go
 package main
@@ -656,7 +1319,52 @@ cap: 16 -> 32
 cap: 32 -> 64
 ```
 
-### 8、切片拷贝
+### 7、使用copy()函数复制切片
+
+首先我们来看一个问题：
+
+```go
+func main() {
+	a := []int{1, 2, 3, 4, 5}
+	b := a
+	fmt.Println(a) //[1 2 3 4 5]
+	fmt.Println(b) //[1 2 3 4 5]
+	b[0] = 1000
+	fmt.Println(a) //[1000 2 3 4 5]
+	fmt.Println(b) //[1000 2 3 4 5]
+}
+```
+
+由于切片是引用类型，所以a和b其实都指向了同一块内存地址。修改b的同时a的值也会发生变化。
+
+Go语言内建的`copy()`函数可以迅速地将一个切片的数据复制到另外一个切片空间中，`copy()`函数的使用格式如下：
+
+```bash
+copy(destSlice, srcSlice []T)
+```
+
+其中：
+
+- srcSlice: 数据来源切片
+- destSlice: 目标切片
+
+举个例子：
+
+```go
+func main() {
+	// copy()复制切片
+	a := []int{1, 2, 3, 4, 5}
+	c := make([]int, 5, 5)
+	copy(c, a)     //使用copy()函数将切片a中的元素复制到切片c
+	fmt.Println(a) //[1 2 3 4 5]
+	fmt.Println(c) //[1 2 3 4 5]
+	c[0] = 1000
+	fmt.Println(a) //[1 2 3 4 5]
+	fmt.Println(c) //[1000 2 3 4 5]
+}
+```
+
+#### 完整实例
 
 ```go
 package main
@@ -717,166 +1425,55 @@ func main() {
 
 应及时将所需数据 copy 到较小的 slice，以便释放超大号底层数组内存。
 
-### 9、slice 遍历：
+### 8、从切片中删除元素
+
+Go语言中并没有删除切片元素的专用方法，我们可以使用切片本身的特性来删除元素。 代码如下：
 
 ```go
-package main
-
-import (
-  "fmt"
-)
-
 func main() {
-  data := [...]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-  slice := data[:]
-  for index, value := range slice {
-    fmt.Printf("inde : %v , value : %v\n", index, value)
-  }
+	// 从切片中删除元素
+	a := []int{30, 31, 32, 33, 34, 35, 36, 37}
+	// 要删除索引为2的元素
+	a = append(a[:2], a[3:]...)
+	fmt.Println(a) //[30 31 33 34 35 36 37]
 }
 ```
 
-输出结果：
+总结一下就是：要从切片a中删除索引为`index`的元素，操作方法是`a = append(a[:index], a[index+1:]...)`
+
+### 9、练习题
+
+1.请写出下面代码的输出结果。
 
 ```go
-inde : 0 , value : 0
-inde : 1 , value : 1
-inde : 2 , value : 2
-inde : 3 , value : 3
-inde : 4 , value : 4
-inde : 5 , value : 5
-inde : 6 , value : 6
-inde : 7 , value : 7
-inde : 8 , value : 8
-inde : 9 , value : 9
-```
-
-### 10、切片 resize（调整大小）
-
-```go
-package main
-
-import (
-  "fmt"
-)
-
 func main() {
-  var a = []int{1, 3, 4, 5}
-  fmt.Printf("slice a : %v , len(a) : %v\n", a, len(a))
-  b := a[1:2]
-  fmt.Printf("slice b : %v , len(b) : %v\n", b, len(b))
-  c := b[0:3]
-  fmt.Printf("slice c : %v , len(c) : %v\n", c, len(c))
+	var a = make([]string, 5, 10)
+	for i := 0; i < 10; i++ {
+		a = append(a, fmt.Sprintf("%v", i))
+	}
+	fmt.Println(a) // [     0 1 2 3 4 5 6 7 8 9]
 }
 ```
 
-输出结果：
-
-```go
-slice a : [1 3 4 5] , len(a) : 4
-slice b : [3] , len(b) : 1
-slice c : [3 4 5] , len(c) : 3
-```
-
-### 11、数组和切片的内存布局
-
-![切片](https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/3.jpg)
-
-### 12、字符串和切片（string and slice）
-
-string 底层就是一个 byte 的数组，因此，也可以进行切片操作。
-
-```go
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  str := "hello world"
-  s1 := str[0:5]
-  fmt.Println(s1) // hello
-
-  s2 := str[6:]
-  fmt.Println(s2) // world
-}
-```
-
-string 本身是不可变的，因此要改变 string 中字符。需要如下操作： 英文字符串：
-
-```go
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  str := "Hello world"
-  s := []byte(str) //中文字符需要用[]rune(str)
-  s[6] = 'G'
-  s = s[:8]
-  s = append(s, '!')
-  str = string(s)
-  fmt.Println(str) // Hello Go!
-}
-```
-
-### 13、含有中文字符串：
-
-```go
-package main
-
-import (
-  "fmt"
-)
-
-func main() {
-  str := "你好，世界！hello world！"
-  s := []rune(str)
-  s[3] = '够'
-  s[4] = '浪'
-  s[12] = 'g'
-  s = s[:14]
-  str = string(s)
-  fmt.Println(str) // 你好，够浪！hello go
-}
-```
-
-golang slice data[:6:8] 两个冒号的理解
-
-- 常规 slice , data[6:8]，从第 6 位到第 8 位（返回 6， 7），长度 len 为 2， 最大可扩充长度 cap 为 4（6-9）
-
-- 另一种写法： data[:6:8] 每个数字前都有个冒号， slice 内容为 data 从 0 到第 6 位，长度 len 为 6，最大扩充项 cap 设置为 8
-
-- a[x:y:z] 切片内容 [x:y]
-  - 切片长度: y-x
-  - 切片容量: z-x
+2.请使用内置的`sort`包对数组`var a = [...]int{3, 7, 8, 9, 1}`进行排序（附加题，自行查资料解答）。
 
 ```go
 package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
-	slice := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	d1 := slice[6:8]
-	fmt.Println(d1, len(d1), cap(d1)) // [6 7] 2 4
-
-	d2 := slice[:6:8]
-	fmt.Println(d2, len(d2), cap(d2)) // [0 1 2 3 4 5] 6 8
+	var a = [...]int{3, 7, 8, 9, 1}
+	// a[:]得到的是一个切片，指向了底层的数组a
+	sort.Ints(a[:])
+	fmt.Println(a) // [1 3 7 8 9]
 }
 ```
 
-数组 or 切片转字符串：
-
-```go
-strings.Replace(strings.Trim(fmt.Sprint(array_or_slice), "[]"), " ", ",", -1)
-```
-
-## 三、切片底层实现
+## 四、切片底层实现
 
 切片是 Go 中的一种基本的数据结构，使用这种结构可以用来管理数据集合。切片的设计想法是由动态数组概念而来，为了开发者可以更加方便的使一个数据结构可以自动增加和减少。但是切片本身并不是动态数据或者数组指针。切片常见的操作有 reslice、append、copy。与此同时，切片还具有可索引，可迭代的优秀特性。
 
@@ -1058,7 +1655,7 @@ make 函数允许在运行期动态指定数组长度，绕开了数组类型必
 
 创建切片有两种形式，make 创建切片，空切片。
 
-#### make 和切片字面量
+#### 3.1 make 和切片字面量
 
 ```go
 func makeslice(et *_type, len, cap int) slice {
@@ -1113,7 +1710,7 @@ func makeslice64(et *_type, len64, cap64 int64) slice {
 
 还有一种简单的字面量创建切片的方法。如上图。上图就 Slice A 创建出了一个 len = 3，cap = 3 的切片。从原数组的第二位元素(0 是第一位)开始切，一直切到第四位为止(不包括第五位)。同理，Slice B 创建出了一个 len = 2，cap = 4 的切片。
 
-#### nil 和空切片
+#### 3.2 nil 和空切片
 
 nil 切片和空切片也是常用的。
 
@@ -1465,3 +2062,4 @@ value = 40 , value-addr = c4200aedf8 , slice-addr = c4200b0338
 - [切片 Slice](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/%E5%88%87%E7%89%87Slice.html)
 - [Slice 底层实现](https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Slice%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0.html)
 - [深入解析 Go 中的 Slice 底层实现](https://www.jianshu.com/p/030aba2bff41)
+- [Go语言基础之数组](https://www.liwenzhou.com/posts/Go/05_array/)

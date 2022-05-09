@@ -35,6 +35,7 @@ const h5_basics_collection = require("./menuConfig/sidebars/h5/basics");
 // 架构师
 const architect_fe_collection = require("./menuConfig/sidebars/architect/fe");
 const architect_server_collection = require("./menuConfig/sidebars/architect/server");
+const server_tools_collection = require("./menuConfig/sidebars/server_tools/server_tools");
 // 生活相关
 const life_handwriting_collection = require("./menuConfig/sidebars/life/handwriting");
 const life_photos_collection = require("./menuConfig/sidebars/life/photos");
@@ -89,6 +90,9 @@ module.exports = {
       "/build/webpack/": webpack_collection,
       // about algorithms
       "/data_algo/data/": data_collection,
+
+      // 后端工具链
+      "/server_tools/": server_tools_collection,
       // 架构师
       "/architect/fe/": architect_fe_collection,
       "/architect/server/": architect_server_collection,
