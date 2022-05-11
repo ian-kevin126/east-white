@@ -103,8 +103,8 @@ type RedisConfig struct {
 package initialize
 
 import (
-	"din_practice/config"
-	"din_practice/global"
+	"gin_practice/config"
+	"gin_practice/global"
 	"github.com/fatih/color"
 	"github.com/spf13/viper"
 )
@@ -142,7 +142,7 @@ func InitConfig() {
 ```go
 package global
 
-import "din_practice/config"
+import "gin_practice/config"
 
 var (
 	Settings config.ServerConfig
@@ -155,8 +155,8 @@ var (
 package main
 
 import (
-	"din_practice/global"
-	"din_practice/initialize"
+	"gin_practice/global"
+	"gin_practice/initialize"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"

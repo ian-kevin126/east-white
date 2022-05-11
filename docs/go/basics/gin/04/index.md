@@ -38,7 +38,7 @@ type PasswordLoginForm struct {
 package controller
 
 import (
-	"din_practice/forms"
+	"gin_practice/forms"
 	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -72,7 +72,7 @@ func PasswordLogin(ctx *gin.Context) {
 package router
 
 import (
-	"din_practice/controller"
+	"gin_practice/controller"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -129,7 +129,7 @@ go get github.com/go-playground/locales/en
 package global
 
 import (
-	"din_practice/config"
+	"gin_practice/config"
 	ut "github.com/go-playground/universal-translator"
 	"go.uber.org/zap"
 )
@@ -150,7 +150,7 @@ var (
 package initialize
 
 import (
-	"din_practice/global"
+	"gin_practice/global"
 	"fmt"
 	"github.com/fatih/color"
 	"github.com/gin-gonic/gin/binding"
@@ -216,7 +216,7 @@ func InitTrans(locale string) (err error) {
 package utils
 
 import (
-	"din_practice/global"
+	"gin_practice/global"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"net/http"
@@ -264,8 +264,8 @@ removeTopStruct主要用作字符串的切分,应为用翻译成中文,返回的
 package controller
 
 import (
-	"din_practice/forms"
-	"din_practice/utils"
+	"gin_practice/forms"
+	"gin_practice/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -293,8 +293,8 @@ func PasswordLogin(ctx *gin.Context) {
 package main
 
 import (
-	"din_practice/global"
-	"din_practice/initialize"
+	"gin_practice/global"
+	"gin_practice/initialize"
 	"fmt"
 	"github.com/fatih/color"
 	"go.uber.org/zap"

@@ -57,7 +57,7 @@ func UserRouter(Router *gin.RouterGroup) {
 package initialize
 
 import (
-	"din_practice/router"
+	"gin_practice/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -78,8 +78,8 @@ func Routers() *gin.Engine {
 package main
 
 import (
-	"din_practice/global"
-	"din_practice/initialize"
+	"gin_practice/global"
+	"gin_practice/initialize"
 	"fmt"
 	"github.com/fatih/color"
 	"go.uber.org/zap"
@@ -132,7 +132,7 @@ func GetNowFormatTodayTime() string {
 package global
 
 import (
-	"din_practice/config"
+	"gin_practice/config"
 	"go.uber.org/zap"
 )
 
@@ -148,8 +148,8 @@ var (
 package initialize
 
 import (
-	"din_practice/global"
-	"din_practice/utils"
+	"gin_practice/global"
+	"gin_practice/utils"
 	"fmt"
 	"go.uber.org/zap"
 )
@@ -191,7 +191,7 @@ func InitLogger() {
 package middlewares
 
 import (
-	"din_practice/global"
+	"gin_practice/global"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net"
@@ -293,8 +293,8 @@ func GinRecovery(stack bool) gin.HandlerFunc {
 package main
 
 import (
-	"din_practice/global"
-	"din_practice/initialize"
+	"gin_practice/global"
+	"gin_practice/initialize"
 	"fmt"
 	"github.com/fatih/color"
 	"go.uber.org/zap"
@@ -327,8 +327,8 @@ func main() {
 package initialize
 
 import (
-	"din_practice/middlewares"
-	"din_practice/router"
+	"gin_practice/middlewares"
+	"gin_practice/router"
 	"github.com/gin-gonic/gin"
 )
 

@@ -19,6 +19,7 @@ module.exports = [
       "/go/basics/syntax/14_channel/",
       "/go/basics/syntax/15_unit_test/",
       "/go/basics/syntax/16_stress_test/",
+      "/go/basics/syntax/17_socket/",
     ],
   },
   {
@@ -40,7 +41,19 @@ module.exports = [
     ],
   },
   {
-    title: "Gin",
+    title: "Gin基础",
+    children: [
+      "/go/basics/gin_basics/01/",
+      "/go/basics/gin_basics/02/",
+      "/go/basics/gin_basics/03/",
+      "/go/basics/gin_basics/04/",
+      "/go/basics/gin_basics/05/",
+      "/go/basics/gin_basics/06/",
+      "/go/basics/gin_basics/07/",
+    ],
+  },
+  {
+    title: "Gin实战",
     children: [
       "/go/basics/gin/01/",
       "/go/basics/gin/02/",

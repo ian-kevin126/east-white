@@ -73,9 +73,9 @@ func Err(ctx *gin.Context, httpCode int, code int, msg string, jsonStr interface
 package controller
 
 import (
-	"din_practice/Response"
-	"din_practice/forms"
-	"din_practice/utils"
+	"gin_practice/Response"
+	"gin_practice/forms"
+	"gin_practice/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -105,8 +105,8 @@ func PasswordLogin(ctx *gin.Context) {
 package utils
 
 import (
-	"din_practice/Response"
-	"din_practice/global"
+	"gin_practice/Response"
+	"gin_practice/global"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"net/http"

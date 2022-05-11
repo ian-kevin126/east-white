@@ -32,7 +32,7 @@ go get github.com/go-redis/redis
 package global
 
 import (
-	"din_practice/config"
+	"gin_practice/config"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-redis/redis"
 	"go.uber.org/zap"
@@ -56,7 +56,7 @@ var (
 package initialize
 
 import (
-	"din_practice/global"
+	"gin_practice/global"
 	"fmt"
 	"github.com/fatih/color"
 	"github.com/go-redis/redis"
@@ -88,8 +88,8 @@ func InitRedis() {
 package main
 
 import (
-	"din_practice/global"
-	"din_practice/initialize"
+	"gin_practice/global"
+	"gin_practice/initialize"
 	"fmt"
 	"github.com/fatih/color"
 	"go.uber.org/zap"
@@ -174,7 +174,7 @@ go get github.com/mojocn/base64Captcha
 package controller
 
 import (
-	"din_practice/Response"
+	"gin_practice/Response"
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"
 	"go.uber.org/zap"
@@ -214,10 +214,10 @@ func GetCaptcha(ctx *gin.Context) {
 package controller
 
 import (
-	"din_practice/Response"
-	"din_practice/dao"
-	"din_practice/forms"
-	"din_practice/utils"
+	"gin_practice/Response"
+	"gin_practice/dao"
+	"gin_practice/forms"
+	"gin_practice/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -284,7 +284,7 @@ func GetUserList(ctx *gin.Context) {
 package router
 
 import (
-	"din_practice/controller"
+	"gin_practice/controller"
 	"github.com/gin-gonic/gin"
 )
 
@@ -303,8 +303,8 @@ func InitBaseRouter(Router *gin.RouterGroup) {
 package initialize
 
 import (
-	"din_practice/middlewares"
-	"din_practice/router"
+	"gin_practice/middlewares"
+	"gin_practice/router"
 	"github.com/gin-gonic/gin"
 )
 

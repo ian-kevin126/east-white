@@ -78,8 +78,8 @@ func Cors() gin.HandlerFunc {
 package initialize
 
 import (
-	"din_practice/middlewares"
-	"din_practice/router"
+	"gin_practice/middlewares"
+	"gin_practice/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -146,8 +146,8 @@ func IsAdminAuth() gin.HandlerFunc {
 package router
 
 import (
-	"din_practice/controller"
-	"din_practice/middlewares"
+	"gin_practice/controller"
+	"gin_practice/middlewares"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

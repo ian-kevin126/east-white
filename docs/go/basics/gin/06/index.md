@@ -95,7 +95,7 @@ func (User) TableName() string {
 package global
 
 import (
-	"din_practice/config"
+	"gin_practice/config"
 	ut "github.com/go-playground/universal-translator"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -115,7 +115,7 @@ var (
 package initialize
 
 import (
-	"din_practice/global"
+	"gin_practice/global"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -147,8 +147,8 @@ func InitMysqlDB() {
 package main
 
 import (
-	"din_practice/global"
-	"din_practice/initialize"
+	"gin_practice/global"
+	"gin_practice/initialize"
 	"fmt"
 	"github.com/fatih/color"
 	"go.uber.org/zap"
@@ -199,8 +199,8 @@ func main() {
 package dao
 
 import (
-	"din_practice/global"
-	"din_practice/models"
+	"gin_practice/global"
+	"gin_practice/models"
 )
 
 var users []models.User
@@ -285,10 +285,10 @@ type UserListForm struct {
 package controller
 
 import (
-	"din_practice/Response"
-	"din_practice/dao"
-	"din_practice/forms"
-	"din_practice/utils"
+	"gin_practice/Response"
+	"gin_practice/dao"
+	"gin_practice/forms"
+	"gin_practice/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -347,7 +347,7 @@ func GetUserList(ctx *gin.Context) {
 package router
 
 import (
-	"din_practice/controller"
+	"gin_practice/controller"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

@@ -391,8 +391,8 @@ type JWTConfig struct {
 package middlewares
 
 import (
-	"din_practice/Response"
-	"din_practice/global"
+	"gin_practice/Response"
+	"gin_practice/global"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/fatih/color"
@@ -529,8 +529,8 @@ func (j *JWT) RefreshToken(tokenString string) (string, error) {
 package utils
 
 import (
-	"din_practice/Response"
-	"din_practice/middlewares"
+	"gin_practice/Response"
+	"gin_practice/middlewares"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"time"
@@ -659,8 +659,8 @@ func HandleUserModelToMap(user *models.User) map[string]interface{} {
 package router
 
 import (
-	"din_practice/controller"
-	"din_practice/middlewares"
+	"gin_practice/controller"
+	"gin_practice/middlewares"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

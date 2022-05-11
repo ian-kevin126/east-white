@@ -195,6 +195,57 @@ ch := make(chan int) //不带缓冲区
 ch := make(chan int ,10) //带缓冲区
 ```
 
+带缓冲区示例：
+
+```go
+package main
+
+import "fmt"
+
+func f1(ch1 chan int) {
+	for i := 1; i < 10; i++ {
+		ch1 <- i
+	}
+	close(ch1)
+}
+
+func f2(ch1 chan int, ch2 chan int) {
+	// 从通道中取值的方法一
+	for {
+		temp, ok := <-ch1
+		if !ok {
+			break
+		}
+		ch2 <- temp * temp
+	}
+	close(ch2)
+}
+
+func main() {
+	ch1 := make(chan int, 10)
+	ch2 := make(chan int, 20)
+	go f1(ch1)
+	go f2(ch1, ch2)
+
+	// 从通道中取值的方法二
+	for ret := range ch2 {
+		fmt.Println(ret)
+	}
+}
+
+/*
+1
+4
+9
+16
+25
+36
+49
+64
+81
+*/
+```
+
 不带缓冲区示例：
 
 ```go
@@ -933,8 +984,8 @@ func main() {
 示例中的代码首先是创建了一个缓冲区大小为1的通道 ch，进入 for 循环后：
 
 - 第一次循环时 i = 1，select 语句中包含两个 case 分支，此时由于通道中没有值可以接收，所以`x := <-ch` 这个 case 分支不满足，而`ch <- i`这个分支可以执行，会把1发送到通道中，结束本次 for 循环；
-- 第二次 for 循环时，i = 2，由于通道缓冲区已满，所以`ch <- i`这个分支不满足，而`x := <-ch`这个分支可以执行，从通道接收值1并赋值给变量 x ，所以会在终端打印出 1；
-- 后续的 for 循环以此类推会依次打印出3、5、7、9。
+- 第二次 for 循环时，i = 2，由于通道缓冲区已满，所以 `ch <- i` 这个分支不满足，而`x := <-ch`这个分支可以执行，从通道接收值1并赋值给变量 x ，所以会在终端打印出 1；
+- 后续的 for 循环以此类推会依次打印出 3、5、7、9。
 
 ## 五、通道误用示例
 
@@ -1046,10 +1097,10 @@ func main() {
 
 `sync.Mutex`提供了两个方法供我们使用。
 
-|          方法名          |    功能    |
-| :----------------------: | :--------: |
-|  func (m *Mutex) Lock()  | 获取互斥锁 |
-| func (m *Mutex) Unlock() | 释放互斥锁 |
+| 方法名                     |    功能    |
+| :------------------------- | :--------: |
+| `func (m *Mutex) Lock()`   | 获取互斥锁 |
+| `func (m *Mutex) Unlock()` | 释放互斥锁 |
 
 我们在下面的示例代码中使用互斥锁限制每次只有一个 goroutine 才能修改全局变量`x`，从而修复上面代码中的问题。
 
@@ -1102,13 +1153,13 @@ func main() {
 
 `sync.RWMutex`提供了以下5个方法。
 
-|               方法名                |              功能              |
-| :---------------------------------: | :----------------------------: |
-|      func (rw *RWMutex) Lock()      |            获取写锁            |
-|     func (rw *RWMutex) Unlock()     |            释放写锁            |
-|     func (rw *RWMutex) RLock()      |            获取读锁            |
-|    func (rw *RWMutex) RUnlock()     |            释放读锁            |
-| func (rw *RWMutex) RLocker() Locker | 返回一个实现Locker接口的读写锁 |
+| 方法名                                |              功能              |
+| :------------------------------------ | :----------------------------: |
+| `func (rw *RWMutex) Lock()`           |            获取写锁            |
+| `func (rw *RWMutex) Unlock()`         |            释放写锁            |
+| `func (rw *RWMutex) RLock()`          |            获取读锁            |
+| `func (rw *RWMutex) RUnlock()`        |            释放读锁            |
+| `func (rw *RWMutex) RLocker() Locker` | 返回一个实现Locker接口的读写锁 |
 
 读写锁分为两种：读锁和写锁。当一个 goroutine 获取到读锁之后，其他的 goroutine 如果是获取读锁会继续获得锁，如果是获取写锁就会等待；而当一个 goroutine 获取写锁之后，其他的 goroutine 无论是获取读锁还是写锁都会等待。
 
@@ -1193,11 +1244,11 @@ do(writeWithRWLock, readWithRWLock, 10, 1000) // x:10 cost:117.207592ms
 
 在代码中生硬的使用`time.Sleep`肯定是不合适的，Go语言中可以使用`sync.WaitGroup`来实现并发任务的同步。 `sync.WaitGroup`有以下几个方法：
 
-|                方法名                |        功能         |
-| :----------------------------------: | :-----------------: |
-| func (wg * WaitGroup) Add(delta int) |    计数器+delta     |
-|        (wg *WaitGroup) Done()        |      计数器-1       |
-|        (wg *WaitGroup) Wait()        | 阻塞直到计数器变为0 |
+| 方法名                                 |        功能         |
+| :------------------------------------- | :-----------------: |
+| `func (wg * WaitGroup) Add(delta int)` |    计数器+delta     |
+| `(wg *WaitGroup) Done()`               |      计数器-1       |
+| `(wg *WaitGroup) Wait()`               | 阻塞直到计数器变为0 |
 
 `sync.WaitGroup`内部维护着一个计数器，计数器的值可以增加和减少。例如当我们启动了 N 个并发任务时，就将计数器值增加N。每个任务完成时通过调用 Done 方法将计数器减1。通过调用 Wait 来等待并发任务执行完，当计数器值为 0 时，表示所有并发任务已经完成。
 
@@ -1362,14 +1413,14 @@ func main() {
 
 像这种场景下就需要为 map 加锁来保证并发的安全性了，Go语言的`sync`包中提供了一个开箱即用的并发安全版 map——`sync.Map`。开箱即用表示其不用像内置的 map 一样使用 make 函数初始化就能直接使用。同时`sync.Map`内置了诸如`Store`、`Load`、`LoadOrStore`、`Delete`、`Range`等操作方法。
 
-|                            方法名                            |              功能               |
-| :----------------------------------------------------------: | :-----------------------------: |
-|         func (m *Map) Store(key, value interface{})          |        存储key-value数据        |
-| func (m *Map) Load(key interface{}) (value interface{}, ok bool) |       查询key对应的value        |
-| func (m *Map) LoadOrStore(key, value interface{}) (actual interface{}, loaded bool) |    查询或存储key对应的value     |
-| func (m *Map) LoadAndDelete(key interface{}) (value interface{}, loaded bool) |          查询并删除key          |
-|            func (m *Map) Delete(key interface{})             |             删除key             |
-|   func (m *Map) Range(f func(key, value interface{}) bool)   | 对map中的每个key-value依次调用f |
+| 方法名                                                       |              功能               |
+| :----------------------------------------------------------- | :-----------------------------: |
+| `func (m *Map) Store(key, value interface{})`                |        存储key-value数据        |
+| `func (m *Map) Load(key interface{}) (value interface{}, ok bool)` |       查询key对应的value        |
+| `func (m *Map) LoadOrStore(key, value interface{}) (actual interface{}, loaded bool)` |    查询或存储key对应的value     |
+| `func (m *Map) LoadAndDelete(key interface{}) (value interface{}, loaded bool)` |          查询并删除key          |
+| `func (m *Map) Delete(key interface{})`                      |             删除key             |
+| `func (m *Map) Range(f func(key, value interface{}) bool)`   | 对map中的每个key-value依次调用f |
 
 下面的代码示例演示了并发读写`sync.Map`。
 
@@ -1410,11 +1461,11 @@ func main() {
 
 | 方法                                                         |      解释      |
 | :----------------------------------------------------------- | :------------: |
-| func LoadInt32(addr *int32) (val int32) func LoadInt64(addr *int64) (val int64) func LoadUint32(addr *uint32) (val uint32) func LoadUint64(addr *uint64) (val uint64) func LoadUintptr(addr *uintptr) (val uintptr) func LoadPointer(addr *unsafe.Pointer) (val unsafe.Pointer) |    读取操作    |
-| func StoreInt32(addr *int32, val int32) func StoreInt64(addr *int64, val int64) func StoreUint32(addr *uint32, val uint32) func StoreUint64(addr *uint64, val uint64) func StoreUintptr(addr *uintptr, val uintptr) func StorePointer(addr *unsafe.Pointer, val unsafe.Pointer) |    写入操作    |
-| func AddInt32(addr *int32, delta int32) (new int32) func AddInt64(addr *int64, delta int64) (new int64) func AddUint32(addr *uint32, delta uint32) (new uint32) func AddUint64(addr *uint64, delta uint64) (new uint64) func AddUintptr(addr *uintptr, delta uintptr) (new uintptr) |    修改操作    |
-| func SwapInt32(addr *int32, new int32) (old int32) func SwapInt64(addr *int64, new int64) (old int64) func SwapUint32(addr *uint32, new uint32) (old uint32) func SwapUint64(addr *uint64, new uint64) (old uint64) func SwapUintptr(addr *uintptr, new uintptr) (old uintptr) func SwapPointer(addr *unsafe.Pointer, new unsafe.Pointer) (old unsafe.Pointer) |    交换操作    |
-| func CompareAndSwapInt32(addr *int32, old, new int32) (swapped bool) func CompareAndSwapInt64(addr *int64, old, new int64) (swapped bool) func CompareAndSwapUint32(addr *uint32, old, new uint32) (swapped bool) func CompareAndSwapUint64(addr *uint64, old, new uint64) (swapped bool) func CompareAndSwapUintptr(addr *uintptr, old, new uintptr) (swapped bool) func CompareAndSwapPointer(addr *unsafe.Pointer, old, new unsafe.Pointer) (swapped bool) | 比较并交换操作 |
+| `func LoadInt32(addr *int32) (val int32)` <br />`func LoadInt64(addr *int64) (val int64)` <br />`func LoadUint32(addr *uint32) (val uint32)` <br />`func LoadUint64(addr *uint64) (val uint64)` <br />`func LoadUintptr(addr *uintptr) (val uintptr)` <br />`func LoadPointer(addr *unsafe.Pointer) (val unsafe.Pointer)` |    读取操作    |
+| `func StoreInt32(addr *int32, val int32)` <br />`func StoreInt64(addr *int64, val int64)` <br />`func StoreUint32(addr *uint32, val uint32)` <br />`func StoreUint64(addr *uint64, val uint64)` <br />`func StoreUintptr(addr *uintptr, val uintptr)` <br />`func StorePointer(addr *unsafe.Pointer, val unsafe.Pointer)` |    写入操作    |
+| `func AddInt32(addr *int32, delta int32) (new int32)` <br />`func AddInt64(addr *int64, delta int64) (new int64)` <br />`func AddUint32(addr *uint32, delta uint32) (new uint32)` <br />`func AddUint64(addr *uint64, delta uint64) (new uint64)` <br />`func AddUintptr(addr *uintptr, delta uintptr) (new uintptr)` |    修改操作    |
+| `func SwapInt32(addr *int32, new int32) (old int32)` <br />`func SwapInt64(addr *int64, new int64) (old int64)` <br />`func SwapUint32(addr *uint32, new uint32) (old uint32)` <br />`func SwapUint64(addr *uint64, new uint64) (old uint64)` <br />`func SwapUintptr(addr *uintptr, new uintptr) (old uintptr)` <br />`func SwapPointer(addr *unsafe.Pointer, new unsafe.Pointer) (old unsafe.Pointer)` |    交换操作    |
+| `func CompareAndSwapInt32(addr *int32, old, new int32) (swapped bool)` <br />`func CompareAndSwapInt64(addr *int64, old, new int64) (swapped bool)` <br />`func CompareAndSwapUint32(addr *uint32, old, new uint32) (swapped bool)` <br />`func CompareAndSwapUint64(addr *uint64, old, new uint64) (swapped bool)` <br />`func CompareAndSwapUintptr(addr *uintptr, old, new uintptr) (swapped bool)` <br />`func CompareAndSwapPointer(addr *unsafe.Pointer, old, new unsafe.Pointer) (swapped bool)` | 比较并交换操作 |
 
 ### 7.2 示例
 
