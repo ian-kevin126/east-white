@@ -10,6 +10,7 @@ date: 2022-04-19
 - [《Go 语言设计与实现》](https://draveness.me/golang/)
 - [topgoer](https://www.topgoer.com/)
 - [《Go语言101》](https://gfw.go101.org/article/101.html)
+- [《Go 高级语言编程》](https://chai2010.gitbooks.io/advanced-go-programming-book/content/)
 
 ### 1、交流社区
 
@@ -112,7 +113,9 @@ date: 2022-04-19
   - [Newspaper.IO](http://www.newspaper.io/golang)：Golang 新闻订阅
   - [Go Newsletter](http://www.golangweekly.com/)：Golang 新闻订阅
 
+#### 3.9 RPC
 
+- [grpc](https://www.grpc.io/docs/)
 
 ## 二、资料汇总
 
@@ -215,6 +218,83 @@ date: 2022-04-19
 ### 2、文章
 
 - [golang 中的零值问题与判断为空](https://youwu.today/skill/backend/golang-zero-value-and-reference-and-null-value-testing/)
+- [go-micro微服务实践](https://www.jianshu.com/p/ec6d9c55809f)
+- [go-micro V2 从零开始](https://blog.csdn.net/hotcoffie/category_10382544.html)
+- [带你十天轻松搞定Go微服务系列](https://learnku.com/articles/64566)
+- [Go微服务架构实战[完整]](https://juejin.cn/post/7052143950085226510)
+- [Go 微服务框架对比：Go Micro, Go Kit, Gizmo, Kite - LearnKu](https://learnku.com/go/t/36973)
+- [Go 语言如何进阶微服务？ - 知乎](https://www.zhihu.com/question/498359816)
+
+
+
+## 五、常用
+
+### 1、Mac下go多版本共存切换
+
+可以查看当前安装的go版本有哪些，比如当前安装的为go1.15，现在想装一个低版本的如1.12.17。操作如下：
+
+1. `ll /usr/local/bin/go` 查看当前go对应的软链
+2. `brew search go` 查找可用的go版本
+3. `brew install go@1.12`安装1.12版本
+4. `brew unlink go` 将当前软链移除
+5. `brew link go@1.12`指定新的软链
+6. `ll /usr/local/bin/go && go env`验证修改后的版本
+
+### 2、安装
+
+- [mac brew安装etcd](https://www.jianshu.com/p/ede84d7d3cc0)    [etcd etcdkeeper mac安装 ](https://blog.csdn.net/chen_peng7/article/details/123918851)    [从零开始搭建etcd分布式存储系统+web管理界面](https://www.cnbiancheng.com/?p=10801)
+- [go-micro中文文档](https://learnku.com/docs/go-micro/2.x/install/8461)
+
+
+
+#### 2.1 etcdkeeper安装
+
+```go
+docker pull evildecay/etcdkeeper
+
+/*
+使用
+仅仅查看key: 通过设置参数–keys-only=true
+查看拥有某个前缀的key 通过设置参数–prefix
+*/
+
+// 查看所有的key
+etcdctl –endpoints=”[https://10.39.47.35:2379"](https://10.39.47.35:2379"/) –prefix –keys-only=true get /
+
+// 查看拥有某个前缀的keys
+etcdctl –endpoints=”[https://10.39.47.35:2379"](https://10.39.47.35:2379"/) –prefix –keys-only=true get /registry
+
+// 查看某个具体的key的值
+etcdctl –endpoints=”[https://10.39.47.35:2379"](https://10.39.47.35:2379"/) –prefix –keys-only=false get /registry/pods/monitoring/node-exporter-bkdwx
+```
+
+### 3、protoc-gen-go 的安装
+
+按照教程，指令如下
+
+```go
+go get -u github.com/golang/protobuf/protoc-gen-go但执行后会有如下错误
+```
+
+```go
+go: module github.com/golang/protobuf is deprecated: Use the "google.golang.org/protobuf" module instead.
+go get: installing executables with 'go get' in module mode is deprecated.
+        Use 'go install pkg@version' instead.
+        For more information, see https://golang.org/doc/go-get-install-deprecation
+        or run 'go help get' or 'go help install'.
+```
+
+现在想要拉取protoc-gen-go需要去google.golang.org/protobuf拉取，原来的路径已经废弃了。
+我使用的go版本是1.17。而Go1.17版使用go install安装依赖。所以应该按照它下面的格式go install pkg@version进行拉取。
+所以拉取命令如下：
+
+```go
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+```
+
+
+
+
 
 
 

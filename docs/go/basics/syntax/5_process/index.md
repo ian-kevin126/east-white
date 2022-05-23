@@ -337,6 +337,36 @@ func switchDemo4() {
 
 #### 1.3 fallthrough
 
+> Go里面switch默认相当于每个case最后带有break，匹配成功后不会自动向下执行其他case，而是跳出整个switch, 那么如何做到执行完一个case之后，进入下一个case而不是跳出swtich呢？
+
+答案是：`fallthrough`
+
+~~~go
+var s = "hello"
+switch {
+case s == "hello":
+    fmt.Println("hello")
+    fallthrough
+case s != "world":
+    fmt.Println("world")
+}
+~~~
+
+注意事项：
+
+加了fallthrough后，会直接运行【紧跟的后一个】case或default语句，不论条件是否满足都会执行
+
+~~~go
+var s = "hello"
+switch {
+case s == "hello":
+    fmt.Println("hello")
+    fallthrough
+case s == "world":
+    fmt.Println("world")
+}
+~~~
+
 `fallthrough`语法可以执行满足条件的case的下一个case，是为了兼容C语言中的case设计的。
 
 ```go
@@ -703,6 +733,63 @@ for { }
      1. 若其值为真，满足循环条件，则执行循环体内语句，然后执行 post，进入第二次循环，再判别 condition；
      2. 否则判断 condition 的值为假，不满足条件，就终止 for 循环，执行循环体外语句。
 
+> go语言中的循环语句只支持 for 关键字，这个其他语言是不同的。
+
+~~~go
+sum := 0
+//i := 0; 赋初值，i<10 循环条件 如果为真就继续执行 ；i++ 后置执行 执行后继续循环
+for i := 0; i < 10; i++ {
+    sum += i
+}
+~~~
+
+第二种写法：
+
+~~~go
+sum := 0
+for {
+    sum++
+    if sum > 100 {
+        //break是跳出循环
+        break
+    }
+}
+~~~
+
+**上述的代码，如果没有break跳出循环，那么其将无限循环**
+
+第三种写法：
+
+~~~go
+n := 10
+for n>0 {
+    n--
+    fmt.Println(n)
+}
+~~~
+
+我们来看下面一种写法：
+
+~~~go
+step := 2
+//初值可以省略，但是;必须有，但是这样写step的作用域就比较大了，脱离了for循环
+for ; step > 0; step-- {
+    fmt.Println(step)
+}
+~~~
+
+进一步简化代码，将 if 判断整合到 for 中，变为下面的代码：
+
+~~~go
+step := 2
+for step > 0 {
+    step--
+    fmt.Println(step)
+}
+~~~
+
+再来看一些例子：
+
 ```go
 s := "abc"
 
@@ -952,6 +1039,110 @@ for {
 
 for循环可以通过`break`、`goto`、`return`、`panic`语句强制退出循环。
 
+### 4、结束循环的方式
+
+#### 4.1 return
+
+~~~go
+step := 2
+for step > 0 {
+    step--
+    fmt.Println(step)
+    //执行一次就结束了
+    return
+}
+//不会执行
+fmt.Println("结束之后的语句....")
+~~~
+
+#### 4.2 break
+
+~~~go
+step := 2
+for step > 0 {
+    step--
+    fmt.Println(step)
+    //跳出循环,还会继续执行循环外的语句
+    break
+}
+//会执行
+fmt.Println("结束之后的语句....")
+~~~
+
+#### 4.3 painc
+
+~~~go
+step := 2
+for step > 0 {
+		step--
+		fmt.Println(step)
+		//报错了，直接结束
+		panic("出错了")
+	}
+	//不会执行
+	fmt.Println("结束之后的语句....")		
+~~~
+
+#### 4.4 goto
+
+~~~go
+package main
+import "fmt"
+func main() {
+    for x := 0; x < 10; x++ {
+        for y := 0; y < 10; y++ {
+            if y == 2 {
+                // 跳转到标签
+                goto breakHere
+            }
+        }
+    }
+    // 手动返回, 避免执行进入标签
+    return
+    // 标签
+breakHere:
+    fmt.Println("done")
+}
+~~~
+
+### 5、代码优化
+
+~~~go
+package main
+
+func length(s string) int {
+	println("call length.")
+	return len(s)
+}
+
+func main() {
+	s := "abcd"
+    // 这样写会多次调佣length函数
+	for i:= 0; i < length(s); i++ {     
+		println(i, s[i])
+	}
+}
+~~~
+
+优化：
+
+~~~go
+package main
+
+func length(s string) int {
+	println("call length.")
+	return len(s)
+}
+
+func main() {
+	s := "abcd"
+    // 这样写会多次调佣length函数
+	for i,n:= 0,length(s); i <n; i++ {     
+		println(i, s[i])
+	}
+}
+~~~
+
 ## 五、循环语句 range
 
 Golang range 类似迭代器操作，返回 (索引, 值) 或 (键, 值)。
@@ -1148,6 +1339,148 @@ func gotoDemo2() {
   	fmt.Println("结束for循环")
 }
 ```
+
+> goto 语句通过标签进行代码间的无条件跳转，同时 goto 语句在快速跳出循环、避免重复退出上也有一定的帮助，使用 goto 语句能简化一些代码的实现过程。
+
+**使用 goto 退出多层循环**
+
+传统写法：
+
+~~~go
+package main
+import "fmt"
+func main() {
+    var breakAgain bool
+    // 外循环
+    for x := 0; x < 10; x++ {
+        // 内循环
+        for y := 0; y < 10; y++ {
+            // 满足某个条件时, 退出循环
+            if y == 2 {
+                // 设置退出标记
+                breakAgain = true
+                // 退出本次循环
+                break
+            }
+        }
+        // 根据标记, 还需要退出一次循环
+        if breakAgain {
+                break
+        }
+    }
+    fmt.Println("done")
+}
+~~~
+
+使用goto的写法：
+
+~~~go
+package main
+import "fmt"
+func main() {
+    for x := 0; x < 10; x++ {
+        for y := 0; y < 10; y++ {
+            if y == 2 {
+                // 跳转到标签
+                goto breakHere
+            }
+        }
+    }
+    // 手动返回, 避免执行进入标签
+    return
+    // 标签
+breakHere:
+    fmt.Println("done")
+}
+~~~
+
+使用 goto 语句后，无须额外的变量就可以快速退出所有的循环
+
+**使用 goto 集中处理错误**
+
+多处错误处理 `存在代码重复` 例如：
+
+~~~go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"os"
+)
+
+
+func main() {
+	err := firstCheckError()
+	if err != nil {
+		fmt.Println(err)
+		exitProcess()
+	}
+	err = secondCheckError()
+	if err != nil {
+		fmt.Println(err)
+		exitProcess()
+	}
+	fmt.Println("done")
+}
+
+func secondCheckError() interface{} {
+	return errors.New("错误2")
+}
+
+func exitProcess() {
+	//退出
+	os.Exit(1)
+}
+
+func firstCheckError() interface{} {
+	return errors.New("错误1")
+}
+~~~
+
+使用goto：
+
+~~~go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"os"
+)
+
+
+func main() {
+	err := firstCheckError()
+	if err != nil {
+		fmt.Println(err)
+		goto onExit
+	}
+	err = secondCheckError()
+	if err != nil {
+		fmt.Println(err)
+		goto onExit
+	}
+	fmt.Println("done")
+	return
+	onExit:
+		exitProcess()
+}
+
+func secondCheckError() interface{} {
+	return errors.New("错误2")
+}
+
+func exitProcess() {
+	fmt.Println("exit")
+	//退出
+	os.Exit(1)
+}
+
+func firstCheckError() interface{} {
+	return errors.New("错误1")
+}
+~~~
 
 ### 3、break(跳出循环)
 

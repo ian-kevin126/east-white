@@ -14,6 +14,7 @@ const life_nav = require("./menuConfig/navs/life_nav");
 // 侧边栏配置
 const js_advanced_collection = require("./menuConfig/sidebars/js");
 const go_basics_collection = require("./menuConfig/sidebars/go/basics");
+const go_advanced_collection = require("./menuConfig/sidebars/go/advanced");
 const data_collection = require("./menuConfig/sidebars/algo/data/data");
 const html_basics_collection = require("./menuConfig/sidebars/html/basics");
 const css_basics_collection = require("./menuConfig/sidebars/css/basics");
@@ -82,8 +83,11 @@ module.exports = {
       "/rn/basics/": rn_basics_collection,
       "/micro_app/basics/": micro_app_basics_collection,
       "/h5/basics/": h5_basics_collection,
+
       // about go
       "/go/basics/": go_basics_collection,
+      "/go/advanced/": go_advanced_collection,
+
       // about node
       "/node/basics/": node_basics_collection,
       // about build

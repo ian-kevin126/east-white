@@ -12,6 +12,10 @@ module.exports = {
           text: "基础",
           link: "/go/basics/",
         },
+        {
+          text: "进阶",
+          link: "/go/advanced/",
+        },
       ],
     },
     {
@@ -28,10 +32,10 @@ module.exports = {
       ],
     },
     {
-      text: "Tools",
+      text: "生态",
       items: [
         {
-          text: "工具",
+          text: "必学",
           link: "/server_tools/",
         },
       ],

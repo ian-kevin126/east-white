@@ -31,6 +31,7 @@ module.exports = [
       "/go/basics/package/import/",
       "/go/basics/package/gomod/",
       "/go/basics/package/file/",
+      "/go/basics/package/io/",
       "/go/basics/package/date/",
       "/go/basics/package/operation_system/",
       "/go/basics/package/format/",
@@ -38,6 +39,18 @@ module.exports = [
       "/go/basics/package/regexp/",
       "/go/basics/package/sync/",
       "/go/basics/package/net/",
+    ],
+  },
+  {
+    title: "Go实战博客",
+    children: [
+      "/go/basics/blog/01/",
+      "/go/basics/blog/02/",
+      "/go/basics/blog/03/",
+      "/go/basics/blog/04/",
+      "/go/basics/blog/05/",
+      "/go/basics/blog/06/",
+      "/go/basics/blog/07/",
     ],
   },
   {
@@ -64,6 +77,14 @@ module.exports = [
       "/go/basics/gin/07/",
       "/go/basics/gin/08/",
       "/go/basics/gin/09/",
+    ],
+  },
+  {
+    title: "数据库",
+    children: [
+      "/go/basics/db/mysql/",
+      "/go/basics/db/sqlx/",
+      "/go/basics/db/redis/",
     ],
   },
   // {

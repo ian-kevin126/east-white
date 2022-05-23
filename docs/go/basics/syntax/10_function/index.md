@@ -40,19 +40,20 @@ Go语言中定义函数使用`func`关键字，函数声明包含一个函数名
 具体格式如下：
 
 ```go
-func 函数名(参数)(返回值){
-    函数体
+func function_name( [parameter list] ) [return_types] {
+   函数体
 }
 ```
 
 其中：
 
-- 函数名：由字母、数字、下划线组成。但函数名的第一个字母不能是数字。在同一个包内，函数名也称不能重名（包的概念详见后文）。
-- 参数：参数由参数变量和参数变量的类型组成，多个参数之间使用`,`分隔。
-- 返回值：返回值由返回值变量和其变量类型组成，也可以只写返回值的类型，多个返回值必须用`()`包裹，并用`,`分隔。
-- 函数体：实现指定功能的代码块。
+- func：函数由 func 开始声明
+- function_name：函数名称，函数名和参数列表一起构成了函数签名。
+- parameter list：参数列表，参数就像一个占位符，当函数被调用时，你可以将值传递给参数，这个值被称为`实际参数`。参数列表指定的是参数类型、顺序、及参数个数。参数是可选的，也就是说函数也可以不包含参数。
+- return_types：`返回类型，函数返回一列值`。return_types 是该列值的数据类型。有些功能不需要返回值，这种情况下 return_types 不是必须的。
+- 函数体：函数定义的代码集合。
 
-
+> Go语言是编译型语言，所以函数编写的顺序是无关紧要的，鉴于可读性的需求，最好把 main() 函数写在文件的前面，其他函数按照一定逻辑顺序进行编写（例如函数被调用的顺序）。
 
 我们先来定义一个求两个数之和的函数：
 
@@ -356,17 +357,36 @@ Go语言中通过`return`关键字向外输出返回值。
 
 ### 1、多返回值
 
-Go语言中函数支持多返回值，函数如果有多个返回值时必须用`()`将所有返回值包裹起来。
+> Go语言中函数支持多返回值，函数如果有多个返回值时必须用`()`将所有返回值包裹起来。
 
-举个例子：
-
-```go
-func calc(x, y int) (int, int) {
-	sum := x + y
-	sub := x - y
-	return sum, sub
+~~~go
+//多个返回值 用括号扩起来
+func sum(a,b int) (int,int)  {
+	return a,b
 }
-```
+func main(){
+    a,b := sum(2,3)
+	fmt.Println(a,b)
+}
+~~~
+
+~~~go
+package main
+
+import "fmt"
+//支持返回值 命名 ，默认值为类型零值,命名返回参数可看做与形参类似的局部变量,由return隐式返回
+func f1() (names []string, m map[string]int, num int) {
+   m = make(map[string]int)
+   m["k1"] = 2
+
+   return
+}
+
+func main() {
+   a, b, c := f1()
+   fmt.Println(a, b, c)
+}
+~~~
 
 ### 2、返回值命名
 
@@ -587,7 +607,7 @@ func main() {
 
 ## 四、匿名函数
 
-### 匿名函数
+### 1、匿名函数定义
 
 - 匿名函数是指不需要定义函数名的一种函数实现方式。1958 年 LISP 首先采用匿名函数。
 
@@ -647,6 +667,8 @@ func main() {
 
 上面先定义了一个名为 getSqrt 的变量，初始化该变量时和之前的变量初始化有些不同，使用了 func，func 是定义函数的，可是这个函数和上面说的函数最大不同就是没有函数名，也就是匿名函数。这里将一个函数当做一个变量一样的操作。
 
+### 2、匿名函数作为变量
+
 Golang 匿名函数可赋值给变量，做为结构字段，或者在 channel 里传送。
 
 ```go
@@ -687,6 +709,101 @@ Hello, World!
 Hello, World!
 Hello, World!
 ```
+
+> 匿名函数是指不需要定义函数名的一种函数实现方式。
+
+在Go里面，函数可以像普通变量一样被传递或使用，Go语言支持随时在代码里定义匿名函数。
+
+匿名函数由一个不带函数名的函数声明和函数体组成。匿名函数的优越性在于可以直接使用函数内的变量，不必声明。
+
+匿名函数的定义格式如下：
+
+~~~go
+func(参数列表)(返回参数列表){
+    函数体
+}
+~~~
+
+示例：
+
+~~~go
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+    //这里将一个函数当做一个变量一样的操作。
+    getSqrt := func(a float64) float64 {
+        return math.Sqrt(a)
+    }
+    fmt.Println(getSqrt(4))
+}
+~~~
+
+**在定义时调用匿名函数**
+
+匿名函数可以在声明后调用，例如：
+
+~~~go
+func(data int) {
+    fmt.Println("hello", data)
+}(100) //(100)，表示对匿名函数进行调用，传递参数为 100。
+~~~
+
+**匿名函数用作回调函数**
+
+匿名函数作为回调函数的设计在Go语言也比较常见
+
+~~~go
+package main
+import (
+    "fmt"
+)
+// 遍历切片的每个元素, 通过给定函数进行元素访问
+func visit(list []int, f func(int)) {
+    for _, v := range list {
+        f(v)
+    }
+}
+func main() {
+    // 使用匿名函数打印切片内容
+    visit([]int{1, 2, 3, 4}, func(v int) {
+        fmt.Println(v)
+    })
+}
+~~~
+
+**返回多个匿名函数**
+
+~~~go
+package main
+
+import "fmt"
+
+func FGen(x, y int) (func() int, func(int) int) {
+
+	//求和的匿名函数
+	sum := func() int {
+		return x + y
+	}
+
+	// (x+y) *z 的匿名函数
+	avg := func(z int) int {
+		return (x + y) * z
+	}
+	return sum, avg
+}
+
+func main() {
+
+	f1, f2 := FGen(1, 2)
+	fmt.Println(f1())
+	fmt.Println(f2(3))
+}
+~~~
 
 ## 五、函数类型与变量
 
@@ -742,7 +859,43 @@ func main() {
 
 ### 1、函数作为参数
 
-函数可以作为参数：
+> 函数做为一等公民，可以做为参数传递。
+
+~~~go
+func test(fn func() int) int {
+    return fn()
+}
+func fn()  int{
+	return 200
+}
+func main() {
+    //这是直接使用匿名函数
+    s1 := test(func() int { return 100 }) 
+    //这是传入一个函数
+    s1 := test(fn)
+	fmt.Println(s1)
+}
+~~~
+
+**在将函数做为参数的时候，我们可以使用类型定义，将函数定义为类型，这样便于阅读**
+
+~~~go
+// 定义函数类型。
+type FormatFunc func(s string, x, y int) string
+
+func format(fn FormatFunc, s string, x, y int) string {
+	return fn(s, x, y)
+}
+func formatFun(s string,x,y int) string  {
+	return fmt.Sprintf(s,x,y)
+}
+func main() {
+    s2 := format(formatFun,"%d, %d",10,20)
+	fmt.Println(s2)
+}
+~~~
+
+有返回值的函数，必须有明确的终止语句，否则会引发编译错误。
 
 ```go
 func add(x, y int) int {
@@ -1303,6 +1456,105 @@ end
 1. 关闭文件句柄
 2. 锁资源释放
 3. 数据库连接释放
+
+**go 语言的defer功能强大，对于资源管理非常方便，但是如果没用好，也会有陷阱。**
+
+~~~go
+package main
+
+import "fmt"
+
+func main() {
+	var whatever = [5]int{1,2,3,4,5}
+
+	for i := range whatever {
+		defer fmt.Println(i)
+	}
+}
+~~~
+
+看下面的示例：
+
+~~~go
+package main
+
+import (
+	"log"
+	"time"
+)
+
+func main() {
+	start := time.Now()
+	log.Printf("开始时间为：%v", start)
+  defer log.Printf("时间差：%v", time.Since(start))  // Now()此时已经copy进去了
+    //不受这3秒睡眠的影响
+	time.Sleep(3 * time.Second)
+
+	log.Printf("函数结束")
+}
+~~~
+
+* Go 语言中所有的`函数调用都是传值的`
+* 调用 defer 关键字会`立刻拷贝函数中引用的外部参数` ，包括start 和time.Since中的Now
+* defer的函数在`压栈的时候也会保存参数的值，并非在执行时取值`。
+
+如何解决上述问题：使用defer fun()
+
+~~~go
+package main
+
+import (
+	"log"
+	"time"
+)
+
+func main() {
+	start := time.Now()
+	log.Printf("开始时间为：%v", start)
+	defer func() {
+		log.Printf("开始调用defer")
+		log.Printf("时间差：%v", time.Since(start))
+		log.Printf("结束调用defer")
+	}()
+	time.Sleep(3 * time.Second)
+
+	log.Printf("函数结束")
+}
+~~~
+
+**因为拷贝的是`函数指针`,函数属于引用传递**
+
+在来看一个问题：
+
+~~~go
+package main
+
+import "fmt"
+
+func main() {
+	var whatever = [5]int{1,2,3,4,5}
+	for i,_ := range whatever {
+        //函数正常执行,由于闭包用到的变量 i 在执行的时候已经变成4,所以输出全都是4.
+		defer func() { fmt.Println(i) }()
+	}
+}
+~~~
+
+怎么解决：
+
+~~~go
+package main
+
+import "fmt"
+
+func main() {
+	var whatever = [5]int{1,2,3,4,5}
+	for i,_ := range whatever {
+		i := i
+		defer func() { fmt.Println(i) }()
+	}
+}
+~~~
 
 #### 1.3 defer 碰上闭包
 
@@ -2261,7 +2513,7 @@ func main() {
 test panic
 ```
 
-如果需要保护代码 段，可将代码块重构成匿名函数，如此可确保后续代码被执 。
+如果需要保护代码段，可将代码块重构成匿名函数，如此可确保后续代码被执 。
 
 ```go
 package main

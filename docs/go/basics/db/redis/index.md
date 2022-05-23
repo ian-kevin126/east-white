@@ -1,6 +1,6 @@
 ---
-Title: 3.Redis
-Date: 2022-05-10
+title: 3.Redis
+date: 2022-05-10
 ---
 
 # Go语言操作Redis

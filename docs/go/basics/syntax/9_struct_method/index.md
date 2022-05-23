@@ -70,23 +70,28 @@ Go 语言中通过 struct 来实现面向对象。
 
 ### 1、结构体的定义
 
-使用 type 和 struct 关键字来定义结构体，具体代码格式如下：
+结构体成员也可以称为“字段”，这些字段有以下特性：
+
+- 字段拥有自己的类型和值；
+- 字段名必须唯一；
+- 字段的类型也可以是结构体，甚至是字段所在结构体的类型。
+
+使用关键字 **type** 可以将各种基本类型定义为自定义类型，基本类型包括整型、字符串、布尔等。结构体是一种复合的基本类型，通过 type 定义为自定义类型后，使结构体更便于使用。具体代码格式如下：
 
 ```go
 type 类型名 struct {
-  字段名 字段类型
-  字段名 字段类型
-  …
+    字段1 字段1类型
+    字段2 字段2类型
+    …
 }
 ```
 
 其中：
 
-```go
-1.类型名：标识自定义结构体的名称，在同一个包内不能重复。
-2.字段名：表示结构体字段名。结构体中的字段名必须唯一。
-3.字段类型：表示结构体字段的具体类型。
-```
+1. 类型名：标识自定义结构体的名称，在同一个包内不能重复。
+2. struct{}：表示结构体类型，`type 类型名 struct{}`可以理解为将 struct{} 结构体定义为类型名的类型。
+3. 字段1、字段2……：表示结构体字段名，结构体中的字段名必须唯一。
+4. 字段1类型、字段2类型……：表示结构体各个字段的类型。
 
 举个例子，我们定义一个 Person（人）结构体，代码如下：
 
@@ -121,7 +126,154 @@ type person struct {
 var 结构体实例 结构体类型
 ```
 
-### 3、基本实例化
+实例化就是根据结构体定义的格式创建一份与格式一致的内存区域，结构体实例与实例间的内存是完全独立的。
+
+**基本的实例化形式:**
+
+结构体本身是一种类型，可以像整型、字符串等类型一样，以 var 的方式声明结构体即可完成实例化。
+
+~~~go
+var ins T
+~~~
+
+`T `为结构体类型，`ins `为结构体的实例。
+
+~~~go
+package main
+
+import "fmt"
+
+type Point struct {
+	X int
+	Y int
+}
+func main() {
+    //使用.来访问结构体的成员变量,结构体成员变量的赋值方法与普通变量一致。
+	var p Point
+	p.X = 1
+	p.Y = 2
+	fmt.Printf("%v,x=%d,y=%d",p,p.X,p.Y )
+}
+
+~~~
+
+~~~go
+package main
+
+import "fmt"
+
+type Point struct {
+	X int
+	Y int
+}
+func main() {
+
+	var p Point
+	//p.X = 1
+	//p.Y = 2
+    //如果不赋值 结构体中的变量会使用零值初始化
+	fmt.Printf("%v,x=%d,y=%d",p,p.X,p.Y )
+}
+
+~~~
+
+~~~go
+package main
+
+import "fmt"
+
+type Point struct {
+	X int
+	Y int
+}
+func main() {
+	//可以使用
+	var p = Point{
+		X: 1,
+		Y: 2,
+	}
+    var p = Point{
+		1,
+		2,
+	}
+	fmt.Printf("%v,x=%d,y=%d",p,p.X,p.Y )
+}
+
+~~~
+
+**创建指针类型的结构体：**
+
+Go语言中，还可以使用 new 关键字对类型（包括结构体、整型、浮点数、字符串等）进行实例化，结构体在实例化后会形成指针类型的结构体。
+
+~~~go
+ins := new(T)
+~~~
+
+- T 为类型，可以是结构体、整型、字符串等。
+- ins：T 类型被实例化后保存到 ins 变量中，ins 的类型为 *T，属于指针。
+
+下面的例子定义了一个玩家（Player）的结构，玩家拥有名字、生命值和魔法值：
+
+~~~go
+type Player struct{
+    Name string
+    HealthPoint int
+    MagicPoint int
+}
+tank := new(Player)
+tank.Name = "码神"
+tank.HealthPoint = 300
+~~~
+
+ **new 实例化的结构体实例在成员赋值上与基本实例化的写法一致。**
+
+**取结构体的地址实例化:**
+
+在Go语言中，对结构体进行`&`取地址操作时，视为对该类型进行一次 new 的实例化操作，取地址格式如下：
+
+~~~go
+ins := &T{}
+~~~
+
+其中：
+
+- T 表示结构体类型。
+- ins 为结构体的实例，类型为 *T，是指针类型。
+
+示例：
+
+~~~go
+package main
+
+import "fmt"
+
+type Command struct {
+	Name    string    // 指令名称
+	Var     *int      // 指令绑定的变量
+	Comment string    // 指令的注释
+}
+
+func newCommand(name string, varRef *int, comment string) *Command {
+	return &Command{
+		Name:    name,
+		Var:     varRef,
+		Comment: comment,
+	}
+}
+
+var version = 1
+func main() {
+	cmd := newCommand(
+		"version",
+		&version,
+		"show version",
+	)
+	fmt.Println(cmd)
+}
+
+~~~
+
+### 3、结构体访问
 
 ```go
 type person struct {
@@ -160,6 +312,53 @@ func main() {
   fmt.Printf("%#v\n", user)
 }
 ```
+
+匿名结构体没有类型名称，无须通过 type 关键字定义就可以直接使用。
+
+~~~go
+ins := struct {
+    // 匿名结构体字段定义
+    字段1 字段类型1
+    字段2 字段类型2
+    …
+}{
+    // 字段值初始化
+    初始化字段1: 字段1的值,
+    初始化字段2: 字段2的值,
+    …
+}
+~~~
+
+- 字段1、字段2……：结构体定义的字段名。
+- 初始化字段1、初始化字段2……：结构体初始化时的字段名，可选择性地对字段初始化。
+- 字段类型1、字段类型2……：结构体定义字段的类型。
+- 字段1的值、字段2的值……：结构体初始化字段的初始值。
+
+~~~go
+package main
+import (
+	"fmt"
+)
+// 打印消息类型, 传入匿名结构体
+func printMsgType(msg *struct {
+	id   int
+	data string
+}) {
+	// 使用动词%T打印msg的类型
+	fmt.Printf("%T\n, msg:%v", msg,msg)
+}
+func main() {
+	// 实例化一个匿名结构体
+	msg := &struct {  // 定义部分
+		id   int
+		data string
+	}{  // 值初始化部分
+		1024,
+		"hello",
+	}
+	printMsgType(msg)
+}
+~~~
 
 ### 5、创建指针类型结构体
 
@@ -528,26 +727,178 @@ func changeName2(p *Person) {
 }
 ```
 
-## 七、任意类型添加方法
+#### 二维矢量模拟玩家移动
 
-在 Go 语言中，接收者的类型可以是任何类型，不仅仅是结构体，任何类型都可以拥有方法。 举个例子，我们基于内置的 int 类型使用 type 关键字可以定义新的自定义类型，然后为我们的自定义类型添加方法。
+在游戏中，一般使用二维矢量保存玩家的位置，使用矢量运算可以计算出玩家移动的位置，本例子中，首先实现二维矢量对象，接着构造玩家对象，最后使用矢量对象和玩家对象共同模拟玩家移动的过程。
 
-```go
-//MyInt 将int定义为自定义MyInt类型
-type MyInt int
+**实现二维矢量结构:**
 
-//SayHello 为MyInt添加一个SayHello的方法
-func (m MyInt) SayHello() {
-  fmt.Println("Hello, 我是一个int。")
+矢量是数学中的概念，二维矢量拥有两个方向的信息，同时可以进行加、减、乘（缩放）、距离、单位化等计算，在计算机中，使用拥有 X 和 Y 两个分量的 Vec2 结构体实现数学中二维向量的概念。
+
+~~~go
+package main
+import "math"
+type Vec2 struct {
+    X, Y float32
 }
+// 加
+func (v Vec2) Add(other Vec2) Vec2 {
+    return Vec2{
+        v.X + other.X,
+        v.Y + other.Y,
+    }
+}
+// 减
+func (v Vec2) Sub(other Vec2) Vec2 {
+    return Vec2{
+        v.X - other.X,
+        v.Y - other.Y,
+    }
+}
+// 乘 缩放或者叫矢量乘法，是对矢量的每个分量乘上缩放比，Scale() 方法传入一个参数同时乘两个分量，表示这个缩放是一个等比缩放
+func (v Vec2) Scale(s float32) Vec2 {
+    return Vec2{v.X * s, v.Y * s}
+}
+// 距离 计算两个矢量的距离，math.Sqrt() 是开方函数，参数是 float64，在使用时需要转换，返回值也是 float64，需要转换回 float32
+func (v Vec2) DistanceTo(other Vec2) float32 {
+    dx := v.X - other.X
+    dy := v.Y - other.Y
+    return float32(math.Sqrt(float64(dx*dx + dy*dy)))
+}
+// 矢量单位化
+func (v Vec2) Normalize() Vec2 {
+    mag := v.X*v.X + v.Y*v.Y
+    if mag > 0 {
+        oneOverMag := 1 / float32(math.Sqrt(float64(mag)))
+        return Vec2{v.X * oneOverMag, v.Y * oneOverMag}
+    }
+    return Vec2{0, 0}
+}
+~~~
+
+**实现玩家对象：**
+
+玩家对象负责存储玩家的当前位置、目标位置和速度，使用 MoveTo() 方法为玩家设定移动的目标，使用 Update() 方法更新玩家位置，在 Update() 方法中，通过一系列的矢量计算获得玩家移动后的新位置。
+
+1. 使用矢量减法，将目标位置（targetPos）减去当前位置（currPos）即可计算出位于两个位置之间的新矢量
+2. 使用 Normalize() 方法将方向矢量变为模为 1 的单位化矢量，这里需要将矢量单位化后才能进行后续计算
+3. 获得方向后，将单位化方向矢量根据速度进行等比缩放，速度越快，速度数值越大，乘上方向后生成的矢量就越长（模很大）
+4. 将缩放后的方向添加到当前位置后形成新的位置
+
+
+
+~~~go
+package main
+type Player struct {
+    currPos   Vec2    // 当前位置
+    targetPos Vec2    // 目标位置
+    speed     float32 // 移动速度
+}
+// 移动到某个点就是设置目标位置
+//逻辑层通过这个函数告知玩家要去的目标位置，随后的移动过程由 Update() 方法负责
+func (p *Player) MoveTo(v Vec2) {
+    p.targetPos = v
+}
+// 获取当前的位置
+func (p *Player) Pos() Vec2 {
+    return p.currPos
+}
+
+//判断玩家是否到达目标点，玩家每次移动的半径就是速度（speed），因此，如果与目标点的距离小于速度，表示已经非常靠近目标，可以视为到达目标。
+func (p *Player) IsArrived() bool {
+    // 通过计算当前玩家位置与目标位置的距离不超过移动的步长，判断已经到达目标点
+    return p.currPos.DistanceTo(p.targetPos) < p.speed
+}
+// 逻辑更新
+func (p *Player) Update() {
+    if !p.IsArrived() {
+        // 计算出当前位置指向目标的朝向
+        //数学中，两矢量相减将获得指向被减矢量的新矢量
+        dir := p.targetPos.Sub(p.currPos).Normalize()
+        // 添加速度矢量生成新的位置
+        newPos := p.currPos.Add(dir.Scale(p.speed))
+        // 移动完成后，更新当前位置
+        p.currPos = newPos
+    }
+}
+// 创建新玩家
+func NewPlayer(speed float32) *Player {
+    return &Player{
+        speed: speed,
+    }
+}
+~~~
+
+**处理移动逻辑：**
+
+将 Player 实例化后，设定玩家移动的最终目标点，之后开始进行移动的过程，这是一个不断更新位置的循环过程，每次检测玩家是否靠近目标点附近，如果还没有到达，则不断地更新位置，让玩家朝着目标点不停的修改当前位置，如下代码所示：
+
+~~~go
+package main
+import "fmt"
 
 func main() {
-  var m1 MyInt
-  m1.SayHello() //Hello, 我是一个int。
-  m1 = 100
-  fmt.Printf("%#v  %T\n", m1, m1) //100  main.MyInt
+	// 实例化玩家对象，并设速度为0.5
+	p := NewPlayer(0.5)
+	// 让玩家移动到3,1点
+	p.MoveTo(Vec2{3, 1})
+	// 如果没有到达就一直循环
+	for !p.IsArrived() {
+		// 更新玩家位置
+		p.Update()
+		// 打印每次移动后的玩家位置
+		fmt.Println(p.Pos())
+	}
+	fmt.Printf("到达了：%v",p.Pos())
 }
-```
+~~~
+
+## 七、任意类型添加方法
+
+Go语言可以对任何类型添加方法，给一种类型添加方法就像给结构体添加方法一样，因为结构体也是一种类型。
+
+**为基本类型添加方法：**
+
+在Go语言中，使用 type 关键字可以定义出新的自定义类型，之后就可以为自定义类型添加各种方法了。我们习惯于使用面向过程的方式判断一个值是否为 0，例如：
+
+~~~go
+if  v == 0 {
+    // v等于0
+}
+~~~
+
+如果将 v 当做整型对象，那么判断 v 值就可以增加一个 IsZero() 方法，通过这个方法就可以判断 v 值是否为 0，例如：
+
+~~~go
+if  v.IsZero() {
+    // v等于0
+}
+~~~
+
+为基本类型添加方法的详细实现流程如下：
+
+~~~go
+package main
+import (
+    "fmt"
+)
+// 将int定义为MyInt类型
+type MyInt int
+// 为MyInt添加IsZero()方法
+func (m MyInt) IsZero() bool {
+    return m == 0
+}
+// 为MyInt添加Add()方法
+func (m MyInt) Add(other int) int {
+    return other + int(m)
+}
+func main() {
+    var b MyInt
+    fmt.Println(b.IsZero())
+    b = 1
+    fmt.Println(b.Add(2))
+}
+~~~
 
 注意事项： 非本地类型不能定义方法，也就是说我们不能给别的包的类型定义方法。
 
@@ -574,7 +925,72 @@ func main() {
 }
 ```
 
-匿名字段默认采用类型名作为字段名，结构体要求字段名称必须唯一，因此一个结构体中同种类型的匿名字段只能有一个。
+> 匿名字段默认采用类型名作为字段名，结构体要求字段名称必须唯一，因此一个结构体中同种类型的匿名字段只能有一个。
+
+结构体可以包含一个或多个匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型也就是字段的名字。
+
+匿名字段本身可以是一个结构体类型，即结构体可以包含内嵌结构体。
+
+Go语言中的继承是通过内嵌或组合来实现的，所以可以说，在Go语言中，相比较于继承，组合更受青睐。
+
+~~~go
+package main
+
+import "fmt"
+
+type User struct {
+    id   int
+    name string
+}
+
+type Manager struct {
+    User
+}
+
+func (self *User) ToString() string { // receiver = &(Manager.User)
+    return fmt.Sprintf("User: %p, %v", self, self)
+}
+
+func main() {
+    m := Manager{User{1, "Tom"}}
+    fmt.Printf("Manager: %p\n", &m)
+    fmt.Println(m.ToString())
+}
+~~~
+
+类似于重写的功能：
+
+~~~go
+package main
+
+import "fmt"
+
+type User struct {
+    id   int
+    name string
+}
+
+type Manager struct {
+    User
+    title string
+}
+
+func (self *User) ToString() string {
+    return fmt.Sprintf("User: %p, %v", self, self)
+}
+
+func (self *Manager) ToString() string {
+    return fmt.Sprintf("Manager: %p, %v", self, self)
+}
+
+func main() {
+    m := Manager{User{1, "Tom"}, "Administrator"}
+
+    fmt.Println(m.ToString())
+
+    fmt.Println(m.User.ToString())
+}
+~~~
 
 ### 2、嵌入字段
 

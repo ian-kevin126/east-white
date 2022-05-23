@@ -74,7 +74,9 @@ make(chan 元素类型, [缓冲大小])
 
 ```go
 ch4 := make(chan int)
-ch5 := make(chan bool, 1)  // 声明一个缓冲区大小为1的通道
+ch5 := make(chan bool)
+ch6 := make(chan []int)
+ch7 := make(chan bool, 1)  // 声明一个缓冲区大小为1的通道
 ```
 
 ### 4、channel操作
@@ -120,6 +122,36 @@ close(ch)
 2. 对一个关闭的通道进行接收会一直获取值直到通道为空。
 3. 对一个关闭的并且没有值的通道执行接收操作会得到对应类型的零值。
 4. 关闭一个已经关闭的通道会导致 panic。
+
+
+
+可以通过内置的close()函数关闭channel（如果你的管道不往里存值或者取值的时候一定记得关闭管道）
+
+~~~go
+package main
+
+import "fmt"
+
+func main() {
+    c := make(chan int)
+    go func() {
+        for i := 0; i < 5; i++ {
+            c <- i
+        }
+        close(c)
+    }()
+    for {
+        if data, ok := <-c; ok {
+            fmt.Println(data)
+        } else {
+            break
+        }
+    }
+    fmt.Println("main结束")
+}
+~~~
+
+**注意:关闭已经关闭的channel会引发panic。**
 
 
 ## 二、channel 使用
@@ -466,7 +498,44 @@ func f3(ch chan int) {
 
 **注意：**目前Go语言中并没有提供一个不对通道进行读取操作就能判断通道是否被关闭的方法。不能简单的通过`len(ch)`操作来判断通道是否被关闭。
 
-### 5、只读 channel 和只写 channel
+### 5、如何优雅的从通道循环取值
+
+当通过通道发送有限的数据时，我们可以通过close函数关闭通道来告知从该通道接收值的goroutine停止等待。当通道被关闭时，往该通道发送值会引发panic，从该通道里接收的值一直都是类型零值。那如何判断一个通道是否被关闭了呢？
+
+我们来看下面这个例子：
+
+~~~go
+func main() {
+    ch1 := make(chan int)
+    ch2 := make(chan int)
+    // 开启goroutine将0~100的数发送到ch1中
+    go func() {
+        for i := 0; i < 100; i++ {
+            ch1 <- i
+        }
+        close(ch1)
+    }()
+    // 开启goroutine从ch1中接收值，并将该值的平方发送到ch2中
+    go func() {
+        for {
+            i, ok := <-ch1 // 通道关闭后再取值ok=false
+            if !ok {
+                break
+            }
+            ch2 <- i * i
+        }
+        close(ch2)
+    }()
+    // 在主goroutine中从ch2中接收值打印
+    for i := range ch2 { // 通道关闭后会退出for range循环
+        fmt.Println(i)
+    }
+}
+~~~
+
+从上面的例子中我们看到有两种方式在接收值的时候判断通道是否被关闭，我们通常使用的是for range的方式。
+
+### 6、只读 channel 和只写 channel
 
 一般定义只读和只写的管道意义不大，更多时候我们可以在参数传递时候指明管道可读还是可写，即使当前管道是可读写的。
 
@@ -626,7 +695,7 @@ ch5 = ch4          // 变量赋值时将ch4转为单向通道
 <-ch5
 ```
 
-### 6、select-case 实现非阻塞 channel
+### 7、select-case 实现非阻塞 channel
 
 原理通过 select+case 加入一组管道，当满足（这里说的满足意思是有数据可读或者可写) select 中的某个 case 时候，那么该 case 返回，若都不满足 case，则走 default 分支。
 
@@ -666,7 +735,7 @@ func main() {
 get data :  wd
 ```
 
-### 7、channel 频率控制
+### 8、channel 频率控制
 
 在对 channel 进行读写的时，go 还提供了非常人性化的操作，那就是对读写的频率控制，通过 time.Ticke 实现
 
@@ -705,7 +774,7 @@ requets 3 2018-07-06 10:17:37.980869517 +0800 CST m=+3.004544250
 requets 4 2018-07-06 10:17:38.976868836 +0800 CST m=+4.000533569
 ```
 
-### 8、总结
+### 9、总结
 
 下面的表格中总结了对不同状态下的通道执行相应操作的结果。
 
@@ -951,6 +1020,109 @@ Select 语句具有以下特点。
 - 可处理一个或多个 channel 的发送/接收操作。
 - 如果多个 case 同时满足，select 会**随机**选择一个执行。
 - 对于没有 case 的 select 会一直阻塞，可用于阻塞 main 函数，防止退出。
+
+**select可以同时监听一个或多个channel，直到其中一个channel ready**
+
+~~~go
+package main
+
+import (
+   "fmt"
+   "time"
+)
+
+func test1(ch chan string) {
+   time.Sleep(time.Second * 5)
+   ch <- "test1"
+}
+func test2(ch chan string) {
+   time.Sleep(time.Second * 2)
+   ch <- "test2"
+}
+
+func main() {
+   // 2个管道
+   output1 := make(chan string)
+   output2 := make(chan string)
+   // 跑2个子协程，写数据
+   go test1(output1)
+   go test2(output2)
+   // 用select监控
+   select {
+   case s1 := <-output1:
+      fmt.Println("s1=", s1)
+   case s2 := <-output2:
+      fmt.Println("s2=", s2)
+   }
+}
+~~~
+
+**如果多个channel同时ready，则随机选择一个执行**
+
+~~~go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// 创建2个管道
+	intChan := make(chan int, 1)
+	stringChan := make(chan string, 1)
+	go func() {
+		//time.Sleep(2 * time.Second)
+		intChan <- 1
+	}()
+	go func() {
+		stringChan <- "hello"
+	}()
+	select {
+	case value := <-intChan:
+		fmt.Println("int:", value)
+	case value := <-stringChan:
+		fmt.Println("string:", value)
+	}
+	fmt.Println("main结束")
+}
+~~~
+
+**可以用于判断管道是否存满**
+
+~~~go
+package main
+
+import (
+   "fmt"
+   "time"
+)
+
+// 判断管道有没有存满
+func main() {
+   // 创建管道
+   output1 := make(chan string, 10)
+   // 子协程写数据
+   go write(output1)
+   // 取数据
+   for s := range output1 {
+      fmt.Println("res:", s)
+      time.Sleep(time.Second)
+   }
+}
+
+func write(ch chan string) {
+   for {
+      select {
+      // 写数据
+      case ch <- "hello":
+         fmt.Println("write hello")
+      default:
+         fmt.Println("channel full")
+      }
+      time.Sleep(time.Millisecond * 500)
+   }
+}
+~~~
 
 下面的示例代码能够在终端打印出10以内的奇数，我们借助这个代码片段来看一下 select 的具体使用。
 
@@ -1454,6 +1626,8 @@ func main() {
 ```
 
 ## 七、原子操作
+
+代码中的加锁操作因为涉及内核态的上下文切换会比较耗时、代价比较高。针对`基本数据类型`我们还可以使用原子操作来保证并发安全，因为原子操作是Go语言提供的方法它在用户态就可以完成，因此性能比加锁操作更好。
 
 针对整数数据类型（int32、uint32、int64、uint64）我们还可以使用原子操作来保证并发安全，通常直接使用原子操作比使用锁操作效率更高。Go语言中原子操作由内置的标准库`sync/atomic`提供。
 

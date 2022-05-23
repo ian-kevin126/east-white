@@ -11,13 +11,28 @@ go module 是 Go 语言从 1.11 版本之后官方推出的版本管理工具，
 
 Modules 官方定义为：
 
-Modules 是相关 Go 包的集合，是源代码交换和版本控制的单元。Go 语言命令直接支持使用 Modules，包括记录和解析对其他模块的依赖性，Modules 替换旧的基于 GOPATH 的方法，来指定使用哪些源文件。
+> Modules 是相关 Go 包的集合，是源代码交换和版本控制的单元。Go语言命令直接支持使用 Modules，包括记录和解析对其他模块的依赖性，Modules 替换旧的基于 GOPATH 的方法，来指定使用哪些源文件。
 
 ## 一、如何使用 Modules？
 
 1. 首先需要把 golang 升级到 1.11 版本以上（现在 1.13 已经发布了，建议使用 1.13）。
 
-2. 设置 GO111MODULE。
+2. 使用go module之前需要设置环境变量：
+
+   1. GO111MODULE=on
+   2. GOPROXY=[https://goproxy.io,direct](https://goproxy.io%2Cdirect/)
+   3. GOPROXY=https://goproxy.cn,direct(国内的七牛云提供)
+
+   **GO111MODULE 有三个值：off, on和auto（默认值）。**
+
+   - GO111MODULE=off，go命令行将不会支持module功能，寻找依赖包的方式将会沿用旧版本那种通过vendor目录或者GOPATH模式来查找。
+   - GO111MODULE=on，go命令行会使用modules，而一点也不会去GOPATH目录下查找。
+   - GO111MODULE=auto，默认值，go命令行将会根据当前目录来决定是否启用module功能。这种情况下可以分为两种情形：
+     - 当前目录在GOPATH之外且该目录包含go.mod文件 开启
+     - 当处于 GOPATH 内且没有 go.mod 文件存在时其行为会等同于 GO111MODULE=off
+   - 如果不使用 Go Modules, go get 将会从模块代码的 master 分支拉取
+   - 而若使用 Go Modules 则你可以利用 Git Tag 手动选择一个特定版本的模块代码
+
 
 ### 1、GO111MODULE
 
@@ -53,6 +68,131 @@ export GO111MODULE=on 或者 export GO111MODULE=auto
 | go mod vendor   | 将依赖复制到 vendor 目录下                     |
 | go mod verify   | 校验依赖                                       |
 | go mod why      | 解释为什么需要依赖                             |
+
+- 常用的有 `init tdiy edit`
+
+**使用go get命令下载指定版本的依赖包：**
+
+执行`go get `命令，在下载依赖包的同时还可以指定依赖包的版本。
+
+- 运行`go get -u`命令会将项目中的包升级到最新的次要版本或者修订版本；
+- 运行`go get -u=patch`命令会将项目中的包升级到最新的修订版本；
+- 运行`go get [包名]@[版本号]`命令会下载对应包的指定版本或者将对应包升级到指定的版本。
+
+> 提示：`go get [包名]@[版本号]`命令中版本号可以是 x.y.z 的形式，例如 go get foo@v1.2.3，也可以是 git 上的分支或 tag，例如 go get foo@master，还可以是 git 提交时的哈希值，例如 go get foo@e3702bed2。
+
+#### 项目中使用
+
+1. 在 GOPATH 目录下新建一个目录，并使用`go mod init`初始化生成 go.mod 文件。
+
+   go.mod 文件一旦创建后，它的内容将会被 go toolchain 全面掌控，go toolchain 会在各类命令执行时，比如`go get`、`go build`、`go mod`等修改和维护 go.mod 文件。
+
+   go.mod 提供了 module、require、replace 和 exclude 四个命令：
+
+   - module 语句指定包的名字（路径）；
+   - require 语句指定的依赖项模块；
+   - replace 语句可以替换依赖项模块；
+   - exclude 语句可以忽略依赖项模块。
+
+   初始化生成的 go.mod 文件如下所示：
+
+   ~~~go
+   module hello
+   
+   go 1.13
+   ~~~
+
+2. 添加依赖。
+
+   新建一个 main.go 文件，写入以下代码：
+
+   ~~~go
+   package main
+   import (
+       "net/http"
+       "github.com/labstack/echo"
+   )
+   func main() {
+       e := echo.New()
+       e.GET("/", func(c echo.Context) error {
+           return c.String(http.StatusOK, "Hello, World!")
+       })
+       e.Logger.Fatal(e.Start(":1323"))
+   }
+   ~~~
+
+   执行`go mod tidy`运行代码会发现 go mod 会自动查找依赖自动下载
+
+   ~~~go
+   go: finding module for package github.com/labstack/echo
+   go: found github.com/labstack/echo in github.com/labstack/echo v3.3.10+incompatible
+   go: finding module for package github.com/stretchr/testify/assert
+   go: finding module for package github.com/labstack/gommon/log
+   go: finding module for package github.com/labstack/gommon/color
+   go: finding module for package golang.org/x/crypto/acme/autocert
+   go: found github.com/labstack/gommon/color in github.com/labstack/gommon v0.3.1
+   go: found github.com/labstack/gommon/log in github.com/labstack/gommon v0.3.1
+   go: found golang.org/x/crypto/acme/autocert in golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
+   go: found github.com/stretchr/testify/assert in github.com/stretchr/testify v1.7.0
+   
+   ~~~
+
+   go.mod中的内容：
+
+   ~~~go
+   module learning09
+   
+   go 1.17
+   
+   require github.com/labstack/echo v3.3.10+incompatible
+   
+   require (
+   	github.com/labstack/gommon v0.3.1 // indirect
+   	github.com/mattn/go-colorable v0.1.11 // indirect
+   	github.com/mattn/go-isatty v0.0.14 // indirect
+   	github.com/valyala/bytebufferpool v1.0.0 // indirect
+   	github.com/valyala/fasttemplate v1.2.1 // indirect
+   	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
+   	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
+   	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
+   	golang.org/x/text v0.3.6 // indirect
+   )
+   
+   ~~~
+
+   **go module 安装 package 的原则是先拉取最新的 release tag，若无 tag 则拉取最新的 commit**
+
+   go 会自动生成一个 go.sum 文件来记录 dependency tree。
+
+   执行脚本`go run main.go`，就可以运行项目。
+
+   可以使用命令`go list -m -u all`来检查可以升级的 package，使用`go get -u need-upgrade-package`升级后会将新的依赖版本更新到 go.mod ，
+
+   比如：`go get -u github.com/labstack/gommon`
+
+   也可以使用`go get -u`升级所有依赖。
+
+3. 一般使用包之前，是首先执行`go get`命令，先下载依赖。比如 `github.com/labstack/echo`
+
+**使用 replace 替换无法直接获取的 package：**
+
+由于某些已知的原因，并不是所有的 package 都能成功下载，比如：golang.org 下的包。
+
+modules 可以通过在 go.mod 文件中使用 replace 指令替换成 github 上对应的库，比如：
+
+~~~go
+replace (
+    golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a => github.com/golang/crypto v0.0.0-20190313024323-a1f597ede03a
+)
+~~~
+
+或者
+
+~~~go
+replace golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a => github.com/golang/crypto v0.0.0-20190313024323-a1f597ede03a
+~~~
+
+> `go install`命令将项目打包安装为可执行文件，在安装在GOPATH的bin目录下，go install执行的项目 必须有main方法
 
 ### 2、GOPROXY
 
