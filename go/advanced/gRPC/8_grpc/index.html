@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>8、gRPC基础实战 | east-white</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="east-white&#39;s Blog">
+    
+    <link rel="preload" href="/east-white/assets/css/0.styles.8b454665.css" as="style"><link rel="preload" href="/east-white/assets/js/app.66c0ecb2.js" as="script"><link rel="preload" href="/east-white/assets/js/3.688d5389.js" as="script"><link rel="preload" href="/east-white/assets/js/1.66f91b48.js" as="script"><link rel="preload" href="/east-white/assets/js/49.4b39baf5.js" as="script"><link rel="prefetch" href="/east-white/assets/js/10.90295e74.js"><link rel="prefetch" href="/east-white/assets/js/100.fd613351.js"><link rel="prefetch" href="/east-white/assets/js/101.2f81bcdf.js"><link rel="prefetch" href="/east-white/assets/js/102.4dce3828.js"><link rel="prefetch" href="/east-white/assets/js/103.20d0eb5e.js"><link rel="prefetch" href="/east-white/assets/js/104.d45bfdf7.js"><link rel="prefetch" href="/east-white/assets/js/105.6dfabe59.js"><link rel="prefetch" href="/east-white/assets/js/106.0f9bbcce.js"><link rel="prefetch" href="/east-white/assets/js/107.a90a0f6a.js"><link rel="prefetch" href="/east-white/assets/js/108.9f211e81.js"><link rel="prefetch" href="/east-white/assets/js/109.1da389c6.js"><link rel="prefetch" href="/east-white/assets/js/11.bdf77d8b.js"><link rel="prefetch" href="/east-white/assets/js/110.ef3b7270.js"><link rel="prefetch" href="/east-white/assets/js/111.6515c5bd.js"><link rel="prefetch" href="/east-white/assets/js/112.8ae3f3eb.js"><link rel="prefetch" href="/east-white/assets/js/113.1d042c40.js"><link rel="prefetch" href="/east-white/assets/js/114.f27875f7.js"><link rel="prefetch" href="/east-white/assets/js/115.d03488be.js"><link rel="prefetch" href="/east-white/assets/js/116.d6f6f17e.js"><link rel="prefetch" href="/east-white/assets/js/117.2127938a.js"><link rel="prefetch" href="/east-white/assets/js/118.57f16ef5.js"><link rel="prefetch" href="/east-white/assets/js/119.8180ce9c.js"><link rel="prefetch" href="/east-white/assets/js/12.50cfb5a6.js"><link rel="prefetch" href="/east-white/assets/js/120.3d30999e.js"><link rel="prefetch" href="/east-white/assets/js/121.d4070915.js"><link rel="prefetch" href="/east-white/assets/js/122.2d3a08f6.js"><link rel="prefetch" href="/east-white/assets/js/123.2080f2dc.js"><link rel="prefetch" href="/east-white/assets/js/124.7523b048.js"><link rel="prefetch" href="/east-white/assets/js/125.32baddcf.js"><link rel="prefetch" href="/east-white/assets/js/126.f58d8453.js"><link rel="prefetch" href="/east-white/assets/js/127.8754d2b9.js"><link rel="prefetch" href="/east-white/assets/js/128.ed017e44.js"><link rel="prefetch" href="/east-white/assets/js/129.8a96087f.js"><link rel="prefetch" href="/east-white/assets/js/13.28a7ca23.js"><link rel="prefetch" href="/east-white/assets/js/130.7351ec6e.js"><link rel="prefetch" href="/east-white/assets/js/131.718b5b67.js"><link rel="prefetch" href="/east-white/assets/js/132.fca97ffc.js"><link rel="prefetch" href="/east-white/assets/js/133.bf9ae844.js"><link rel="prefetch" href="/east-white/assets/js/134.e5e49426.js"><link rel="prefetch" href="/east-white/assets/js/135.9fe6b311.js"><link rel="prefetch" href="/east-white/assets/js/136.f81faeac.js"><link rel="prefetch" href="/east-white/assets/js/137.89d42e06.js"><link rel="prefetch" href="/east-white/assets/js/138.cfd98542.js"><link rel="prefetch" href="/east-white/assets/js/139.0df86252.js"><link rel="prefetch" href="/east-white/assets/js/14.aa2ea755.js"><link rel="prefetch" href="/east-white/assets/js/140.8766eeef.js"><link rel="prefetch" href="/east-white/assets/js/141.f8c8c45a.js"><link rel="prefetch" href="/east-white/assets/js/142.e5da7edb.js"><link rel="prefetch" href="/east-white/assets/js/143.556b2a20.js"><link rel="prefetch" href="/east-white/assets/js/144.a3789514.js"><link rel="prefetch" href="/east-white/assets/js/145.383361ee.js"><link rel="prefetch" href="/east-white/assets/js/146.304e5f90.js"><link rel="prefetch" href="/east-white/assets/js/147.93106342.js"><link rel="prefetch" href="/east-white/assets/js/148.39437afb.js"><link rel="prefetch" href="/east-white/assets/js/149.a8eb49d1.js"><link rel="prefetch" href="/east-white/assets/js/15.9dcba448.js"><link rel="prefetch" href="/east-white/assets/js/150.99725288.js"><link rel="prefetch" href="/east-white/assets/js/151.36648ce4.js"><link rel="prefetch" href="/east-white/assets/js/152.c1d051d1.js"><link rel="prefetch" href="/east-white/assets/js/153.36b0ac53.js"><link rel="prefetch" href="/east-white/assets/js/154.a0e15732.js"><link rel="prefetch" href="/east-white/assets/js/155.3b7d510c.js"><link rel="prefetch" href="/east-white/assets/js/156.3774264a.js"><link rel="prefetch" href="/east-white/assets/js/157.994faff1.js"><link rel="prefetch" href="/east-white/assets/js/158.d09f4384.js"><link rel="prefetch" href="/east-white/assets/js/159.1bbf7ffa.js"><link rel="prefetch" href="/east-white/assets/js/16.bff3f4f9.js"><link rel="prefetch" href="/east-white/assets/js/160.54091f09.js"><link rel="prefetch" href="/east-white/assets/js/161.f78ede8d.js"><link rel="prefetch" href="/east-white/assets/js/162.4edfb0dd.js"><link rel="prefetch" href="/east-white/assets/js/163.6b5ecedb.js"><link rel="prefetch" href="/east-white/assets/js/164.93663ec4.js"><link rel="prefetch" href="/east-white/assets/js/165.7d3d6224.js"><link rel="prefetch" href="/east-white/assets/js/166.480586c3.js"><link rel="prefetch" href="/east-white/assets/js/167.f391f39e.js"><link rel="prefetch" href="/east-white/assets/js/168.f616ef23.js"><link rel="prefetch" href="/east-white/assets/js/169.3ee0114e.js"><link rel="prefetch" href="/east-white/assets/js/17.3bc44ae8.js"><link rel="prefetch" href="/east-white/assets/js/170.75020e42.js"><link rel="prefetch" href="/east-white/assets/js/171.3aad072c.js"><link rel="prefetch" href="/east-white/assets/js/172.0572dbc9.js"><link rel="prefetch" href="/east-white/assets/js/173.446e9807.js"><link rel="prefetch" href="/east-white/assets/js/174.5938e6a9.js"><link rel="prefetch" href="/east-white/assets/js/175.70f6f39d.js"><link rel="prefetch" href="/east-white/assets/js/176.addb9207.js"><link rel="prefetch" href="/east-white/assets/js/177.d32546cc.js"><link rel="prefetch" href="/east-white/assets/js/178.373fd62e.js"><link rel="prefetch" href="/east-white/assets/js/179.4611766c.js"><link rel="prefetch" href="/east-white/assets/js/18.7217c230.js"><link rel="prefetch" href="/east-white/assets/js/180.96a53152.js"><link rel="prefetch" href="/east-white/assets/js/181.d1272d5d.js"><link rel="prefetch" href="/east-white/assets/js/182.0117730f.js"><link rel="prefetch" href="/east-white/assets/js/183.c053e26d.js"><link rel="prefetch" href="/east-white/assets/js/184.69d97c74.js"><link rel="prefetch" href="/east-white/assets/js/185.265792c0.js"><link rel="prefetch" href="/east-white/assets/js/186.730ac08e.js"><link rel="prefetch" href="/east-white/assets/js/187.862b3b5b.js"><link rel="prefetch" href="/east-white/assets/js/188.377e6bae.js"><link rel="prefetch" href="/east-white/assets/js/189.a35aee38.js"><link rel="prefetch" href="/east-white/assets/js/19.8f0aea91.js"><link rel="prefetch" href="/east-white/assets/js/190.ac1adb8f.js"><link rel="prefetch" href="/east-white/assets/js/191.3b423e92.js"><link rel="prefetch" href="/east-white/assets/js/192.ea2ffc5d.js"><link rel="prefetch" href="/east-white/assets/js/193.8f88d54d.js"><link rel="prefetch" href="/east-white/assets/js/194.1b6adb54.js"><link rel="prefetch" href="/east-white/assets/js/195.48d5e9cc.js"><link rel="prefetch" href="/east-white/assets/js/196.36dbf938.js"><link rel="prefetch" href="/east-white/assets/js/20.f9263f99.js"><link rel="prefetch" href="/east-white/assets/js/21.b4dd0644.js"><link rel="prefetch" href="/east-white/assets/js/22.9807b31f.js"><link rel="prefetch" href="/east-white/assets/js/23.3bab2446.js"><link rel="prefetch" href="/east-white/assets/js/24.373e85fb.js"><link rel="prefetch" href="/east-white/assets/js/25.212a3d96.js"><link rel="prefetch" href="/east-white/assets/js/26.af082478.js"><link rel="prefetch" href="/east-white/assets/js/27.84f456f8.js"><link rel="prefetch" href="/east-white/assets/js/28.49f34d1c.js"><link rel="prefetch" href="/east-white/assets/js/29.3ba03f3e.js"><link rel="prefetch" href="/east-white/assets/js/30.769fb56c.js"><link rel="prefetch" href="/east-white/assets/js/31.a6b6994f.js"><link rel="prefetch" href="/east-white/assets/js/32.fa908d36.js"><link rel="prefetch" href="/east-white/assets/js/33.689123b5.js"><link rel="prefetch" href="/east-white/assets/js/34.42fe46e8.js"><link rel="prefetch" href="/east-white/assets/js/35.430c8c19.js"><link rel="prefetch" href="/east-white/assets/js/36.1bb20e4f.js"><link rel="prefetch" href="/east-white/assets/js/37.9d2007e5.js"><link rel="prefetch" href="/east-white/assets/js/38.37058a56.js"><link rel="prefetch" href="/east-white/assets/js/39.cf329565.js"><link rel="prefetch" href="/east-white/assets/js/4.2fc4b380.js"><link rel="prefetch" href="/east-white/assets/js/40.3e3d4327.js"><link rel="prefetch" href="/east-white/assets/js/41.7aeaa974.js"><link rel="prefetch" href="/east-white/assets/js/42.2b7e1b2a.js"><link rel="prefetch" href="/east-white/assets/js/43.67402789.js"><link rel="prefetch" href="/east-white/assets/js/44.0a198c19.js"><link rel="prefetch" href="/east-white/assets/js/45.4defb6d8.js"><link rel="prefetch" href="/east-white/assets/js/46.7f3e0779.js"><link rel="prefetch" href="/east-white/assets/js/47.020580cc.js"><link rel="prefetch" href="/east-white/assets/js/48.6b4a082c.js"><link rel="prefetch" href="/east-white/assets/js/5.a026df5a.js"><link rel="prefetch" href="/east-white/assets/js/50.f72b3134.js"><link rel="prefetch" href="/east-white/assets/js/51.7e8e244f.js"><link rel="prefetch" href="/east-white/assets/js/52.26d293dd.js"><link rel="prefetch" href="/east-white/assets/js/53.3065c6fa.js"><link rel="prefetch" href="/east-white/assets/js/54.230bd290.js"><link rel="prefetch" href="/east-white/assets/js/55.ff844624.js"><link rel="prefetch" href="/east-white/assets/js/56.d0640c5b.js"><link rel="prefetch" href="/east-white/assets/js/57.4f07fee8.js"><link rel="prefetch" href="/east-white/assets/js/58.57e15989.js"><link rel="prefetch" href="/east-white/assets/js/59.ae0195a0.js"><link rel="prefetch" href="/east-white/assets/js/6.30fc13ff.js"><link rel="prefetch" href="/east-white/assets/js/60.5b1c572e.js"><link rel="prefetch" href="/east-white/assets/js/61.61db7a25.js"><link rel="prefetch" href="/east-white/assets/js/62.c5b337b8.js"><link rel="prefetch" href="/east-white/assets/js/63.281fd1b4.js"><link rel="prefetch" href="/east-white/assets/js/64.b4f130d6.js"><link rel="prefetch" href="/east-white/assets/js/65.953ee5f7.js"><link rel="prefetch" href="/east-white/assets/js/66.0f7ebfea.js"><link rel="prefetch" href="/east-white/assets/js/67.0d5ee134.js"><link rel="prefetch" href="/east-white/assets/js/68.07467129.js"><link rel="prefetch" href="/east-white/assets/js/69.6d6b18a4.js"><link rel="prefetch" href="/east-white/assets/js/7.93a0a8f4.js"><link rel="prefetch" href="/east-white/assets/js/70.1f81162a.js"><link rel="prefetch" href="/east-white/assets/js/71.9c22b026.js"><link rel="prefetch" href="/east-white/assets/js/72.1aead595.js"><link rel="prefetch" href="/east-white/assets/js/73.9c504f82.js"><link rel="prefetch" href="/east-white/assets/js/74.ae863fb3.js"><link rel="prefetch" href="/east-white/assets/js/75.77b22ea3.js"><link rel="prefetch" href="/east-white/assets/js/76.3fb3e486.js"><link rel="prefetch" href="/east-white/assets/js/77.aaa2bb5d.js"><link rel="prefetch" href="/east-white/assets/js/78.ff8f12c6.js"><link rel="prefetch" href="/east-white/assets/js/79.be497966.js"><link rel="prefetch" href="/east-white/assets/js/8.a5a8db2f.js"><link rel="prefetch" href="/east-white/assets/js/80.58edd302.js"><link rel="prefetch" href="/east-white/assets/js/81.d9a83954.js"><link rel="prefetch" href="/east-white/assets/js/82.ea1b1ee7.js"><link rel="prefetch" href="/east-white/assets/js/83.0480b8eb.js"><link rel="prefetch" href="/east-white/assets/js/84.b6608fc3.js"><link rel="prefetch" href="/east-white/assets/js/85.dfbc6855.js"><link rel="prefetch" href="/east-white/assets/js/86.fdf8fc7e.js"><link rel="prefetch" href="/east-white/assets/js/87.45b4397e.js"><link rel="prefetch" href="/east-white/assets/js/88.87fd2edc.js"><link rel="prefetch" href="/east-white/assets/js/89.d96587d6.js"><link rel="prefetch" href="/east-white/assets/js/9.e6aa4f2a.js"><link rel="prefetch" href="/east-white/assets/js/90.f17e0868.js"><link rel="prefetch" href="/east-white/assets/js/91.9fd183a0.js"><link rel="prefetch" href="/east-white/assets/js/92.91d6817c.js"><link rel="prefetch" href="/east-white/assets/js/93.92cd98a0.js"><link rel="prefetch" href="/east-white/assets/js/94.320bb5f5.js"><link rel="prefetch" href="/east-white/assets/js/95.11c60ecb.js"><link rel="prefetch" href="/east-white/assets/js/96.51aad249.js"><link rel="prefetch" href="/east-white/assets/js/97.b42573c1.js"><link rel="prefetch" href="/east-white/assets/js/98.d5b115f6.js"><link rel="prefetch" href="/east-white/assets/js/99.6c49b2de.js">
+    <link rel="stylesheet" href="/east-white/assets/css/0.styles.8b454665.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>east-white</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>east-white's Blog</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/east-white/" class="home-link router-link-active"><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/logo.png" alt="east-white" class="logo"> <span class="site-name">east-white</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link router-link-active"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><!----> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>184</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>0</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link router-link-active"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>gRPC</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/east-white/go/advanced/gRPC/1_preface/" class="sidebar-link">1、ProtoBuf</a></li><li><a href="/east-white/go/advanced/gRPC/2_proto2/" class="sidebar-link">2、proto2</a></li><li><a href="/east-white/go/advanced/gRPC/3_proto3/" class="sidebar-link">3、proto3</a></li><li><a href="/east-white/go/advanced/gRPC/4_style/" class="sidebar-link">4、风格指南</a></li><li><a href="/east-white/go/advanced/gRPC/5_code/" class="sidebar-link">5、编码</a></li><li><a href="/east-white/go/advanced/gRPC/6_techniques/" class="sidebar-link">6、技术</a></li><li><a href="/east-white/go/advanced/gRPC/8_grpc/" aria-current="page" class="active sidebar-link">8、gRPC基础实战</a></li><li><a href="/east-white/go/advanced/gRPC/9_token/" class="sidebar-link">gRPC中的Token认证</a></li><li><a href="/east-white/go/advanced/gRPC/10_grpc_tls/" class="sidebar-link">gRPC中的TLS认证</a></li><li><a href="/east-white/go/advanced/gRPC/11_middleware/" class="sidebar-link">gRPC中的截取器</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>微服务</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>8、gRPC基础实战</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">8、gRPC基础实战</h1> <div data-v-f875f3fc><!----> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default"><h1 id="grpc基础实战"><a href="#grpc基础实战" class="header-anchor">#</a> gRPC基础实战</h1> <h2 id="一、什么是rpc"><a href="#一、什么是rpc" class="header-anchor">#</a> 一、什么是RPC？</h2> <p>首先，什么是RPC？</p> <p>RPC简称远程过程调用，是一个用于构建基于Client和Server分布式应用程序的技术。目前业界已经有了很多的框架能够用来构建基于RPC的分布式应用，例如SpringBoot，Dubbo和gRPC。</p> <p>RPC 标准最早是由Bruce Jay Nelson 写的论文 <a href="http://www.cs.cmu.edu/~dga/15-712/F07/papers/birrell842.pdf" target="_blank" rel="noopener noreferrer">Implementing Remote Procedure Calls<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>中提出的，后期的所有的RPC框架都是在这个标准模式的基础上构建出来的。</p> <p><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/image-20220517184741846.png" alt="image-20220517184741846"></p> <p>具体的执行过程就是下面这个样子</p> <ul><li>客户端发起一个远程调用,它实际上是调用本地的Client Stub</li> <li>Client Stub 将接受到的参数进行按照约定的协议规范进行编码，并封装到即将发送的Message中。</li> <li>Client Stub 将消息发送给RPC Runtime，然后通过网络将包 发送给Server端</li> <li>服务器端的 RPCRuntime 收到请求后，交给提供方 Stub 进行解码，然后调用服务端的方法， 服务端执行方法，返回结果</li> <li>服务端的处理结果 同样再经过Server Stub 打包，然后传递给RPC Runtime。</li> <li>服务端的RPC Runtime再把数据通过网络发送给Client端。</li> <li>Client 端接收到消息，然后进行Unpack，处理</li></ul> <p>在gRPC中，客户端应用程序可以直接调用不同计算机上的服务应用程序上的方法，就像它是本地对象一样，使我们可以更轻松地创建分布式应用程序和服务。 与许多RPC系统一样，gRPC基于定义服务的思想，指定可以使用其参数和返回类型远程调用的方法。 在服务器端,服务端实现此接口并运行gRPC服务来处理客户端调用。 在客户端，客户端有一个存根（在某些语言中称为客户端），它提供与服务器相同的方法。服务端与客户端一一对应。</p> <p><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/image-20220517184957372.png" alt="image-20220517184957372"></p> <p>gRPC客户端和服务器可以在各种环境中相互运行和通信 ,并且可以使用任何gRPC支持的语言编写。 因此,我们可以使用Go，Python或Ruby轻松创建Java中的gRPC服务器。 此外，最新的Google API将具有gRPC版本的接口，我们可以轻松地在应用程序中构建Google功能。</p> <h3 id="_1、http-1-1-vs-http-2-0"><a href="#_1、http-1-1-vs-http-2-0" class="header-anchor">#</a> 1、HTTP 1.1 VS HTTP 2.0</h3> <p>首先，我们来直观的体验一下HTTP2.0 。 <a href="https://http2.akamai.com/demo" target="_blank" rel="noopener noreferrer">HTTP/2 is the future of the Web, and it is here!<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> Akamai 公司 建立了一个在线的演示，可以直观的感受HTTP1.1与HTTP2.0的差距。</p> <p>下面是查阅的一些资料，获取能让我们明白具体什么是HTTP2.0,以及它与HTTP1.1的区别。</p> <ul><li><a href="https://http2.github.io/" target="_blank" rel="noopener noreferrer">HTTP/2<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://httpwg.org/specs/rfc7540.html" target="_blank" rel="noopener noreferrer">Hypertext Transfer Protocol Version 2 (HTTP/2)(rfc7540)<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn" target="_blank" rel="noopener noreferrer">HTTP/2 简介<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>[http2讲解]https://ye11ow.gitbooks.io/http2-explained/content/</li> <li><a href="https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md" target="_blank" rel="noopener noreferrer">gRPC over HTTP2<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h3 id="_2、grpc基于http-2的优缺点"><a href="#_2、grpc基于http-2的优缺点" class="header-anchor">#</a> 2、gRPC基于HTTP/2的优缺点</h3> <p><strong>优点</strong></p> <ul><li>HTTP/2是一个经过实践检验的公开的标准</li> <li>天然支持手机、物联网、浏览器</li> <li>多语言实现容易，每种流行的编程语言都有自己的HTTP/2 Client</li> <li>HTTP/2支持Stream和流控</li> <li>基于HTTP/2 在Gateway/Proxy很容易支持</li> <li>HTTP/2 安全性有保证</li> <li>HTTP/2 鉴权成熟</li></ul> <p><strong>缺点</strong></p> <ul><li>rpc的元数据的传输不够高效</li> <li>HTTP/2 里一次gRPC调用需要解码两次,一次是HEADERS frame，一次是DATA frame</li> <li>HTTP/2 标准本身是只有一个TCP连接，但是实际在gRPC里是会有多个TCP连接，使用时需要注意</li></ul> <p>gRPC主要有4种请求和响应模式，分别是简单模式(Simple RPC)、服务端流式（Server-side streaming RPC）、客户端流式（Client-side streaming RPC）、和双向流式（Bidirectional streaming RPC）。</p> <ul><li>简单模式(Simple RPC)：客户端发起请求并等待服务端响应。</li> <li>服务端流式（Server-side streaming RPC）：客户端发送请求到服务器，拿到一个流去读取返回的消息序列。 客户端读取返回的流，直到里面没有任何消息。</li> <li>客户端流式（Client-side streaming RPC）：与服务端数据流模式相反，这次是客户端源源不断的向服务端发送数据流，而在发送结束后，由服务端返回一个响应。</li> <li>双向流式（Bidirectional streaming RPC）：双方使用读写流去发送一个消息序列，两个流独立操作，双方可以同时发送和同时接收。</li></ul> <h2 id="二、前置准备"><a href="#二、前置准备" class="header-anchor">#</a> 二、前置准备</h2> <h3 id="_1、安装protoc"><a href="#_1、安装protoc" class="header-anchor">#</a> 1、安装<code>protoc</code></h3> <blockquote><p>下面示例是在<code>mac环境</code>中安装。</p></blockquote> <div class="language-go extra-class"><pre class="language-go"><code># 安装
+➜ brew install protobuf
+# 查看安装后版本
+➜ protoc <span class="token operator">--</span>version
+libprotoc <span class="token number">3.17</span><span class="token number">.3</span>
+</code></pre></div><h3 id="_2、安装插件"><a href="#_2、安装插件" class="header-anchor">#</a> 2、安装插件</h3> <blockquote><p><strong>安装插件的目的是为了将<code>protobuf</code>文件，生成<code>Go</code>代码</strong></p></blockquote> <div class="language-go extra-class"><pre class="language-go"><code>$ <span class="token keyword">go</span> install google<span class="token punctuation">.</span>golang<span class="token punctuation">.</span>org<span class="token operator">/</span>protobuf<span class="token operator">/</span>cmd<span class="token operator">/</span>protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span>@v1<span class="token punctuation">.</span><span class="token number">26</span>
+$ <span class="token keyword">go</span> install google<span class="token punctuation">.</span>golang<span class="token punctuation">.</span>org<span class="token operator">/</span>grpc<span class="token operator">/</span>cmd<span class="token operator">/</span>protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span><span class="token operator">-</span>grpc@v1<span class="token punctuation">.</span><span class="token number">1</span>
+</code></pre></div><h3 id="_3、设置插件环境变量"><a href="#_3、设置插件环境变量" class="header-anchor">#</a> 3、设置插件环境变量</h3> <div class="language-go extra-class"><pre class="language-go"><code>$ export PATH<span class="token operator">=</span><span class="token string">&quot;$PATH:$(go env GOPATH)/bin&quot;</span>
+</code></pre></div><h3 id="_4、验证插件是否成功"><a href="#_4、验证插件是否成功" class="header-anchor">#</a> 4、验证插件是否成功</h3> <div class="language-go extra-class"><pre class="language-go"><code>Bash
+# 查看protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span>版本
+$ protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span> <span class="token operator">--</span>version                                      
+protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span> v1<span class="token punctuation">.</span><span class="token number">26.0</span>
+
+# 查看protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span><span class="token operator">-</span>grpc版本
+$ protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span><span class="token operator">-</span>grpc <span class="token operator">--</span>version
+protoc<span class="token operator">-</span>gen<span class="token operator">-</span><span class="token keyword">go</span><span class="token operator">-</span>grpc <span class="token number">1.1</span><span class="token number">.0</span>
+</code></pre></div><h2 id="三、简单模式"><a href="#三、简单模式" class="header-anchor">#</a> 三、简单模式</h2> <p>本demo项目结构如下:</p> <div class="language-go extra-class"><pre class="language-go"><code>helloworld<span class="token operator">/</span>
+├── client<span class="token punctuation">.</span><span class="token keyword">go</span> <span class="token operator">-</span> 客户端代码
+├── <span class="token keyword">go</span><span class="token punctuation">.</span>mod  <span class="token operator">-</span> <span class="token keyword">go</span>模块配置文件
+├── proto     <span class="token operator">-</span> 协议目录
+│   ├── helloworld<span class="token punctuation">.</span>pb<span class="token punctuation">.</span><span class="token keyword">go</span> <span class="token operator">-</span> rpc协议<span class="token keyword">go</span>版本代码
+│   └── helloworld<span class="token punctuation">.</span>proto <span class="token operator">-</span> rpc协议文件
+└── server<span class="token punctuation">.</span><span class="token keyword">go</span>  <span class="token operator">-</span> rpc服务端代码
+</code></pre></div><p>初始化命令如下：</p> <div class="language-go extra-class"><pre class="language-go"><code># 创建项目目录
+mkdir helloworld
+# 切换到项目目录
+cd helloworld
+# 创建RPC协议目录
+mkdir proto
+# 初始化<span class="token keyword">go</span>模块配置，用来管理第三方依赖
+<span class="token keyword">go</span> mod init 
+</code></pre></div><h3 id="_1、定义服务"><a href="#_1、定义服务" class="header-anchor">#</a> 1、定义服务</h3> <p>其实就是通过 <code>protobuf</code> 语法定义语言平台无关的接口。 文件: <code>helloworld/proto/helloworld.proto</code></p> <div class="language-go extra-class"><pre class="language-go"><code>syntax <span class="token operator">=</span> <span class="token string">&quot;proto3&quot;</span><span class="token punctuation">;</span>
+
+<span class="token comment">//option go_package = &quot;path;name&quot;;</span>
+<span class="token comment">//path 表示生成的go文件的存放地址，会自动生成目录的。</span>
+<span class="token comment">//name 表示生成的go文件所属的包名</span>
+option go_package<span class="token operator">=</span><span class="token string">&quot;./;proto&quot;</span><span class="token punctuation">;</span>
+<span class="token comment">// 定义包名</span>
+<span class="token keyword">package</span> proto<span class="token punctuation">;</span>
+
+<span class="token comment">// 定义Greeter服务</span>
+service Greeter <span class="token punctuation">{</span>
+  <span class="token comment">// 定义SayHello方法，接受HelloRequest消息， 并返回HelloReply消息</span>
+  rpc SayHello <span class="token punctuation">(</span>HelloRequest<span class="token punctuation">)</span> returns <span class="token punctuation">(</span>HelloReply<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义HelloRequest消息</span>
+message HelloRequest <span class="token punctuation">{</span>
+  <span class="token comment">// name字段</span>
+  <span class="token builtin">string</span> name <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义HelloReply消息</span>
+message HelloReply <span class="token punctuation">{</span>
+  <span class="token comment">// message字段</span>
+  <span class="token builtin">string</span> message <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2、编译命令"><a href="#_2、编译命令" class="header-anchor">#</a> 2、编译命令</h3> <div class="language-go extra-class"><pre class="language-go"><code>$ protoc <span class="token operator">--</span>proto_path<span class="token operator">=</span>IMPORT_PATH  <span class="token operator">--</span>go_out<span class="token operator">=</span>OUT_DIR  <span class="token operator">--</span>go_opt<span class="token operator">=</span>paths<span class="token operator">=</span>source_relative path<span class="token operator">/</span>to<span class="token operator">/</span>file<span class="token punctuation">.</span>proto
+</code></pre></div><p>这里简单介绍一下 golang 的编译姿势:</p> <ul><li><p><code>proto_path</code> 或者 <code>-I</code> ：指定 <code>import</code> 路径，可以指定多个参数，编译时按顺序查找，不指定时默认查找当前目录。</p></li> <li><ul><li><code>proto</code> 文件中也可以引入其他 <code>.proto</code> 文件，这里主要用于指定被引入文件的位置。</li></ul></li> <li><p><code>go_out</code>：<code>golang</code> 编译支持，指定输出文件路径</p></li> <li><p><code>go_opt</code>：指定参数，比如 <code>--go_opt=paths=source_relative</code> 就是表明生成文件输出使用相对路径。</p></li> <li><p><code>path/to/file.proto</code> ：被编译的 <code>.proto</code> 文件放在最后面</p></li></ul> <p>上面通过 <code>proto</code> 定义的接口，没法直接在代码中使用，因此需要通过 <code>protoc</code> 编译器，将 <code>proto</code> 协议文件，编译成go语言代码。 在我们的demo中,按如下命令进行编译:</p> <div class="language-go extra-class"><pre class="language-go"><code># 切换到helloworld项目根目录，执行命令
+<span class="token comment">// 老版本的命令</span>
+$ protoc <span class="token operator">-</span>I proto<span class="token operator">/</span> <span class="token operator">--</span>go_out<span class="token operator">=</span>plugins<span class="token operator">=</span>grpc<span class="token punctuation">:</span>proto proto<span class="token operator">/</span>helloworld<span class="token punctuation">.</span>proto
+<span class="token comment">/* 如果输入上述编译命令，出现如下报错，就使用新版本的命令
+--go_out: protoc-gen-go: plugins are not supported; use 'protoc --go-grpc_out=...' to generate gRPC
+See https://grpc.io/docs/languages/go/quickstart/#regenerate-grpc-code for more information.
+*/</span>
+
+<span class="token comment">// 新版本的命令</span>
+$ protoc <span class="token operator">--</span>go_out<span class="token operator">=</span><span class="token punctuation">.</span> <span class="token operator">--</span>go_opt<span class="token operator">=</span>paths<span class="token operator">=</span>source_relative <span class="token operator">--</span><span class="token keyword">go</span><span class="token operator">-</span>grpc_out<span class="token operator">=</span><span class="token punctuation">.</span> <span class="token operator">--</span><span class="token keyword">go</span><span class="token operator">-</span>grpc_opt<span class="token operator">=</span>paths<span class="token operator">=</span>source_relative proto<span class="token operator">/</span>helloworld<span class="token punctuation">.</span>proto 
+
+<span class="token comment">// 太长也可以用反斜杠分割</span>
+$ protoc <span class="token operator">--</span>go_out<span class="token operator">=</span><span class="token punctuation">.</span> <span class="token operator">--</span>go_opt<span class="token operator">=</span>paths<span class="token operator">=</span>source_relative \
+    <span class="token operator">--</span><span class="token keyword">go</span><span class="token operator">-</span>grpc_out<span class="token operator">=</span><span class="token punctuation">.</span> <span class="token operator">--</span><span class="token keyword">go</span><span class="token operator">-</span>grpc_opt<span class="token operator">=</span>paths<span class="token operator">=</span>source_relative \
+    proto<span class="token operator">/</span>helloworld<span class="token punctuation">.</span>proto
+
+<span class="token comment">// 甚至可以简单一点</span>
+$ protoc <span class="token operator">--</span><span class="token keyword">go</span><span class="token operator">-</span>grpc_out<span class="token operator">=</span><span class="token punctuation">.</span> <span class="token operator">--</span>go_out<span class="token operator">=</span><span class="token punctuation">.</span> proto<span class="token operator">/</span>helloworld<span class="token punctuation">.</span>proto
+</code></pre></div><p><code>protoc</code> 命令参数说明:</p> <ul><li><code>-I</code> 指定代码输出目录，忽略服务定义的包名，否则会根据包名创建目录</li> <li><code>--go_out</code> 指定代码输出目录，格式：<code>--go_out=plugins=grpc:</code> 目录名</li> <li>命令最后面的参数是 <code>proto</code> 协议文件 编译成功后在 <code>proto</code>目录生成了<code>helloworld.pb.go</code>文件，里面包含了，我们的服务和接口定义。</li></ul> <h3 id="_3、实现服务端代码"><a href="#_3、实现服务端代码" class="header-anchor">#</a> 3、<strong>实现服务端代码</strong></h3> <p>文件:<code>helloworld/server.go</code></p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">/*
+ *
+ * Copyright 2015 gRPC authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */</span>
+
+<span class="token comment">// Package main implements a server for Greeter service.</span>
+<span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;context&quot;</span>
+	<span class="token string">&quot;flag&quot;</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;google.golang.org/grpc/reflection&quot;</span>
+	<span class="token string">&quot;log&quot;</span>
+	<span class="token string">&quot;net&quot;</span>
+
+	<span class="token string">&quot;google.golang.org/grpc&quot;</span>
+	pb <span class="token string">&quot;grpc_demo/proto&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+	port <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">Int</span><span class="token punctuation">(</span><span class="token string">&quot;port&quot;</span><span class="token punctuation">,</span> <span class="token number">50051</span><span class="token punctuation">,</span> <span class="token string">&quot;The server port&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 定义server，用来实现proto文件，里面实现的Greeter服务里面的接口</span>
+<span class="token keyword">type</span> server <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	pb<span class="token punctuation">.</span>UnimplementedGreeterServer
+<span class="token punctuation">}</span>
+
+<span class="token comment">// SayHello 实现SayHello接口</span>
+<span class="token comment">// 第一个参数是上下文参数，所有接口默认都要必填</span>
+<span class="token comment">// 第二个参数是我们定义的HelloRequest消息</span>
+<span class="token comment">// 返回值是我们定义的HelloReply消息，error返回值也是必须的。</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>server<span class="token punctuation">)</span> <span class="token function">SayHello</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> in <span class="token operator">*</span>pb<span class="token punctuation">.</span>HelloRequest<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>pb<span class="token punctuation">.</span>HelloReply<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;Received: %v&quot;</span><span class="token punctuation">,</span> in<span class="token punctuation">.</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token comment">// 创建一个HelloReply消息，设置Message字段，然后直接返回。</span>
+	<span class="token keyword">return</span> <span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>HelloReply<span class="token punctuation">{</span>Message<span class="token punctuation">:</span> <span class="token string">&quot;Hello &quot;</span> <span class="token operator">+</span> in<span class="token punctuation">.</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// 监听127.0.0.1:50051地址</span>
+	lis<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span><span class="token string">&quot;tcp&quot;</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;:%d&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;failed to listen: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// 1.实例化grpc服务端</span>
+	s <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// 2.注册Greeter服务</span>
+	pb<span class="token punctuation">.</span><span class="token function">RegisterGreeterServer</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token operator">&amp;</span>server<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+	log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;server listening at %v&quot;</span><span class="token punctuation">,</span> lis<span class="token punctuation">.</span><span class="token function">Addr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 3.往grpc服务端注册反射服务</span>
+	reflection<span class="token punctuation">.</span><span class="token function">Register</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+
+	<span class="token comment">// 4.启动grpc服务</span>
+	<span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;failed to serve: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>运行:</p> <div class="language-go extra-class"><pre class="language-go"><code># 切换到项目根目录，运行命令
+<span class="token keyword">go</span> run server<span class="token punctuation">.</span><span class="token keyword">go</span>
+</code></pre></div><h3 id="_4、客户端代码"><a href="#_4、客户端代码" class="header-anchor">#</a> 4、<strong>客户端代码</strong></h3> <p>文件：helloworld/client.go</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">/*
+ *
+ * Copyright 2015 gRPC authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */</span>
+
+<span class="token comment">// Package main implements a client for Greeter service.</span>
+<span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;context&quot;</span>
+	<span class="token string">&quot;flag&quot;</span>
+	<span class="token string">&quot;log&quot;</span>
+	<span class="token string">&quot;time&quot;</span>
+
+	<span class="token string">&quot;google.golang.org/grpc&quot;</span>
+	<span class="token string">&quot;google.golang.org/grpc/credentials/insecure&quot;</span>
+	pb <span class="token string">&quot;grpc_demo/proto&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+	defaultName <span class="token operator">=</span> <span class="token string">&quot;world&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+	addr <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;addr&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;localhost:50051&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;the address to connect to&quot;</span><span class="token punctuation">)</span>
+	name <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;name&quot;</span><span class="token punctuation">,</span> defaultName<span class="token punctuation">,</span> <span class="token string">&quot;Name to greet&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// 1.连接grpc服务器</span>
+	conn<span class="token punctuation">,</span> err <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span><span class="token operator">*</span>addr<span class="token punctuation">,</span> grpc<span class="token punctuation">.</span><span class="token function">WithTransportCredentials</span><span class="token punctuation">(</span>insecure<span class="token punctuation">.</span><span class="token function">NewCredentials</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;did not connect: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// 延迟关闭连接</span>
+	<span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// 2.初始化Greeter服务客户端</span>
+	c <span class="token operator">:=</span> pb<span class="token punctuation">.</span><span class="token function">NewGreeterClient</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+
+	<span class="token comment">// 3.初始化上下文，设置请求超时时间为1秒</span>
+	ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithTimeout</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
+	<span class="token comment">// 延迟关闭请求会话</span>
+	<span class="token keyword">defer</span> <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 4.调用SayHello接口，发送一条消息</span>
+	r<span class="token punctuation">,</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">SayHello</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>HelloRequest<span class="token punctuation">{</span>Name<span class="token punctuation">:</span> <span class="token operator">*</span>name<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;could not greet: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// 打印服务的返回的消息</span>
+	log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;Greeting: %s&quot;</span><span class="token punctuation">,</span> r<span class="token punctuation">.</span><span class="token function">GetMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>运行:</p> <div class="language-go extra-class"><pre class="language-go"><code># 切换到项目根目录，运行命令
+<span class="token keyword">go</span> run client<span class="token punctuation">.</span><span class="token keyword">go</span>
+
+<span class="token comment">// 就会在控制台输出：</span>
+Greeting<span class="token punctuation">:</span> Hello world
+</code></pre></div><h2 id="四、服务端流式rpc"><a href="#四、服务端流式rpc" class="header-anchor">#</a> 四、<strong>服务端流式RPC</strong></h2> <p>上面的DEMO介绍了简单模式RPC，当数据量大或者需要不断传输数据时候，我们应该使用流式RPC，它允许我们边处理边传输数据。本节先介绍服务端流式RPC。</p> <p><strong>服务端流式RPC</strong>：客户端发送请求到服务器，拿到一个流去读取返回的消息序列。 客户端读取返回的流，直到里面没有任何消息。</p> <p><strong>情景模拟：实时获取股票走势。</strong></p> <ul><li>客户端要获取某原油股的实时走势，客户端发送一个请求</li> <li>服务端实时返回该股票的走势</li></ul> <h3 id="_1、新建proto文件"><a href="#_1、新建proto文件" class="header-anchor">#</a> 1、<strong>新建proto文件</strong></h3> <p>新建server_stream.proto文件</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 定义发送请求信息</span>
+message SimpleRequest<span class="token punctuation">{</span>
+    <span class="token comment">// 定义发送的参数，采用驼峰命名方式，小写加下划线，如：student_name</span>
+    <span class="token comment">// 请求参数</span>
+    <span class="token builtin">string</span> data <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义流式响应信息</span>
+message StreamResponse<span class="token punctuation">{</span>
+    <span class="token comment">// 流式响应数据</span>
+    <span class="token builtin">string</span> stream_value <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//服务端流式rpc，只要在响应数据前添加stream即可</span>
+<span class="token comment">// 定义我们的服务（可定义多个服务,每个服务可定义多个接口）</span>
+service StreamServer<span class="token punctuation">{</span>
+    <span class="token comment">// 服务端流式rpc，在响应数据前添加stream</span>
+    rpc <span class="token function">ListValue</span><span class="token punctuation">(</span>SimpleRequest<span class="token punctuation">)</span><span class="token function">returns</span><span class="token punctuation">(</span>stream StreamResponse<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>编译参考demo部分的编译命令</p> <h3 id="_2、创建server端"><a href="#_2、创建server端" class="header-anchor">#</a> 2、<strong>创建server端</strong></h3> <h4 id="_2-1-定义我们的服务-并实现listvalue方法"><a href="#_2-1-定义我们的服务-并实现listvalue方法" class="header-anchor">#</a> 2.1 定义我们的服务，并实现ListValue方法</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// SimpleService 定义我们的服务</span>
+<span class="token keyword">type</span> StreamService <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token comment">// ListValue 实现ListValue方法</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>StreamService<span class="token punctuation">)</span> <span class="token function">ListValue</span><span class="token punctuation">(</span>req <span class="token operator">*</span>pb<span class="token punctuation">.</span>SimpleRequest<span class="token punctuation">,</span> srv pb<span class="token punctuation">.</span>StreamServer_ListValueServer<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+ <span class="token keyword">for</span> n <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> n <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> n<span class="token operator">++</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 向流中发送消息， 默认每次send送消息最大长度为`math.MaxInt32`bytes</span>
+  err <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">Send</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>StreamResponse<span class="token punctuation">{</span>
+   StreamValue<span class="token punctuation">:</span> req<span class="token punctuation">.</span>Data <span class="token operator">+</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> err
+  <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_2-2-启动grpc服务器"><a href="#_2-2-启动grpc服务器" class="header-anchor">#</a> 2.2 启动gRPC服务器</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">const</span> <span class="token punctuation">(</span>
+ <span class="token comment">// Address 监听地址</span>
+ Address <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;:8000&quot;</span>
+ <span class="token comment">// Network 网络通信协议</span>
+ Network <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;tcp&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 监听本地端口</span>
+ listener<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span>Network<span class="token punctuation">,</span> Address<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;net.Listen err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>Address <span class="token operator">+</span> <span class="token string">&quot; net.Listing...&quot;</span><span class="token punctuation">)</span>
+ <span class="token comment">// 新建gRPC服务器实例</span>
+ <span class="token comment">// 默认单次接收最大消息长度为`1024*1024*4`bytes(4M)，单次发送消息最大长度为`math.MaxInt32`bytes</span>
+ <span class="token comment">// grpcServer := grpc.NewServer(grpc.MaxRecvMsgSize(1024*1024*4), grpc.MaxSendMsgSize(math.MaxInt32))</span>
+ grpcServer <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token comment">// 在gRPC服务器注册我们的服务</span>
+ pb<span class="token punctuation">.</span><span class="token function">RegisterStreamServerServer</span><span class="token punctuation">(</span>grpcServer<span class="token punctuation">,</span> <span class="token operator">&amp;</span>StreamService<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+ <span class="token comment">//用服务器 Serve() 方法以及我们的端口信息区实现阻塞等待，直到进程被杀死或者 Stop() 被调用</span>
+ err <span class="token operator">=</span> grpcServer<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;grpcServer.Serve err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_2-3-运行"><a href="#_2-3-运行" class="header-anchor">#</a> 2.3 运行</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">go</span> run server<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token punctuation">:</span><span class="token number">8000</span> net<span class="token punctuation">.</span>Listing<span class="token operator">...</span>
+</code></pre></div><h3 id="_3、创建client端"><a href="#_3、创建client端" class="header-anchor">#</a> 3、<strong>创建client端</strong></h3> <h4 id="_3-1-创建调用服务端listvalue方法"><a href="#_3-1-创建调用服务端listvalue方法" class="header-anchor">#</a> 3.1 创建调用服务端ListValue方法</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// listValue 调用服务端的ListValue方法</span>
+<span class="token keyword">func</span> <span class="token function">listValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 创建发送结构体</span>
+ req <span class="token operator">:=</span> pb<span class="token punctuation">.</span>SimpleRequest<span class="token punctuation">{</span>
+  Data<span class="token punctuation">:</span> <span class="token string">&quot;stream server grpc &quot;</span><span class="token punctuation">,</span>
+ <span class="token punctuation">}</span>
+ <span class="token comment">// 调用我们的服务(ListValue方法)</span>
+ stream<span class="token punctuation">,</span> err <span class="token operator">:=</span> grpcClient<span class="token punctuation">.</span><span class="token function">ListValue</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>req<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Call ListStr err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">for</span> <span class="token punctuation">{</span>
+  <span class="token comment">//Recv() 方法接收服务端消息，默认每次Recv()最大消息长度为`1024*1024*4`bytes(4M)</span>
+  res<span class="token punctuation">,</span> err <span class="token operator">:=</span> stream<span class="token punctuation">.</span><span class="token function">Recv</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// 判断消息流是否已经结束</span>
+  <span class="token keyword">if</span> err <span class="token operator">==</span> io<span class="token punctuation">.</span>EOF <span class="token punctuation">{</span>
+   <span class="token keyword">break</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;ListStr get stream err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 打印返回值</span>
+  log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>StreamValue<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_3-2-启动grpc客户端"><a href="#_3-2-启动grpc客户端" class="header-anchor">#</a> 3.2 启动gRPC客户端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Address 连接地址</span>
+<span class="token keyword">const</span> Address <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;:8000&quot;</span>
+
+<span class="token keyword">var</span> grpcClient pb<span class="token punctuation">.</span>StreamServerClient
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 连接服务器</span>
+ conn<span class="token punctuation">,</span> err <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span>Address<span class="token punctuation">,</span> grpc<span class="token punctuation">.</span><span class="token function">WithInsecure</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;net.Connect err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// 建立gRPC连接</span>
+ grpcClient <span class="token operator">=</span> pb<span class="token punctuation">.</span><span class="token function">NewStreamServerClient</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+ <span class="token function">route</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token function">listValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_3-3-运行客户端"><a href="#_3-3-运行客户端" class="header-anchor">#</a> 3.3 运行客户端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">go</span> run client<span class="token punctuation">.</span><span class="token keyword">go</span>
+stream server grpc <span class="token number">0</span>
+stream server grpc <span class="token number">1</span>
+stream server grpc <span class="token number">2</span>
+stream server grpc <span class="token number">3</span>
+stream server grpc <span class="token number">4</span>
+</code></pre></div><blockquote><p>❝ 客户端不断从服务端获取数据</p></blockquote> <h2 id="五、客户端流式rpc"><a href="#五、客户端流式rpc" class="header-anchor">#</a> 五、<strong>客户端流式RPC</strong></h2> <p>上一节介绍了服务端流式RPC，客户端发送请求到服务器，拿到一个流去读取返回的消息序列。 客户端读取返回的流的数据。本节将介绍客户端流式RPC。</p> <p><strong>客户端流式RPC</strong>：与服务端流式RPC相反，客户端不断的向服务端发送数据流，而在发送结束后，由服务端返回一个响应。</p> <p><strong>情景模拟</strong>：客户端大量数据上传到服务端。</p> <h3 id="_1、新建proto文件-2"><a href="#_1、新建proto文件-2" class="header-anchor">#</a> 1、<strong>新建proto文件</strong></h3> <p>新建client_stream.proto文件</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 定义流式请求信息</span>
+message StreamRequest<span class="token punctuation">{</span>
+    <span class="token comment">//流式请求参数</span>
+    <span class="token builtin">string</span> stream_data <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义响应信息</span>
+message SimpleResponse<span class="token punctuation">{</span>
+    <span class="token comment">//响应码</span>
+    <span class="token builtin">int32</span> code <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">//响应值</span>
+    <span class="token builtin">string</span> value <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment">//客户端流式rpc，只要在请求的参数前添加stream即可</span>
+service StreamClient<span class="token punctuation">{</span>
+    <span class="token comment">// 客户端流式rpc，在请求的参数前添加stream</span>
+    rpc RouteList <span class="token punctuation">(</span>stream StreamRequest<span class="token punctuation">)</span> returns <span class="token punctuation">(</span>SimpleResponse<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>参照demo进行编译。</p> <h3 id="_2、创建server端-2"><a href="#_2、创建server端-2" class="header-anchor">#</a> 2、<strong>创建Server端</strong></h3> <h4 id="_2-1-定义我们的服务-并实现routelist方法"><a href="#_2-1-定义我们的服务-并实现routelist方法" class="header-anchor">#</a> 2.1 定义我们的服务，并实现RouteList方法</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// SimpleService 定义我们的服务</span>
+<span class="token keyword">type</span> SimpleService <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token comment">// RouteList 实现RouteList方法</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>SimpleService<span class="token punctuation">)</span> <span class="token function">RouteList</span><span class="token punctuation">(</span>srv pb<span class="token punctuation">.</span>StreamClient_RouteListServer<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+ <span class="token keyword">for</span> <span class="token punctuation">{</span>
+  <span class="token comment">//从流中获取消息</span>
+  res<span class="token punctuation">,</span> err <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">Recv</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">==</span> io<span class="token punctuation">.</span>EOF <span class="token punctuation">{</span>
+   <span class="token comment">//发送结果，并关闭</span>
+   <span class="token keyword">return</span> srv<span class="token punctuation">.</span><span class="token function">SendAndClose</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>SimpleResponse<span class="token punctuation">{</span>Value<span class="token punctuation">:</span> <span class="token string">&quot;ok&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> err
+  <span class="token punctuation">}</span>
+  log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>StreamData<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_2-2-启动grpc服务器-2"><a href="#_2-2-启动grpc服务器-2" class="header-anchor">#</a> 2.2 启动gRPC服务器</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">const</span> <span class="token punctuation">(</span>
+ <span class="token comment">// Address 监听地址</span>
+ Address <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;:8000&quot;</span>
+ <span class="token comment">// Network 网络通信协议</span>
+ Network <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;tcp&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 监听本地端口</span>
+ listener<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span>Network<span class="token punctuation">,</span> Address<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;net.Listen err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>Address <span class="token operator">+</span> <span class="token string">&quot; net.Listing...&quot;</span><span class="token punctuation">)</span>
+ <span class="token comment">// 新建gRPC服务器实例</span>
+ grpcServer <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token comment">// 在gRPC服务器注册我们的服务</span>
+ pb<span class="token punctuation">.</span><span class="token function">RegisterStreamClientServer</span><span class="token punctuation">(</span>grpcServer<span class="token punctuation">,</span> <span class="token operator">&amp;</span>SimpleService<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+ <span class="token comment">//用服务器 Serve() 方法以及我们的端口信息区实现阻塞等待，直到进程被杀死或者 Stop() 被调用</span>
+ err <span class="token operator">=</span> grpcServer<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;grpcServer.Serve err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_2-3-运行服务端"><a href="#_2-3-运行服务端" class="header-anchor">#</a> 2.3 运行服务端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">go</span> run server<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token punctuation">:</span><span class="token number">8000</span> net<span class="token punctuation">.</span>Listing<span class="token operator">...</span>
+</code></pre></div><h3 id="_3、创建客户端"><a href="#_3、创建客户端" class="header-anchor">#</a> 3、<strong>创建客户端</strong></h3> <h4 id="_3-1-创建调用服务端routelist方法"><a href="#_3-1-创建调用服务端routelist方法" class="header-anchor">#</a> 3.1 创建调用服务端RouteList方法</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// routeList 调用服务端RouteList方法</span>
+<span class="token keyword">func</span> <span class="token function">routeList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">//调用服务端RouteList方法，获流</span>
+ stream<span class="token punctuation">,</span> err <span class="token operator">:=</span> streamClient<span class="token punctuation">.</span><span class="token function">RouteList</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Upload list err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">for</span> n <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> n <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> n<span class="token operator">++</span> <span class="token punctuation">{</span>
+  <span class="token comment">//向流中发送消息</span>
+  err <span class="token operator">:=</span> stream<span class="token punctuation">.</span><span class="token function">Send</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>StreamRequest<span class="token punctuation">{</span>StreamData<span class="token punctuation">:</span> <span class="token string">&quot;stream client rpc &quot;</span> <span class="token operator">+</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;stream request err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+ <span class="token comment">//关闭流并获取返回的消息</span>
+ res<span class="token punctuation">,</span> err <span class="token operator">:=</span> stream<span class="token punctuation">.</span><span class="token function">CloseAndRecv</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;RouteList get response err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_3-2-启动grpc客户端-2"><a href="#_3-2-启动grpc客户端-2" class="header-anchor">#</a> 3.2 启动gRPC客户端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Address 连接地址</span>
+<span class="token keyword">const</span> Address <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;:8000&quot;</span>
+
+<span class="token keyword">var</span> streamClient pb<span class="token punctuation">.</span>StreamClientClient
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 连接服务器</span>
+ conn<span class="token punctuation">,</span> err <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span>Address<span class="token punctuation">,</span> grpc<span class="token punctuation">.</span><span class="token function">WithInsecure</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;net.Connect err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// 建立gRPC连接</span>
+ streamClient <span class="token operator">=</span> pb<span class="token punctuation">.</span><span class="token function">NewStreamClientClient</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+ <span class="token function">routeList</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_3-3-运行客户端-2"><a href="#_3-3-运行客户端-2" class="header-anchor">#</a> 3.3 运行客户端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">go</span> run client<span class="token punctuation">.</span><span class="token keyword">go</span>
+code<span class="token punctuation">:</span><span class="token number">200</span> value<span class="token punctuation">:</span><span class="token string">&quot;hello grpc&quot;</span>
+value<span class="token punctuation">:</span><span class="token string">&quot;ok&quot;</span>
+</code></pre></div><p>服务端不断从客户端获取到数据</p> <div class="language-go extra-class"><pre class="language-go"><code>stream client rpc <span class="token number">0</span>
+stream client rpc <span class="token number">1</span>
+stream client rpc <span class="token number">2</span>
+stream client rpc <span class="token number">3</span>
+stream client rpc <span class="token number">4</span>
+</code></pre></div><h2 id="六、双向流式rpc"><a href="#六、双向流式rpc" class="header-anchor">#</a> 六、<strong>双向流式RPC</strong></h2> <p>上一节介绍了客户端流式RPC，客户端不断的向服务端发送数据流，在发送结束或流关闭后，由服务端返回一个响应。本节将介绍双向流式RPC。</p> <p><strong>双向流式RPC</strong>：客户端和服务端双方使用读写流去发送一个消息序列，两个流独立操作，双方可以同时发送和同时接收。</p> <p><strong>情景模拟</strong>：双方对话（可以一问一答、一问多答、多问一答，形式灵活）。</p> <h3 id="_1、新建proto文件-3"><a href="#_1、新建proto文件-3" class="header-anchor">#</a> 1、<strong>新建proto文件</strong></h3> <p>新建both_stream.proto文件</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 定义流式请求信息</span>
+message StreamRequest<span class="token punctuation">{</span>
+    <span class="token comment">//流请求参数</span>
+    <span class="token builtin">string</span> question <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义流式响应信息</span>
+message StreamResponse<span class="token punctuation">{</span>
+    <span class="token comment">//流响应数据</span>
+    <span class="token builtin">string</span> answer <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment">//双向流式rpc，只要在请求的参数前和响应参数前都添加stream即可</span>
+service Stream<span class="token punctuation">{</span>
+    <span class="token comment">// 双向流式rpc，同时在请求参数前和响应参数前加上stream</span>
+    rpc <span class="token function">Conversations</span><span class="token punctuation">(</span>stream StreamRequest<span class="token punctuation">)</span> <span class="token function">returns</span><span class="token punctuation">(</span>stream StreamResponse<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>编译参照demo部分编译即可。</p> <h3 id="_2、创建server端-3"><a href="#_2、创建server端-3" class="header-anchor">#</a> 2、<strong>创建Server端</strong></h3> <h4 id="_2-1-定义我们的服务"><a href="#_2-1-定义我们的服务" class="header-anchor">#</a> 2.1 定义我们的服务</h4> <p>并实现RouteList方法 这里简单实现对话中一问一答的形式</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// StreamService 定义我们的服务</span>
+<span class="token keyword">type</span> StreamService <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token comment">// Conversations 实现Conversations方法</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>StreamService<span class="token punctuation">)</span> <span class="token function">Conversations</span><span class="token punctuation">(</span>srv pb<span class="token punctuation">.</span>Stream_ConversationsServer<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+ n <span class="token operator">:=</span> <span class="token number">1</span>
+ <span class="token keyword">for</span> <span class="token punctuation">{</span>
+  req<span class="token punctuation">,</span> err <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">Recv</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">==</span> io<span class="token punctuation">.</span>EOF <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> <span class="token boolean">nil</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> err
+  <span class="token punctuation">}</span>
+  err <span class="token operator">=</span> srv<span class="token punctuation">.</span><span class="token function">Send</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>StreamResponse<span class="token punctuation">{</span>
+   Answer<span class="token punctuation">:</span> <span class="token string">&quot;from stream server answer: the &quot;</span> <span class="token operator">+</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot; question is &quot;</span> <span class="token operator">+</span> req<span class="token punctuation">.</span>Question<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> err
+  <span class="token punctuation">}</span>
+  n<span class="token operator">++</span>
+  log<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;from stream client question: %s&quot;</span><span class="token punctuation">,</span> req<span class="token punctuation">.</span>Question<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_2-2-启动grpc服务器-3"><a href="#_2-2-启动grpc服务器-3" class="header-anchor">#</a> 2.2 启动gRPC服务器</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">const</span> <span class="token punctuation">(</span>
+ <span class="token comment">// Address 监听地址</span>
+ Address <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;:8000&quot;</span>
+ <span class="token comment">// Network 网络通信协议</span>
+ Network <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;tcp&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 监听本地端口</span>
+ listener<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span>Network<span class="token punctuation">,</span> Address<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;net.Listen err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>Address <span class="token operator">+</span> <span class="token string">&quot; net.Listing...&quot;</span><span class="token punctuation">)</span>
+ <span class="token comment">// 新建gRPC服务器实例</span>
+ grpcServer <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">NewServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token comment">// 在gRPC服务器注册我们的服务</span>
+ pb<span class="token punctuation">.</span><span class="token function">RegisterStreamServer</span><span class="token punctuation">(</span>grpcServer<span class="token punctuation">,</span> <span class="token operator">&amp;</span>StreamService<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+ <span class="token comment">//用服务器 Serve() 方法以及我们的端口信息区实现阻塞等待，直到进程被杀死或者 Stop() 被调用</span>
+ err <span class="token operator">=</span> grpcServer<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;grpcServer.Serve err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_2-3-运行服务端-2"><a href="#_2-3-运行服务端-2" class="header-anchor">#</a> 2.3 运行服务端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">go</span> run server<span class="token punctuation">.</span><span class="token keyword">go</span>
+<span class="token punctuation">:</span><span class="token number">8000</span> net<span class="token punctuation">.</span>Listing<span class="token operator">...</span>
+</code></pre></div><h3 id="_3、创建client端-2"><a href="#_3、创建client端-2" class="header-anchor">#</a> 3、<strong>创建Client端</strong></h3> <h4 id="_3-1-创建调用服务端conversations方法"><a href="#_3-1-创建调用服务端conversations方法" class="header-anchor">#</a> 3.1 创建调用服务端Conversations方法</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// conversations 调用服务端的Conversations方法</span>
+<span class="token keyword">func</span> <span class="token function">conversations</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">//调用服务端的Conversations方法，获取流</span>
+ stream<span class="token punctuation">,</span> err <span class="token operator">:=</span> streamClient<span class="token punctuation">.</span><span class="token function">Conversations</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;get conversations stream err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">for</span> n <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> n <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> n<span class="token operator">++</span> <span class="token punctuation">{</span>
+  err <span class="token operator">:=</span> stream<span class="token punctuation">.</span><span class="token function">Send</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pb<span class="token punctuation">.</span>StreamRequest<span class="token punctuation">{</span>Question<span class="token punctuation">:</span> <span class="token string">&quot;stream client rpc &quot;</span> <span class="token operator">+</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;stream request err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  res<span class="token punctuation">,</span> err <span class="token operator">:=</span> stream<span class="token punctuation">.</span><span class="token function">Recv</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> err <span class="token operator">==</span> io<span class="token punctuation">.</span>EOF <span class="token punctuation">{</span>
+   <span class="token keyword">break</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Conversations get stream err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 打印返回值</span>
+  log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>Answer<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token comment">//最后关闭流</span>
+ err <span class="token operator">=</span> stream<span class="token punctuation">.</span><span class="token function">CloseSend</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Conversations close stream err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_3-2-启动grpc客户端-3"><a href="#_3-2-启动grpc客户端-3" class="header-anchor">#</a> 3.2 启动gRPC客户端</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Address 连接地址</span>
+<span class="token keyword">const</span> Address <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">&quot;:8000&quot;</span>
+
+<span class="token keyword">var</span> streamClient pb<span class="token punctuation">.</span>StreamClient
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment">// 连接服务器</span>
+ conn<span class="token punctuation">,</span> err <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span>Address<span class="token punctuation">,</span> grpc<span class="token punctuation">.</span><span class="token function">WithInsecure</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+  log<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;net.Connect err: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">defer</span> conn<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+ <span class="token comment">// 建立gRPC连接</span>
+ streamClient <span class="token operator">=</span> pb<span class="token punctuation">.</span><span class="token function">NewStreamClient</span><span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+ <span class="token function">conversations</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="_3-3-运行客户端-获取到服务端的应答"><a href="#_3-3-运行客户端-获取到服务端的应答" class="header-anchor">#</a> 3.3 运行客户端，获取到服务端的应答</h4> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">go</span> run client<span class="token punctuation">.</span><span class="token keyword">go</span>
+from stream server answer<span class="token punctuation">:</span> the <span class="token number">1</span> question is stream client rpc <span class="token number">0</span>
+from stream server answer<span class="token punctuation">:</span> the <span class="token number">2</span> question is stream client rpc <span class="token number">1</span>
+from stream server answer<span class="token punctuation">:</span> the <span class="token number">3</span> question is stream client rpc <span class="token number">2</span>
+from stream server answer<span class="token punctuation">:</span> the <span class="token number">4</span> question is stream client rpc <span class="token number">3</span>
+from stream server answer<span class="token punctuation">:</span> the <span class="token number">5</span> question is stream client rpc <span class="token number">4</span>
+</code></pre></div><p>服务端获取到来自客户端的提问</p> <div class="language-go extra-class"><pre class="language-go"><code>from stream client question<span class="token punctuation">:</span> stream client rpc <span class="token number">0</span>
+from stream client question<span class="token punctuation">:</span> stream client rpc <span class="token number">1</span>
+from stream client question<span class="token punctuation">:</span> stream client rpc <span class="token number">2</span>
+from stream client question<span class="token punctuation">:</span> stream client rpc <span class="token number">3</span>
+from stream client question<span class="token punctuation">:</span> stream client rpc <span class="token number">4</span>
+</code></pre></div><h2 id="参考"><a href="#参考" class="header-anchor">#</a> 参考</h2> <ul><li><a href="https://zhuanlan.zhihu.com/p/411317961" target="_blank" rel="noopener noreferrer">go gRPC的使用<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://doc.oschina.net/grpc?t=60133" target="_blank" rel="noopener noreferrer">gRPC 官方文档中文版 v1.0<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2022/5/23 下午4:38:26</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/east-white/go/advanced/gRPC/6_techniques/" class="prev">
+            6、技术
+          </a></span> <span class="next"><a href="/east-white/go/advanced/gRPC/9_token/">
+            gRPC中的Token认证
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#一、什么是rpc" class="sidebar-link reco-side-一、什么是rpc" data-v-cb1513f6>一、什么是RPC？</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_1、http-1-1-vs-http-2-0" class="sidebar-link reco-side-_1、http-1-1-vs-http-2-0" data-v-cb1513f6>1、HTTP 1.1 VS HTTP 2.0</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_2、grpc基于http-2的优缺点" class="sidebar-link reco-side-_2、grpc基于http-2的优缺点" data-v-cb1513f6>2、gRPC基于HTTP/2的优缺点</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#二、前置准备" class="sidebar-link reco-side-二、前置准备" data-v-cb1513f6>二、前置准备</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_1、安装protoc" class="sidebar-link reco-side-_1、安装protoc" data-v-cb1513f6>1、安装protoc</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_2、安装插件" class="sidebar-link reco-side-_2、安装插件" data-v-cb1513f6>2、安装插件</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_3、设置插件环境变量" class="sidebar-link reco-side-_3、设置插件环境变量" data-v-cb1513f6>3、设置插件环境变量</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_4、验证插件是否成功" class="sidebar-link reco-side-_4、验证插件是否成功" data-v-cb1513f6>4、验证插件是否成功</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#三、简单模式" class="sidebar-link reco-side-三、简单模式" data-v-cb1513f6>三、简单模式</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_1、定义服务" class="sidebar-link reco-side-_1、定义服务" data-v-cb1513f6>1、定义服务</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_2、编译命令" class="sidebar-link reco-side-_2、编译命令" data-v-cb1513f6>2、编译命令</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_3、实现服务端代码" class="sidebar-link reco-side-_3、实现服务端代码" data-v-cb1513f6>3、实现服务端代码</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_4、客户端代码" class="sidebar-link reco-side-_4、客户端代码" data-v-cb1513f6>4、客户端代码</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#四、服务端流式rpc" class="sidebar-link reco-side-四、服务端流式rpc" data-v-cb1513f6>四、服务端流式RPC</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_1、新建proto文件" class="sidebar-link reco-side-_1、新建proto文件" data-v-cb1513f6>1、新建proto文件</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_2、创建server端" class="sidebar-link reco-side-_2、创建server端" data-v-cb1513f6>2、创建server端</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_3、创建client端" class="sidebar-link reco-side-_3、创建client端" data-v-cb1513f6>3、创建client端</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#五、客户端流式rpc" class="sidebar-link reco-side-五、客户端流式rpc" data-v-cb1513f6>五、客户端流式RPC</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_1、新建proto文件-2" class="sidebar-link reco-side-_1、新建proto文件-2" data-v-cb1513f6>1、新建proto文件</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_2、创建server端-2" class="sidebar-link reco-side-_2、创建server端-2" data-v-cb1513f6>2、创建Server端</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_3、创建客户端" class="sidebar-link reco-side-_3、创建客户端" data-v-cb1513f6>3、创建客户端</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#六、双向流式rpc" class="sidebar-link reco-side-六、双向流式rpc" data-v-cb1513f6>六、双向流式RPC</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_1、新建proto文件-3" class="sidebar-link reco-side-_1、新建proto文件-3" data-v-cb1513f6>1、新建proto文件</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_2、创建server端-3" class="sidebar-link reco-side-_2、创建server端-3" data-v-cb1513f6>2、创建Server端</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#_3、创建client端-2" class="sidebar-link reco-side-_3、创建client端-2" data-v-cb1513f6>3、创建Client端</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/advanced/gRPC/8_grpc/#参考" class="sidebar-link reco-side-参考" data-v-cb1513f6>参考</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="https://www.ytmp3.cn/down/51750.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:10px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200" data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>River flows in you</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>Yiruma</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div><!----></div></div>
+    <script src="/east-white/assets/js/app.66c0ecb2.js" defer></script><script src="/east-white/assets/js/3.688d5389.js" defer></script><script src="/east-white/assets/js/1.66f91b48.js" defer></script><script src="/east-white/assets/js/49.4b39baf5.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>5.Docker镜像构建 | east-white</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="east-white&#39;s Blog">
+    
+    <link rel="preload" href="/east-white/assets/css/0.styles.8b454665.css" as="style"><link rel="preload" href="/east-white/assets/js/app.66c0ecb2.js" as="script"><link rel="preload" href="/east-white/assets/js/3.688d5389.js" as="script"><link rel="preload" href="/east-white/assets/js/1.66f91b48.js" as="script"><link rel="preload" href="/east-white/assets/js/186.730ac08e.js" as="script"><link rel="prefetch" href="/east-white/assets/js/10.90295e74.js"><link rel="prefetch" href="/east-white/assets/js/100.fd613351.js"><link rel="prefetch" href="/east-white/assets/js/101.2f81bcdf.js"><link rel="prefetch" href="/east-white/assets/js/102.4dce3828.js"><link rel="prefetch" href="/east-white/assets/js/103.20d0eb5e.js"><link rel="prefetch" href="/east-white/assets/js/104.d45bfdf7.js"><link rel="prefetch" href="/east-white/assets/js/105.6dfabe59.js"><link rel="prefetch" href="/east-white/assets/js/106.0f9bbcce.js"><link rel="prefetch" href="/east-white/assets/js/107.a90a0f6a.js"><link rel="prefetch" href="/east-white/assets/js/108.9f211e81.js"><link rel="prefetch" href="/east-white/assets/js/109.1da389c6.js"><link rel="prefetch" href="/east-white/assets/js/11.bdf77d8b.js"><link rel="prefetch" href="/east-white/assets/js/110.ef3b7270.js"><link rel="prefetch" href="/east-white/assets/js/111.6515c5bd.js"><link rel="prefetch" href="/east-white/assets/js/112.8ae3f3eb.js"><link rel="prefetch" href="/east-white/assets/js/113.1d042c40.js"><link rel="prefetch" href="/east-white/assets/js/114.f27875f7.js"><link rel="prefetch" href="/east-white/assets/js/115.d03488be.js"><link rel="prefetch" href="/east-white/assets/js/116.d6f6f17e.js"><link rel="prefetch" href="/east-white/assets/js/117.2127938a.js"><link rel="prefetch" href="/east-white/assets/js/118.57f16ef5.js"><link rel="prefetch" href="/east-white/assets/js/119.8180ce9c.js"><link rel="prefetch" href="/east-white/assets/js/12.50cfb5a6.js"><link rel="prefetch" href="/east-white/assets/js/120.3d30999e.js"><link rel="prefetch" href="/east-white/assets/js/121.d4070915.js"><link rel="prefetch" href="/east-white/assets/js/122.2d3a08f6.js"><link rel="prefetch" href="/east-white/assets/js/123.2080f2dc.js"><link rel="prefetch" href="/east-white/assets/js/124.7523b048.js"><link rel="prefetch" href="/east-white/assets/js/125.32baddcf.js"><link rel="prefetch" href="/east-white/assets/js/126.f58d8453.js"><link rel="prefetch" href="/east-white/assets/js/127.8754d2b9.js"><link rel="prefetch" href="/east-white/assets/js/128.ed017e44.js"><link rel="prefetch" href="/east-white/assets/js/129.8a96087f.js"><link rel="prefetch" href="/east-white/assets/js/13.28a7ca23.js"><link rel="prefetch" href="/east-white/assets/js/130.7351ec6e.js"><link rel="prefetch" href="/east-white/assets/js/131.718b5b67.js"><link rel="prefetch" href="/east-white/assets/js/132.fca97ffc.js"><link rel="prefetch" href="/east-white/assets/js/133.bf9ae844.js"><link rel="prefetch" href="/east-white/assets/js/134.e5e49426.js"><link rel="prefetch" href="/east-white/assets/js/135.9fe6b311.js"><link rel="prefetch" href="/east-white/assets/js/136.f81faeac.js"><link rel="prefetch" href="/east-white/assets/js/137.89d42e06.js"><link rel="prefetch" href="/east-white/assets/js/138.cfd98542.js"><link rel="prefetch" href="/east-white/assets/js/139.0df86252.js"><link rel="prefetch" href="/east-white/assets/js/14.aa2ea755.js"><link rel="prefetch" href="/east-white/assets/js/140.8766eeef.js"><link rel="prefetch" href="/east-white/assets/js/141.f8c8c45a.js"><link rel="prefetch" href="/east-white/assets/js/142.e5da7edb.js"><link rel="prefetch" href="/east-white/assets/js/143.556b2a20.js"><link rel="prefetch" href="/east-white/assets/js/144.a3789514.js"><link rel="prefetch" href="/east-white/assets/js/145.383361ee.js"><link rel="prefetch" href="/east-white/assets/js/146.304e5f90.js"><link rel="prefetch" href="/east-white/assets/js/147.93106342.js"><link rel="prefetch" href="/east-white/assets/js/148.39437afb.js"><link rel="prefetch" href="/east-white/assets/js/149.a8eb49d1.js"><link rel="prefetch" href="/east-white/assets/js/15.9dcba448.js"><link rel="prefetch" href="/east-white/assets/js/150.99725288.js"><link rel="prefetch" href="/east-white/assets/js/151.36648ce4.js"><link rel="prefetch" href="/east-white/assets/js/152.c1d051d1.js"><link rel="prefetch" href="/east-white/assets/js/153.36b0ac53.js"><link rel="prefetch" href="/east-white/assets/js/154.a0e15732.js"><link rel="prefetch" href="/east-white/assets/js/155.3b7d510c.js"><link rel="prefetch" href="/east-white/assets/js/156.3774264a.js"><link rel="prefetch" href="/east-white/assets/js/157.994faff1.js"><link rel="prefetch" href="/east-white/assets/js/158.d09f4384.js"><link rel="prefetch" href="/east-white/assets/js/159.1bbf7ffa.js"><link rel="prefetch" href="/east-white/assets/js/16.bff3f4f9.js"><link rel="prefetch" href="/east-white/assets/js/160.54091f09.js"><link rel="prefetch" href="/east-white/assets/js/161.f78ede8d.js"><link rel="prefetch" href="/east-white/assets/js/162.4edfb0dd.js"><link rel="prefetch" href="/east-white/assets/js/163.6b5ecedb.js"><link rel="prefetch" href="/east-white/assets/js/164.93663ec4.js"><link rel="prefetch" href="/east-white/assets/js/165.7d3d6224.js"><link rel="prefetch" href="/east-white/assets/js/166.480586c3.js"><link rel="prefetch" href="/east-white/assets/js/167.f391f39e.js"><link rel="prefetch" href="/east-white/assets/js/168.f616ef23.js"><link rel="prefetch" href="/east-white/assets/js/169.3ee0114e.js"><link rel="prefetch" href="/east-white/assets/js/17.3bc44ae8.js"><link rel="prefetch" href="/east-white/assets/js/170.75020e42.js"><link rel="prefetch" href="/east-white/assets/js/171.3aad072c.js"><link rel="prefetch" href="/east-white/assets/js/172.0572dbc9.js"><link rel="prefetch" href="/east-white/assets/js/173.446e9807.js"><link rel="prefetch" href="/east-white/assets/js/174.5938e6a9.js"><link rel="prefetch" href="/east-white/assets/js/175.70f6f39d.js"><link rel="prefetch" href="/east-white/assets/js/176.addb9207.js"><link rel="prefetch" href="/east-white/assets/js/177.d32546cc.js"><link rel="prefetch" href="/east-white/assets/js/178.373fd62e.js"><link rel="prefetch" href="/east-white/assets/js/179.4611766c.js"><link rel="prefetch" href="/east-white/assets/js/18.7217c230.js"><link rel="prefetch" href="/east-white/assets/js/180.96a53152.js"><link rel="prefetch" href="/east-white/assets/js/181.d1272d5d.js"><link rel="prefetch" href="/east-white/assets/js/182.0117730f.js"><link rel="prefetch" href="/east-white/assets/js/183.c053e26d.js"><link rel="prefetch" href="/east-white/assets/js/184.69d97c74.js"><link rel="prefetch" href="/east-white/assets/js/185.265792c0.js"><link rel="prefetch" href="/east-white/assets/js/187.862b3b5b.js"><link rel="prefetch" href="/east-white/assets/js/188.377e6bae.js"><link rel="prefetch" href="/east-white/assets/js/189.a35aee38.js"><link rel="prefetch" href="/east-white/assets/js/19.8f0aea91.js"><link rel="prefetch" href="/east-white/assets/js/190.ac1adb8f.js"><link rel="prefetch" href="/east-white/assets/js/191.3b423e92.js"><link rel="prefetch" href="/east-white/assets/js/192.ea2ffc5d.js"><link rel="prefetch" href="/east-white/assets/js/193.8f88d54d.js"><link rel="prefetch" href="/east-white/assets/js/194.1b6adb54.js"><link rel="prefetch" href="/east-white/assets/js/195.48d5e9cc.js"><link rel="prefetch" href="/east-white/assets/js/196.36dbf938.js"><link rel="prefetch" href="/east-white/assets/js/20.f9263f99.js"><link rel="prefetch" href="/east-white/assets/js/21.b4dd0644.js"><link rel="prefetch" href="/east-white/assets/js/22.9807b31f.js"><link rel="prefetch" href="/east-white/assets/js/23.3bab2446.js"><link rel="prefetch" href="/east-white/assets/js/24.373e85fb.js"><link rel="prefetch" href="/east-white/assets/js/25.212a3d96.js"><link rel="prefetch" href="/east-white/assets/js/26.af082478.js"><link rel="prefetch" href="/east-white/assets/js/27.84f456f8.js"><link rel="prefetch" href="/east-white/assets/js/28.49f34d1c.js"><link rel="prefetch" href="/east-white/assets/js/29.3ba03f3e.js"><link rel="prefetch" href="/east-white/assets/js/30.769fb56c.js"><link rel="prefetch" href="/east-white/assets/js/31.a6b6994f.js"><link rel="prefetch" href="/east-white/assets/js/32.fa908d36.js"><link rel="prefetch" href="/east-white/assets/js/33.689123b5.js"><link rel="prefetch" href="/east-white/assets/js/34.42fe46e8.js"><link rel="prefetch" href="/east-white/assets/js/35.430c8c19.js"><link rel="prefetch" href="/east-white/assets/js/36.1bb20e4f.js"><link rel="prefetch" href="/east-white/assets/js/37.9d2007e5.js"><link rel="prefetch" href="/east-white/assets/js/38.37058a56.js"><link rel="prefetch" href="/east-white/assets/js/39.cf329565.js"><link rel="prefetch" href="/east-white/assets/js/4.2fc4b380.js"><link rel="prefetch" href="/east-white/assets/js/40.3e3d4327.js"><link rel="prefetch" href="/east-white/assets/js/41.7aeaa974.js"><link rel="prefetch" href="/east-white/assets/js/42.2b7e1b2a.js"><link rel="prefetch" href="/east-white/assets/js/43.67402789.js"><link rel="prefetch" href="/east-white/assets/js/44.0a198c19.js"><link rel="prefetch" href="/east-white/assets/js/45.4defb6d8.js"><link rel="prefetch" href="/east-white/assets/js/46.7f3e0779.js"><link rel="prefetch" href="/east-white/assets/js/47.020580cc.js"><link rel="prefetch" href="/east-white/assets/js/48.6b4a082c.js"><link rel="prefetch" href="/east-white/assets/js/49.4b39baf5.js"><link rel="prefetch" href="/east-white/assets/js/5.a026df5a.js"><link rel="prefetch" href="/east-white/assets/js/50.f72b3134.js"><link rel="prefetch" href="/east-white/assets/js/51.7e8e244f.js"><link rel="prefetch" href="/east-white/assets/js/52.26d293dd.js"><link rel="prefetch" href="/east-white/assets/js/53.3065c6fa.js"><link rel="prefetch" href="/east-white/assets/js/54.230bd290.js"><link rel="prefetch" href="/east-white/assets/js/55.ff844624.js"><link rel="prefetch" href="/east-white/assets/js/56.d0640c5b.js"><link rel="prefetch" href="/east-white/assets/js/57.4f07fee8.js"><link rel="prefetch" href="/east-white/assets/js/58.57e15989.js"><link rel="prefetch" href="/east-white/assets/js/59.ae0195a0.js"><link rel="prefetch" href="/east-white/assets/js/6.30fc13ff.js"><link rel="prefetch" href="/east-white/assets/js/60.5b1c572e.js"><link rel="prefetch" href="/east-white/assets/js/61.61db7a25.js"><link rel="prefetch" href="/east-white/assets/js/62.c5b337b8.js"><link rel="prefetch" href="/east-white/assets/js/63.281fd1b4.js"><link rel="prefetch" href="/east-white/assets/js/64.b4f130d6.js"><link rel="prefetch" href="/east-white/assets/js/65.953ee5f7.js"><link rel="prefetch" href="/east-white/assets/js/66.0f7ebfea.js"><link rel="prefetch" href="/east-white/assets/js/67.0d5ee134.js"><link rel="prefetch" href="/east-white/assets/js/68.07467129.js"><link rel="prefetch" href="/east-white/assets/js/69.6d6b18a4.js"><link rel="prefetch" href="/east-white/assets/js/7.93a0a8f4.js"><link rel="prefetch" href="/east-white/assets/js/70.1f81162a.js"><link rel="prefetch" href="/east-white/assets/js/71.9c22b026.js"><link rel="prefetch" href="/east-white/assets/js/72.1aead595.js"><link rel="prefetch" href="/east-white/assets/js/73.9c504f82.js"><link rel="prefetch" href="/east-white/assets/js/74.ae863fb3.js"><link rel="prefetch" href="/east-white/assets/js/75.77b22ea3.js"><link rel="prefetch" href="/east-white/assets/js/76.3fb3e486.js"><link rel="prefetch" href="/east-white/assets/js/77.aaa2bb5d.js"><link rel="prefetch" href="/east-white/assets/js/78.ff8f12c6.js"><link rel="prefetch" href="/east-white/assets/js/79.be497966.js"><link rel="prefetch" href="/east-white/assets/js/8.a5a8db2f.js"><link rel="prefetch" href="/east-white/assets/js/80.58edd302.js"><link rel="prefetch" href="/east-white/assets/js/81.d9a83954.js"><link rel="prefetch" href="/east-white/assets/js/82.ea1b1ee7.js"><link rel="prefetch" href="/east-white/assets/js/83.0480b8eb.js"><link rel="prefetch" href="/east-white/assets/js/84.b6608fc3.js"><link rel="prefetch" href="/east-white/assets/js/85.dfbc6855.js"><link rel="prefetch" href="/east-white/assets/js/86.fdf8fc7e.js"><link rel="prefetch" href="/east-white/assets/js/87.45b4397e.js"><link rel="prefetch" href="/east-white/assets/js/88.87fd2edc.js"><link rel="prefetch" href="/east-white/assets/js/89.d96587d6.js"><link rel="prefetch" href="/east-white/assets/js/9.e6aa4f2a.js"><link rel="prefetch" href="/east-white/assets/js/90.f17e0868.js"><link rel="prefetch" href="/east-white/assets/js/91.9fd183a0.js"><link rel="prefetch" href="/east-white/assets/js/92.91d6817c.js"><link rel="prefetch" href="/east-white/assets/js/93.92cd98a0.js"><link rel="prefetch" href="/east-white/assets/js/94.320bb5f5.js"><link rel="prefetch" href="/east-white/assets/js/95.11c60ecb.js"><link rel="prefetch" href="/east-white/assets/js/96.51aad249.js"><link rel="prefetch" href="/east-white/assets/js/97.b42573c1.js"><link rel="prefetch" href="/east-white/assets/js/98.d5b115f6.js"><link rel="prefetch" href="/east-white/assets/js/99.6c49b2de.js">
+    <link rel="stylesheet" href="/east-white/assets/css/0.styles.8b454665.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>east-white</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>east-white's Blog</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/east-white/" class="home-link router-link-active"><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/logo.png" alt="east-white" class="logo"> <span class="site-name">east-white</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link router-link-active"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><!----> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>184</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>0</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link router-link-active"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Docker</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/east-white/server_tools/docker/source/" class="sidebar-link">学习资源</a></li><li><a href="/east-white/server_tools/docker/01/" class="sidebar-link">1.初始Docker</a></li><li><a href="/east-white/server_tools/docker/02/" class="sidebar-link">2.Docker概念介绍</a></li><li><a href="/east-white/server_tools/docker/03/" class="sidebar-link">3.Docker常用命令</a></li><li><a href="/east-white/server_tools/docker/04/" class="sidebar-link">4.Docker部署</a></li><li><a href="/east-white/server_tools/docker/05/" aria-current="page" class="active sidebar-link">5.Docker镜像构建</a></li><li><a href="/east-white/server_tools/docker/06/" class="sidebar-link">6.镜像其他相关操作</a></li><li><a href="/east-white/server_tools/docker/07/" class="sidebar-link">7.容器通信</a></li><li><a href="/east-white/server_tools/docker/08/" class="sidebar-link">8.容器编排</a></li><li><a href="/east-white/server_tools/docker/09/" class="sidebar-link">9.Docker Swarm</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>5.Docker镜像构建</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">5.Docker镜像构建</h1> <div data-v-f875f3fc><!----> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default"><h1 id="docker镜像构建"><a href="#docker镜像构建" class="header-anchor">#</a> Docker镜像构建</h1> <h2 id="_1-docker-commit"><a href="#_1-docker-commit" class="header-anchor">#</a> 1. docker commit</h2> <p>平常我们都是从公共仓库拉取镜像，我们也可以从容器中构建我们自己的镜像。</p> <p>需求：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token number">1.</span> 基础镜像centos
+<span class="token number">2.</span> 安装jdk
+<span class="token number">3.</span> 安装nginx
+</code></pre></div><h3 id="_1-1-创建容器"><a href="#_1-1-创建容器" class="header-anchor">#</a> 1.1 创建容器</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 拉取镜像</span>
+<span class="token function">docker</span> pull centos:7
+<span class="token comment"># 创建容器</span>
+<span class="token function">docker</span> run -di --name centos7 centos:7
+</code></pre></div><h3 id="_1-2-安装jdk和nginx"><a href="#_1-2-安装jdk和nginx" class="header-anchor">#</a> 1.2 安装jdk和nginx</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it centos7 /bin/bash
+<span class="token comment"># 安装jdk</span>
+yum -y <span class="token function">install</span> java-1.8.0-openjdk.x86_64
+<span class="token comment"># 安装nginx</span>
+yum -y <span class="token function">install</span> epel-release
+yum <span class="token function">install</span> -y nginx
+<span class="token comment"># 安装vim</span>
+yum -y <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment"># 启动nginx</span>
+/usr/sbin/nginx
+<span class="token comment"># 访问nginx</span>
+<span class="token function">curl</span> http://localhost
+</code></pre></div><h3 id="_1-3-构建镜像"><a href="#_1-3-构建镜像" class="header-anchor">#</a> 1.3 构建镜像</h3> <p>接下来，我们将我们做好的容器，构建为一个新的镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> commit <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> CONTAINER <span class="token punctuation">[</span>REPOSITORY<span class="token punctuation">[</span>:TAG<span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token function">docker</span> commit -a<span class="token operator">=</span><span class="token string">&quot;mszlu&quot;</span> -m<span class="token operator">=</span><span class="token string">&quot;jdk8 and nginx&quot;</span> centos7 mycentos:7
+</code></pre></div><ul><li><code>-a</code>：提交的镜像作者；</li> <li><code>-c</code>：使用 Dockerfile 指令来创建镜像；</li> <li><code>-m</code>：提交时的说明文字；</li> <li><code>-p</code>：在 commit 时，将容器暂停。</li></ul> <p><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/image-20220313121529572.png" alt="image-20220313121529572"></p> <p>我们可以发现我们构建的镜像比较大，因为里面有jdk和nginx</p> <h3 id="_1-4-使用新镜像构建容器"><a href="#_1-4-使用新镜像构建容器" class="header-anchor">#</a> 1.4 使用新镜像构建容器</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run -di --name mycentos7 -p <span class="token number">80</span>:80 mycentos:7
+<span class="token comment">#进入容器 启动nginx</span>
+/usr/sbin/nginx
+</code></pre></div><p>访问：</p> <p>http://ip/index.html</p> <h2 id="_2-dockerfile"><a href="#_2-dockerfile" class="header-anchor">#</a> 2. Dockerfile</h2> <p>在 Docker 中构建镜像最常用的方式，就是使用 <code>Dockerfile</code>。Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。官方文档：https://docs.docker.com/engine/reference/builder/</p> <h3 id="_2-1-常用指令"><a href="#_2-1-常用指令" class="header-anchor">#</a> 2.1 常用指令</h3> <p><strong>FROM</strong></p> <p>语法：<code>FROM &lt;image&gt;:&lt;tag&gt;</code></p> <p>指明构建的新镜像是来自于哪个基础镜像，如果没有选择 tag，那么默认值为 latest。</p> <div class="language- extra-class"><pre class="language-text"><code>FROM centos:7
+</code></pre></div><blockquote><p>如果不以任何镜像为基础，那么写法为：FROM scratch。官方说明：scratch 镜像是一个空镜像，可以用于构建 busybox 等超小镜像，可以说是真正的从零开始构建属于自己的镜像。</p></blockquote> <p><strong>MAINTAINER</strong></p> <p>语法：<code>MAINTAINER &lt;name&gt;</code></p> <p>指明镜像维护者及其联系方式（一般是邮箱地址）。官方说明已过时，推荐使用 LABEL。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>MAINTAINER mszlu <span class="token operator">&lt;</span>mszlu@mszlu.com<span class="token operator">&gt;</span>
+</code></pre></div><p>**LABEL **</p> <p>语法：<code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p> <p>功能是为镜像指定标签。也可以使用 LABEL 来指定镜像作者。</p> <div class="language- extra-class"><pre class="language-text"><code>LABEL maintainer=&quot;mszlu.com&quot;
+</code></pre></div><p><strong>RUN</strong></p> <p>语法：<code>RUN &lt;command&gt;</code></p> <p>构建镜像时运行的 Shell 命令，比如构建的新镜像中我们想在 /usr/local 目录下创建一个 java 目录。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>RUN <span class="token function">mkdir</span> -p /usr/local/java
+</code></pre></div><p><strong>ADD</strong></p> <p>语法：<code>ADD &lt;src&gt;... &lt;dest&gt;</code></p> <p>拷贝文件或目录到镜像中。src 可以是一个本地文件或者是一个本地压缩文件，压缩文件会自动解压。还可以是一个 url，如果把 src 写成一个 url，那么 ADD 就类似于 wget 命令，然后自动下载和解压。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>ADD jdk-11.0.6_linux-x64_bin.tar.gz /usr/local/java
+</code></pre></div><p>**COPY **</p> <p>语法：<code>COPY &lt;src&gt;... &lt;dest&gt;</code></p> <p>拷贝文件或目录到镜像中。用法同 ADD，只是不支持自动下载和解压。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>COPY jdk-11.0.6_linux-x64_bin.tar.gz /usr/local/java
+</code></pre></div><p><strong>EXPOSE</strong></p> <p>语法：<code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p> <p>暴露容器运行时的监听端口给外部，可以指定端口是监听 TCP 还是 UDP，如果未指定协议，则默认为 TCP。</p> <div class="language-she extra-class"><pre class="language-text"><code>EXPOSE 80 443 8080/tcp
+</code></pre></div><p>如果想使得容器与宿主机的端口有映射关系，必须在容器启动的时候加上 -p 参数。</p> <p><strong>ENV</strong></p> <p>语法：<code>ENV &lt;key&gt; &lt;value&gt;</code> 添加单个，<code>ENV &lt;key&gt;=&lt;value&gt; ...</code> 添加多个。</p> <p>设置容器内环境变量。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>ENV JAVA_HOME /usr/local/java/jdk-11.0.6/
+</code></pre></div><p><strong>CMD</strong></p> <p>语法：</p> <ul><li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code>，比如：<code>CMD [&quot;/usr/local/tomcat/bin/catalina.sh&quot;, &quot;start&quot;]</code></li> <li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code>，比如：<code>CMD [ &quot;echo&quot;, &quot;$JAVA_HOME&quot; ]</code></li> <li><code>CMD command param1 param2</code>，比如：<code>CMD echo $JAVA_HOME</code></li></ul> <p>启动容器时执行的 Shell 命令。在 Dockerfile 中只能有一条 CMD 指令。如果设置了多条 CMD，只有最后一条 CMD 会生效。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>CMD ehco <span class="token variable">$JAVA_HOME</span>
+</code></pre></div><blockquote><p>如果创建容器的时候指定了命令，则 CMD 命令会被替代。假如镜像叫 <code>centos:7</code>，创建容器时命令是：<code>docker run -it --name centos7 centos:7 echo &quot;helloworld&quot;</code> 或者 <code>docker run -it --name centos7 centos:7 /bin/bash</code>，就不会输出 <code>$JAVA_HOME</code> 的环境变量信息了，因为 CMD 命令被 <code>echo &quot;helloworld&quot;</code>、<code>/bin/bash</code> 覆盖了。</p></blockquote> <p>**ENTRYPOINT **</p> <p>语法：</p> <ul><li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code>，比如：<code>ENTRYPOINT [&quot;/usr/local/tomcat/bin/catalina.sh&quot;, &quot;start&quot;]</code></li> <li><code>ENTRYPOINT command param1 param2</code>，比如：<code>ENTRYPOINT ehco $JAVA_HOME</code></li></ul> <p>启动容器时执行的 Shell 命令，同 CMD 类似，不会被 docker run 命令行指定的参数所覆盖。在 Dockerfile 中只能有一条 ENTRYPOINT 指令。如果设置了多条 ENTRYPOINT，只有最后一条 ENTRYPOINT 会生效。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>ENTRYPOINT ehco <span class="token variable">$JAVA_HOME</span>
+</code></pre></div><blockquote><ul><li>如果在 Dockerfile 中同时写了 ENTRYPOINT 和 CMD，并且 CMD 指令不是一个完整的可执行命令，那么 CMD 指定的内容将会作为 ENTRYPOINT 的参数；</li> <li>如果在 Dockerfile 中同时写了 ENTRYPOINT 和 CMD，并且 CMD 是一个完整的指令，那么它们两个会互相覆盖，谁在最后谁生效</li></ul></blockquote> <p>**WORKDIR **</p> <p>语法：<code>WORKDIR /path/to/workdir</code></p> <p>为 RUN、CMD、ENTRYPOINT 以及 COPY 和 AND 设置工作目录。</p> <div class="language- extra-class"><pre class="language-text"><code>WORKDIR /usr/local
+</code></pre></div><p>指定容器挂载点到宿主机自动生成的目录或其他容器。一般的使用场景为需要持久化存储数据时。</p> <p><strong>VOLUME</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 容器的 /var/lib/mysql 目录会在运行时自动挂载为匿名卷，匿名卷在宿主机的 /var/lib/docker/volumes 目录下</span>
+VOLUME <span class="token punctuation">[</span><span class="token string">&quot;/var/lib/mysql&quot;</span><span class="token punctuation">]</span>
+</code></pre></div><blockquote><p>一般不会在 Dockerfile 中用到，更常见的还是在 docker run 的时候通过 -v 指定数据卷。</p></blockquote> <h3 id="_2-2-构建镜像"><a href="#_2-2-构建镜像" class="header-anchor">#</a> 2.2 构建镜像</h3> <p>Dockerfile 文件编写好以后，真正构建镜像时需要通过 <code>docker build</code> 命令。</p> <p><code>docker build</code> 命令用于使用 <code>Dockerfile</code> 创建镜像。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 使用当前目录的 Dockerfile 创建镜像</span>
+<span class="token function">docker</span> build -t mycentos:7 <span class="token builtin class-name">.</span>
+<span class="token comment"># 通过 -f Dockerfile 文件的位置创建镜像</span>
+<span class="token function">docker</span> build -f /usr/local/dockerfile/Dockerfile -t mycentos:7 <span class="token builtin class-name">.</span>
+</code></pre></div><ul><li><code>-f</code>：指定要使用的 Dockerfile 路径；</li> <li><code>--tag, -t</code>：镜像的名字及标签，可以在一次构建中为一个镜像设置多个标签。</li></ul> <p><strong>关于最后面.的理解</strong></p> <p>我们在使用 <code>docker build</code> 命令去构建镜像时，往往会看到命令最后会有一个 <code>.</code> 号。它究竟是什么意思呢？</p> <p>很多人以为是用来指定 <code>Dockerfile</code> 文件所在的位置的，但其实 <code>-f</code> 参数才是用来指定 <code>Dockerfile</code> 的路径的，那么 <code>.</code> 号究竟是用来做什么的呢？</p> <p><code>Docker</code> 在运行时分为 <code>Docker 引擎（服务端守护进程）</code> 和 <code>客户端工具</code>，我们日常使用各种 <code>docker 命令</code>，其实就是在使用 <code>客户端工具</code> 与 <code>Docker 引擎</code> 进行交互。</p> <p>当我们使用 <code>docker build</code> 命令来构建镜像时，这个构建过程其实是在 <code>Docker 引擎</code> 中完成的，而不是在本机环境。如果在 <code>Dockerfile</code> 中使用了一些 <code>ADD</code> 等指令来操作文件，如何让 <code>Docker 引擎</code> 获取到这些文件呢？</p> <p>这里就有了一个 <code>镜像构建上下文</code> 的概念，当构建的时候，由用户指定构建镜像时的上下文路径，而 <code>docker build</code> 会将这个路径下所有的文件都打包上传给 <code>Docker 引擎</code>，引擎内将这些内容展开后，就能获取到上下文中的文件了。</p> <p>举个例子：我的宿主机 jdk 文件在 /root 目录下，Dockerfile 文件在 /usr/local/dockerfile 目录下，文件内容如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>ADD jdk-11.0.6_linux-x64_bin.tar.gz /usr/local/java
+</code></pre></div><p>那么构建镜像时的命令就该这样写：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> build -f /usr/local/dockerfile/Dockerfile -t mycentos:7 /root
+</code></pre></div><p>再举个例子：我的宿主机 jdk 文件和 Dockerfile 文件都在 /usr/local/dockerfile 目录下，文件内容如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>ADD jdk-11.0.6_linux-x64_bin.tar.gz /usr/local/java
+</code></pre></div><p>那么构建镜像时的命令则这样写：</p> <div class="language- extra-class"><pre class="language-text"><code>docker build -f /usr/local/dockerfile/Dockerfile -t mycentos:7 .
+</code></pre></div><h3 id="_2-3-实例"><a href="#_2-3-实例" class="header-anchor">#</a> 2.3 实例</h3> <p>接下来我们通过基础镜像 <code>centos:7</code>，在该镜像中安装 jdk 和 tomcat 以后将其制作为一个新的镜像 <code>mscentos:7</code></p> <p>创建目录</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">mkdir</span> -p /mnt/docker/dockerfile
+</code></pre></div><p>编写 Dockerfile 文件。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">vim</span> Dockerfile
+</code></pre></div><p>Dockerfile 文件内容如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 指明构建的新镜像是来自于 centos:7 基础镜像</span>
+FROM centos:7
+<span class="token comment"># 通过镜像标签声明了作者信息</span>
+LABEL <span class="token assign-left variable">maintainer</span><span class="token operator">=</span><span class="token string">&quot;mszlu.com&quot;</span>
+<span class="token comment"># 设置工作目录</span>
+WORKDIR /usr/local
+<span class="token comment"># 新镜像构建成功以后创建指定目录</span>
+RUN <span class="token function">mkdir</span> -p /usr/local/java <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> -p /usr/local/tomcat
+<span class="token comment"># 拷贝文件到镜像中并解压</span>
+ADD jdk-11.0.8_linux-x64_bin.tar.gz /usr/local/java
+ADD apache-tomcat-9.0.59.tar.gz /usr/local/tomcat
+<span class="token comment"># 暴露容器运行时的 8080 监听端口给外部</span>
+EXPOSE <span class="token number">8080</span>
+<span class="token comment"># 设置容器内 JAVA_HOME 环境变量</span>
+ENV JAVA_HOME /usr/local/java/jdk-11.0.8/
+ENV <span class="token environment constant">PATH</span> <span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$JAVA_HOME</span>/bin
+<span class="token comment"># 启动容器时启动 tomcat</span>
+CMD <span class="token punctuation">[</span><span class="token string">&quot;/usr/local/tomcat/apache-tomcat-9.0.59/bin/catalina.sh&quot;</span>, <span class="token string">&quot;run&quot;</span><span class="token punctuation">]</span>
+</code></pre></div><p>上传jdk和tomcat到Dockerfile一样的目录下</p> <p>构建镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># docker build -f /usr/local/dockerfile/Dockerfile -t mscentos:7 .</span>
+</code></pre></div><p><strong>使用构建的镜像创建容器</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 创建容器</span>
+<span class="token function">docker</span> run -di --name mscentos7 -p <span class="token number">8080</span>:8080 mscentos:7
+<span class="token comment"># 访问 http://192.168.200.101:8080/ 看到页面说明环境 OK!</span>
+
+</code></pre></div></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2022/5/23 下午4:38:26</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/east-white/server_tools/docker/04/" class="prev">
+            4.Docker部署
+          </a></span> <span class="next"><a href="/east-white/server_tools/docker/06/">
+            6.镜像其他相关操作
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_1-docker-commit" class="sidebar-link reco-side-_1-docker-commit" data-v-cb1513f6>1. docker commit</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_1-1-创建容器" class="sidebar-link reco-side-_1-1-创建容器" data-v-cb1513f6>1.1 创建容器</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_1-2-安装jdk和nginx" class="sidebar-link reco-side-_1-2-安装jdk和nginx" data-v-cb1513f6>1.2 安装jdk和nginx</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_1-3-构建镜像" class="sidebar-link reco-side-_1-3-构建镜像" data-v-cb1513f6>1.3 构建镜像</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_1-4-使用新镜像构建容器" class="sidebar-link reco-side-_1-4-使用新镜像构建容器" data-v-cb1513f6>1.4 使用新镜像构建容器</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_2-dockerfile" class="sidebar-link reco-side-_2-dockerfile" data-v-cb1513f6>2. Dockerfile</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_2-1-常用指令" class="sidebar-link reco-side-_2-1-常用指令" data-v-cb1513f6>2.1 常用指令</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_2-2-构建镜像" class="sidebar-link reco-side-_2-2-构建镜像" data-v-cb1513f6>2.2 构建镜像</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/05/#_2-3-实例" class="sidebar-link reco-side-_2-3-实例" data-v-cb1513f6>2.3 实例</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="https://www.ytmp3.cn/down/51750.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:10px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200" data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>River flows in you</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>Yiruma</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div><!----></div></div>
+    <script src="/east-white/assets/js/app.66c0ecb2.js" defer></script><script src="/east-white/assets/js/3.688d5389.js" defer></script><script src="/east-white/assets/js/1.66f91b48.js" defer></script><script src="/east-white/assets/js/186.730ac08e.js" defer></script>
+  </body>
+</html>

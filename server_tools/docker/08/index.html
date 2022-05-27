@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>8.容器编排 | east-white</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="east-white&#39;s Blog">
+    
+    <link rel="preload" href="/east-white/assets/css/0.styles.8b454665.css" as="style"><link rel="preload" href="/east-white/assets/js/app.66c0ecb2.js" as="script"><link rel="preload" href="/east-white/assets/js/3.688d5389.js" as="script"><link rel="preload" href="/east-white/assets/js/1.66f91b48.js" as="script"><link rel="preload" href="/east-white/assets/js/189.a35aee38.js" as="script"><link rel="prefetch" href="/east-white/assets/js/10.90295e74.js"><link rel="prefetch" href="/east-white/assets/js/100.fd613351.js"><link rel="prefetch" href="/east-white/assets/js/101.2f81bcdf.js"><link rel="prefetch" href="/east-white/assets/js/102.4dce3828.js"><link rel="prefetch" href="/east-white/assets/js/103.20d0eb5e.js"><link rel="prefetch" href="/east-white/assets/js/104.d45bfdf7.js"><link rel="prefetch" href="/east-white/assets/js/105.6dfabe59.js"><link rel="prefetch" href="/east-white/assets/js/106.0f9bbcce.js"><link rel="prefetch" href="/east-white/assets/js/107.a90a0f6a.js"><link rel="prefetch" href="/east-white/assets/js/108.9f211e81.js"><link rel="prefetch" href="/east-white/assets/js/109.1da389c6.js"><link rel="prefetch" href="/east-white/assets/js/11.bdf77d8b.js"><link rel="prefetch" href="/east-white/assets/js/110.ef3b7270.js"><link rel="prefetch" href="/east-white/assets/js/111.6515c5bd.js"><link rel="prefetch" href="/east-white/assets/js/112.8ae3f3eb.js"><link rel="prefetch" href="/east-white/assets/js/113.1d042c40.js"><link rel="prefetch" href="/east-white/assets/js/114.f27875f7.js"><link rel="prefetch" href="/east-white/assets/js/115.d03488be.js"><link rel="prefetch" href="/east-white/assets/js/116.d6f6f17e.js"><link rel="prefetch" href="/east-white/assets/js/117.2127938a.js"><link rel="prefetch" href="/east-white/assets/js/118.57f16ef5.js"><link rel="prefetch" href="/east-white/assets/js/119.8180ce9c.js"><link rel="prefetch" href="/east-white/assets/js/12.50cfb5a6.js"><link rel="prefetch" href="/east-white/assets/js/120.3d30999e.js"><link rel="prefetch" href="/east-white/assets/js/121.d4070915.js"><link rel="prefetch" href="/east-white/assets/js/122.2d3a08f6.js"><link rel="prefetch" href="/east-white/assets/js/123.2080f2dc.js"><link rel="prefetch" href="/east-white/assets/js/124.7523b048.js"><link rel="prefetch" href="/east-white/assets/js/125.32baddcf.js"><link rel="prefetch" href="/east-white/assets/js/126.f58d8453.js"><link rel="prefetch" href="/east-white/assets/js/127.8754d2b9.js"><link rel="prefetch" href="/east-white/assets/js/128.ed017e44.js"><link rel="prefetch" href="/east-white/assets/js/129.8a96087f.js"><link rel="prefetch" href="/east-white/assets/js/13.28a7ca23.js"><link rel="prefetch" href="/east-white/assets/js/130.7351ec6e.js"><link rel="prefetch" href="/east-white/assets/js/131.718b5b67.js"><link rel="prefetch" href="/east-white/assets/js/132.fca97ffc.js"><link rel="prefetch" href="/east-white/assets/js/133.bf9ae844.js"><link rel="prefetch" href="/east-white/assets/js/134.e5e49426.js"><link rel="prefetch" href="/east-white/assets/js/135.9fe6b311.js"><link rel="prefetch" href="/east-white/assets/js/136.f81faeac.js"><link rel="prefetch" href="/east-white/assets/js/137.89d42e06.js"><link rel="prefetch" href="/east-white/assets/js/138.cfd98542.js"><link rel="prefetch" href="/east-white/assets/js/139.0df86252.js"><link rel="prefetch" href="/east-white/assets/js/14.aa2ea755.js"><link rel="prefetch" href="/east-white/assets/js/140.8766eeef.js"><link rel="prefetch" href="/east-white/assets/js/141.f8c8c45a.js"><link rel="prefetch" href="/east-white/assets/js/142.e5da7edb.js"><link rel="prefetch" href="/east-white/assets/js/143.556b2a20.js"><link rel="prefetch" href="/east-white/assets/js/144.a3789514.js"><link rel="prefetch" href="/east-white/assets/js/145.383361ee.js"><link rel="prefetch" href="/east-white/assets/js/146.304e5f90.js"><link rel="prefetch" href="/east-white/assets/js/147.93106342.js"><link rel="prefetch" href="/east-white/assets/js/148.39437afb.js"><link rel="prefetch" href="/east-white/assets/js/149.a8eb49d1.js"><link rel="prefetch" href="/east-white/assets/js/15.9dcba448.js"><link rel="prefetch" href="/east-white/assets/js/150.99725288.js"><link rel="prefetch" href="/east-white/assets/js/151.36648ce4.js"><link rel="prefetch" href="/east-white/assets/js/152.c1d051d1.js"><link rel="prefetch" href="/east-white/assets/js/153.36b0ac53.js"><link rel="prefetch" href="/east-white/assets/js/154.a0e15732.js"><link rel="prefetch" href="/east-white/assets/js/155.3b7d510c.js"><link rel="prefetch" href="/east-white/assets/js/156.3774264a.js"><link rel="prefetch" href="/east-white/assets/js/157.994faff1.js"><link rel="prefetch" href="/east-white/assets/js/158.d09f4384.js"><link rel="prefetch" href="/east-white/assets/js/159.1bbf7ffa.js"><link rel="prefetch" href="/east-white/assets/js/16.bff3f4f9.js"><link rel="prefetch" href="/east-white/assets/js/160.54091f09.js"><link rel="prefetch" href="/east-white/assets/js/161.f78ede8d.js"><link rel="prefetch" href="/east-white/assets/js/162.4edfb0dd.js"><link rel="prefetch" href="/east-white/assets/js/163.6b5ecedb.js"><link rel="prefetch" href="/east-white/assets/js/164.93663ec4.js"><link rel="prefetch" href="/east-white/assets/js/165.7d3d6224.js"><link rel="prefetch" href="/east-white/assets/js/166.480586c3.js"><link rel="prefetch" href="/east-white/assets/js/167.f391f39e.js"><link rel="prefetch" href="/east-white/assets/js/168.f616ef23.js"><link rel="prefetch" href="/east-white/assets/js/169.3ee0114e.js"><link rel="prefetch" href="/east-white/assets/js/17.3bc44ae8.js"><link rel="prefetch" href="/east-white/assets/js/170.75020e42.js"><link rel="prefetch" href="/east-white/assets/js/171.3aad072c.js"><link rel="prefetch" href="/east-white/assets/js/172.0572dbc9.js"><link rel="prefetch" href="/east-white/assets/js/173.446e9807.js"><link rel="prefetch" href="/east-white/assets/js/174.5938e6a9.js"><link rel="prefetch" href="/east-white/assets/js/175.70f6f39d.js"><link rel="prefetch" href="/east-white/assets/js/176.addb9207.js"><link rel="prefetch" href="/east-white/assets/js/177.d32546cc.js"><link rel="prefetch" href="/east-white/assets/js/178.373fd62e.js"><link rel="prefetch" href="/east-white/assets/js/179.4611766c.js"><link rel="prefetch" href="/east-white/assets/js/18.7217c230.js"><link rel="prefetch" href="/east-white/assets/js/180.96a53152.js"><link rel="prefetch" href="/east-white/assets/js/181.d1272d5d.js"><link rel="prefetch" href="/east-white/assets/js/182.0117730f.js"><link rel="prefetch" href="/east-white/assets/js/183.c053e26d.js"><link rel="prefetch" href="/east-white/assets/js/184.69d97c74.js"><link rel="prefetch" href="/east-white/assets/js/185.265792c0.js"><link rel="prefetch" href="/east-white/assets/js/186.730ac08e.js"><link rel="prefetch" href="/east-white/assets/js/187.862b3b5b.js"><link rel="prefetch" href="/east-white/assets/js/188.377e6bae.js"><link rel="prefetch" href="/east-white/assets/js/19.8f0aea91.js"><link rel="prefetch" href="/east-white/assets/js/190.ac1adb8f.js"><link rel="prefetch" href="/east-white/assets/js/191.3b423e92.js"><link rel="prefetch" href="/east-white/assets/js/192.ea2ffc5d.js"><link rel="prefetch" href="/east-white/assets/js/193.8f88d54d.js"><link rel="prefetch" href="/east-white/assets/js/194.1b6adb54.js"><link rel="prefetch" href="/east-white/assets/js/195.48d5e9cc.js"><link rel="prefetch" href="/east-white/assets/js/196.36dbf938.js"><link rel="prefetch" href="/east-white/assets/js/20.f9263f99.js"><link rel="prefetch" href="/east-white/assets/js/21.b4dd0644.js"><link rel="prefetch" href="/east-white/assets/js/22.9807b31f.js"><link rel="prefetch" href="/east-white/assets/js/23.3bab2446.js"><link rel="prefetch" href="/east-white/assets/js/24.373e85fb.js"><link rel="prefetch" href="/east-white/assets/js/25.212a3d96.js"><link rel="prefetch" href="/east-white/assets/js/26.af082478.js"><link rel="prefetch" href="/east-white/assets/js/27.84f456f8.js"><link rel="prefetch" href="/east-white/assets/js/28.49f34d1c.js"><link rel="prefetch" href="/east-white/assets/js/29.3ba03f3e.js"><link rel="prefetch" href="/east-white/assets/js/30.769fb56c.js"><link rel="prefetch" href="/east-white/assets/js/31.a6b6994f.js"><link rel="prefetch" href="/east-white/assets/js/32.fa908d36.js"><link rel="prefetch" href="/east-white/assets/js/33.689123b5.js"><link rel="prefetch" href="/east-white/assets/js/34.42fe46e8.js"><link rel="prefetch" href="/east-white/assets/js/35.430c8c19.js"><link rel="prefetch" href="/east-white/assets/js/36.1bb20e4f.js"><link rel="prefetch" href="/east-white/assets/js/37.9d2007e5.js"><link rel="prefetch" href="/east-white/assets/js/38.37058a56.js"><link rel="prefetch" href="/east-white/assets/js/39.cf329565.js"><link rel="prefetch" href="/east-white/assets/js/4.2fc4b380.js"><link rel="prefetch" href="/east-white/assets/js/40.3e3d4327.js"><link rel="prefetch" href="/east-white/assets/js/41.7aeaa974.js"><link rel="prefetch" href="/east-white/assets/js/42.2b7e1b2a.js"><link rel="prefetch" href="/east-white/assets/js/43.67402789.js"><link rel="prefetch" href="/east-white/assets/js/44.0a198c19.js"><link rel="prefetch" href="/east-white/assets/js/45.4defb6d8.js"><link rel="prefetch" href="/east-white/assets/js/46.7f3e0779.js"><link rel="prefetch" href="/east-white/assets/js/47.020580cc.js"><link rel="prefetch" href="/east-white/assets/js/48.6b4a082c.js"><link rel="prefetch" href="/east-white/assets/js/49.4b39baf5.js"><link rel="prefetch" href="/east-white/assets/js/5.a026df5a.js"><link rel="prefetch" href="/east-white/assets/js/50.f72b3134.js"><link rel="prefetch" href="/east-white/assets/js/51.7e8e244f.js"><link rel="prefetch" href="/east-white/assets/js/52.26d293dd.js"><link rel="prefetch" href="/east-white/assets/js/53.3065c6fa.js"><link rel="prefetch" href="/east-white/assets/js/54.230bd290.js"><link rel="prefetch" href="/east-white/assets/js/55.ff844624.js"><link rel="prefetch" href="/east-white/assets/js/56.d0640c5b.js"><link rel="prefetch" href="/east-white/assets/js/57.4f07fee8.js"><link rel="prefetch" href="/east-white/assets/js/58.57e15989.js"><link rel="prefetch" href="/east-white/assets/js/59.ae0195a0.js"><link rel="prefetch" href="/east-white/assets/js/6.30fc13ff.js"><link rel="prefetch" href="/east-white/assets/js/60.5b1c572e.js"><link rel="prefetch" href="/east-white/assets/js/61.61db7a25.js"><link rel="prefetch" href="/east-white/assets/js/62.c5b337b8.js"><link rel="prefetch" href="/east-white/assets/js/63.281fd1b4.js"><link rel="prefetch" href="/east-white/assets/js/64.b4f130d6.js"><link rel="prefetch" href="/east-white/assets/js/65.953ee5f7.js"><link rel="prefetch" href="/east-white/assets/js/66.0f7ebfea.js"><link rel="prefetch" href="/east-white/assets/js/67.0d5ee134.js"><link rel="prefetch" href="/east-white/assets/js/68.07467129.js"><link rel="prefetch" href="/east-white/assets/js/69.6d6b18a4.js"><link rel="prefetch" href="/east-white/assets/js/7.93a0a8f4.js"><link rel="prefetch" href="/east-white/assets/js/70.1f81162a.js"><link rel="prefetch" href="/east-white/assets/js/71.9c22b026.js"><link rel="prefetch" href="/east-white/assets/js/72.1aead595.js"><link rel="prefetch" href="/east-white/assets/js/73.9c504f82.js"><link rel="prefetch" href="/east-white/assets/js/74.ae863fb3.js"><link rel="prefetch" href="/east-white/assets/js/75.77b22ea3.js"><link rel="prefetch" href="/east-white/assets/js/76.3fb3e486.js"><link rel="prefetch" href="/east-white/assets/js/77.aaa2bb5d.js"><link rel="prefetch" href="/east-white/assets/js/78.ff8f12c6.js"><link rel="prefetch" href="/east-white/assets/js/79.be497966.js"><link rel="prefetch" href="/east-white/assets/js/8.a5a8db2f.js"><link rel="prefetch" href="/east-white/assets/js/80.58edd302.js"><link rel="prefetch" href="/east-white/assets/js/81.d9a83954.js"><link rel="prefetch" href="/east-white/assets/js/82.ea1b1ee7.js"><link rel="prefetch" href="/east-white/assets/js/83.0480b8eb.js"><link rel="prefetch" href="/east-white/assets/js/84.b6608fc3.js"><link rel="prefetch" href="/east-white/assets/js/85.dfbc6855.js"><link rel="prefetch" href="/east-white/assets/js/86.fdf8fc7e.js"><link rel="prefetch" href="/east-white/assets/js/87.45b4397e.js"><link rel="prefetch" href="/east-white/assets/js/88.87fd2edc.js"><link rel="prefetch" href="/east-white/assets/js/89.d96587d6.js"><link rel="prefetch" href="/east-white/assets/js/9.e6aa4f2a.js"><link rel="prefetch" href="/east-white/assets/js/90.f17e0868.js"><link rel="prefetch" href="/east-white/assets/js/91.9fd183a0.js"><link rel="prefetch" href="/east-white/assets/js/92.91d6817c.js"><link rel="prefetch" href="/east-white/assets/js/93.92cd98a0.js"><link rel="prefetch" href="/east-white/assets/js/94.320bb5f5.js"><link rel="prefetch" href="/east-white/assets/js/95.11c60ecb.js"><link rel="prefetch" href="/east-white/assets/js/96.51aad249.js"><link rel="prefetch" href="/east-white/assets/js/97.b42573c1.js"><link rel="prefetch" href="/east-white/assets/js/98.d5b115f6.js"><link rel="prefetch" href="/east-white/assets/js/99.6c49b2de.js">
+    <link rel="stylesheet" href="/east-white/assets/css/0.styles.8b454665.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>east-white</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>east-white's Blog</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/east-white/" class="home-link router-link-active"><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/logo.png" alt="east-white" class="logo"> <span class="site-name">east-white</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link router-link-active"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><!----> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>184</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>0</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link router-link-active"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Docker</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/east-white/server_tools/docker/source/" class="sidebar-link">学习资源</a></li><li><a href="/east-white/server_tools/docker/01/" class="sidebar-link">1.初始Docker</a></li><li><a href="/east-white/server_tools/docker/02/" class="sidebar-link">2.Docker概念介绍</a></li><li><a href="/east-white/server_tools/docker/03/" class="sidebar-link">3.Docker常用命令</a></li><li><a href="/east-white/server_tools/docker/04/" class="sidebar-link">4.Docker部署</a></li><li><a href="/east-white/server_tools/docker/05/" class="sidebar-link">5.Docker镜像构建</a></li><li><a href="/east-white/server_tools/docker/06/" class="sidebar-link">6.镜像其他相关操作</a></li><li><a href="/east-white/server_tools/docker/07/" class="sidebar-link">7.容器通信</a></li><li><a href="/east-white/server_tools/docker/08/" aria-current="page" class="active sidebar-link">8.容器编排</a></li><li><a href="/east-white/server_tools/docker/09/" class="sidebar-link">9.Docker Swarm</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>8.容器编排</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">8.容器编排</h1> <div data-v-f875f3fc><!----> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default"><h1 id="容器编排"><a href="#容器编排" class="header-anchor">#</a> 容器编排</h1> <p>我们可以通过 Dockerfile 文件让用户很方便的定义一个单独的应用容器。然而，在日常工作中，经常会碰到需要多个容器相互配合来完成某项任务的情况。</p> <p>Docker Compose 恰好满足了这样的需求，它是用于<strong>定义和运行多容器 Docker 应用程序</strong>的工具。通过 Compose，您可以使用 <code>YAML</code> 文件来配置应用程序所需要的服务。然后使用一个命令，就可以通过 <code>YAML</code> 配置文件创建并启动所有服务。</p> <p>Docker Compose 项目是 Docker 官方的开源项目，来源于之前的 Fig 项目，使用 Python 语言编写。负责实现对 Docker 容器集群的快速编排。项目地址为：https://github.com/docker/compose/releases</p> <p>Docker Compose 使用的三个步骤为：</p> <ul><li>使用 <code>Dockerfile</code> 文件（镜像）定义应用程序的环境；</li> <li>使用 <code>docker-compose.yml</code> 文件定义构成应用程序的服务，这样它们可以在隔离环境中一起运行；</li> <li>最后，执行 <code>docker-compose up</code> 命令来创建并启动所有服务。</li></ul> <h2 id="_1-compose安装"><a href="#_1-compose安装" class="header-anchor">#</a> 1. Compose安装</h2> <p>官方文档：https://docs.docker.com/compose/install/</p> <p>我们可以使用 <code>curl</code> 命令从 Github 下载它的二进制文件来使用，运行以下命令下载 Docker Compose 的当前稳定版本。或者从网页下载后上传至服务器指定目录 <code>/usr/local/bin</code> 也行。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">sudo</span> <span class="token function">curl</span> -L <span class="token string">&quot;https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -s<span class="token variable">)</span></span>-<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -m<span class="token variable">)</span></span>&quot;</span> -o /usr/local/bin/docker-compose
+</code></pre></div><p>因为 Docker Compose 存放在 GitHub，可能不太稳定。你也可以通过执行下面的命令，高速安装 Compose。该加速通道由 <code>DaoCloud</code> 提供：http://get.daocloud.io/#install-compose</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">sudo</span> <span class="token function">curl</span> -L https://get.daocloud.io/docker/compose/releases/download/v2.3.3/docker-compose-<span class="token variable"><span class="token variable">`</span><span class="token function">uname</span> -s<span class="token variable">`</span></span>-<span class="token variable"><span class="token variable">`</span><span class="token function">uname</span> -m<span class="token variable">`</span></span> <span class="token operator">&gt;</span> /usr/local/bin/docker-compose
+
+</code></pre></div><p>您可以通过修改 URL 中的版本，自定义您所需要的版本文件。</p> <p>授权：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 将可执行权限应用于该二进制文件</span>
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x /usr/local/bin/docker-compose
+</code></pre></div><p>测试：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker-compose</span> --version
+</code></pre></div><p>卸载 Compose 非常简单，直接删除二进制文件即可</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">sudo</span> <span class="token function">rm</span> /usr/local/bin/docker-compose
+</code></pre></div><h2 id="_2-docker-compose-yml文件详解"><a href="#_2-docker-compose-yml文件详解" class="header-anchor">#</a> 2. docker-compose.yml文件详解</h2> <p>官方文档：https://docs.docker.com/compose/compose-file/</p> <p>Docker Compose 允许用户通过 <code>docker-compose.yml</code> 文件（YAML 格式）来定义一组相关联的容器为一个工程<code>（project）</code>。一个工程包含多个服务<code>（service）</code>，每个服务中定义了创建容器时所需的镜像、参数、依赖等。</p> <blockquote><p>工程名若无特殊指定，即为 <code>docker-compose.yml</code> 文件所在目录的名称。</p></blockquote> <p>Docker Compose 模板文件我们需要关注的顶级配置有 <code>version</code>、<code>services</code>、<code>networks</code>、<code>volumes</code> 几个部分：</p> <ul><li><code>version</code>：描述 Compose 文件的版本信息，当前最新版本为 <code>3.8</code>，对应的 Docker 版本为 <code>19.03.0+</code></li> <li><code>services</code>：定义服务，可以多个，每个服务中定义了创建容器时所需的镜像、参数、依赖等；</li> <li><code>networkds</code>：定义网络，可以多个，根据 DNS server 让相同网络中的容器可以直接通过容器名称进行通信；</li> <li><code>volumes</code>：数据卷，用于实现目录挂载。</li></ul> <h3 id="_2-1-案例"><a href="#_2-1-案例" class="header-anchor">#</a> 2.1 案例</h3> <p>在配置文件中，所有的容器通过 <code>services</code> 来定义，然后使用 <code>docker-compose</code> 脚本来启动，停止和重启容器，非常适合多个容器组合使用进行开发的场景。我们先从一个简单的 Compose 案例学起。</p> <p>编写 <code>docker-compose.yml</code> 文件：</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 创建目录</span>
+mkdir <span class="token punctuation">-</span>p /mnt/dcoker/docker<span class="token punctuation">-</span>compose/docker<span class="token punctuation">-</span>nginx
+<span class="token comment"># 切换至指定目录</span>
+cd /mnt/dcoker/docker<span class="token punctuation">-</span>compose/docker<span class="token punctuation">-</span>nginx/
+<span class="token comment"># 编写 docker-compose.yml 文件</span>
+vim docker<span class="token punctuation">-</span>compose.yml
+</code></pre></div><p>在文件中添加以下内容：</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx <span class="token comment"># 创建容器时所需的镜像</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mynginx <span class="token comment"># 容器名称，默认为&quot;工程名称_服务条目名称_序号&quot;</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment"># 宿主机与容器的端口映射关系</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;80:80&quot;</span> <span class="token comment"># 左边宿主机端口:右边容器端口</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span> <span class="token comment"># 配置容器连接的网络，引用顶级 networks 下的条目</span>
+      <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>net
+
+<span class="token comment"># 定义网络，可以多个。如果不声明，默认会创建一个网络名称为&quot;工程名称_default&quot;的 bridge 网络</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体网络的条目名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>net <span class="token comment"># 网络名称，默认为&quot;工程名称_网络条目名称&quot;</span>
+    <span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge <span class="token comment"># 网络模式，默认为 bridge</span>
+
+</code></pre></div><p>使用 <code>docker-compose up</code> 创建并启动所有服务</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 前台启动</span>
+<span class="token function">docker-compose</span> up
+<span class="token comment"># 后台启动</span>
+<span class="token function">docker-compose</span> up -d
+</code></pre></div><p>浏览器访问：http://192.168.200.101/</p> <p>使用 <code>docker-compose down</code> 可以停止并删除容器、网络</p> <h3 id="_2-2-version"><a href="#_2-2-version" class="header-anchor">#</a> 2.2 version</h3> <p>描述 Compose 文件的版本信息，当前最新版本为 <code>3.8</code>，对应的 Docker 版本为 <code>19.03.0+</code>。关于每个版本的详细信息请参考：https://docs.docker.com/compose/compose-file/compose-versioning/</p> <p>以下为 Compose 文件的版本信息所对应的 Docker 版本。</p> <p>![image-20220314215241029](data:image/svg+xml,%3Csvg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 1428 515&quot;%3E%3C/svg%3E)</p> <h3 id="_2-3-services"><a href="#_2-3-services" class="header-anchor">#</a> 2.3 services</h3> <p><code>services</code> 用来定义服务，可以多个，每个服务中定义了创建容器时所需的镜像、参数、依赖等，就像将命令行参数传递给 <code>docker run</code> 一样。同样，网络和数据卷的定义也是一样的。</p> <p>比如，之前我们通过 <code>docker run</code> 命令构建一个 MySQL 应用容器的命令如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run -di --name mysql8 -p <span class="token number">3306</span>:3306 -v /mydata/docker_mysql/conf:/etc/mysql/conf.d -v /mydata/docker_mysql/data:/var/lib/mysql -e <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">1234</span> mysql:8
+</code></pre></div><p>使用 <code>docker-compose.yml</code> 以后则可以这样定义：</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">8</span> <span class="token comment"># 创建容器时所需的镜像</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8 <span class="token comment"># 容器名称，默认为&quot;工程名称_服务条目名称_序号&quot;</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment"># 宿主机与容器的端口映射关系</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;3306:3306&quot;</span> <span class="token comment"># 左边宿主机端口:右边容器端口</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span> <span class="token comment"># 创建容器时所需的环境变量</span>
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> <span class="token number">1234</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;/mydata/docker_mysql/conf:/etc/mysql/conf.d&quot;</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;/mydata/docker_mysql/data:/var/lib/mysql&quot;</span>
+</code></pre></div><p>然后通过 <code>dokcer-compose</code> 相关命令即可完成容器的创建，停止或删除等一系列操作。</p> <h4 id="_2-3-1-image"><a href="#_2-3-1-image" class="header-anchor">#</a> 2.3.1 image</h4> <p>指定创建容器时所需的<strong>镜像名称标签</strong>或者<strong>镜像 ID</strong>。如果镜像在本地不存在，会去远程拉取。</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> hello<span class="token punctuation">-</span>world
+</code></pre></div><h4 id="_2-3-2-build"><a href="#_2-3-2-build" class="header-anchor">#</a> 2.3.2 build</h4> <p>除了可以基于指定的镜像构建容器，还可以基于 <code>Dockerfile</code> 文件构建，在使用 <code>up</code> 命令时会执行构建任务</p> <p>通过 <code>build</code> 配置项可以指定 <code>Dockerfile</code> 所在文件夹的路径。Compose 将会利用 <code>Dockerfile</code> 自动构建镜像，然后使用镜像启动服务容器</p> <p><code>build</code> 配置项可以使用绝对路径，也可以使用相对路径</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 绝对路径，在该路径下基于名称为 Dockerfile 的文件构建镜像</span>
+/usr/local/docker-centos
+<span class="token comment"># 相对路径，相对当前 docker-compose.yml 文件所在目录，基于名称为 Dockerfile 的文件构建镜像</span>
+<span class="token builtin class-name">.</span>
+</code></pre></div><p>通过基础镜像 <code>centos:7</code>，在该镜像中安装 jdk 和 tomcat 以后将其制作为一个新的镜像 <code>mycentos:7</code></p> <p>创建目录并编写 <code>Dockerfile</code> 文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 创建目录</span>
+<span class="token function">mkdir</span> -p /mnt/docker/docker-compose/docker-centos
+<span class="token comment"># 切换至指定目录</span>
+<span class="token builtin class-name">cd</span> /mnt/docker/docker-compose/docker-centos/
+<span class="token comment"># 编写 Dockerfile 文件</span>
+<span class="token function">vim</span> Dockerfile
+
+</code></pre></div><p><code>Dockerfile</code> 文件内容如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 指明构建的新镜像是来自于 centos:7 基础镜像</span>
+FROM centos:7
+<span class="token comment"># 通过镜像标签声明了作者信息</span>
+LABEL <span class="token assign-left variable">maintainer</span><span class="token operator">=</span><span class="token string">&quot;mszlu.com&quot;</span>
+<span class="token comment"># 设置工作目录</span>
+WORKDIR /usr/local
+<span class="token comment"># 新镜像构建成功以后创建指定目录</span>
+RUN <span class="token function">mkdir</span> -p /usr/local/java <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> -p /usr/local/tomcat
+<span class="token comment"># 拷贝文件到镜像中并解压</span>
+ADD jdk-11.0.8_linux-x64_bin.tar.gz /usr/local/java
+ADD apache-tomcat-9.0.59.tar.gz /usr/local/tomcat
+<span class="token comment"># 暴露容器运行时的 8080 监听端口给外部</span>
+EXPOSE <span class="token number">8080</span>
+<span class="token comment"># 设置容器内 JAVA_HOME 环境变量</span>
+ENV JAVA_HOME /usr/local/java/jdk-11.0.8/
+ENV <span class="token environment constant">PATH</span> <span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$JAVA_HOME</span>/bin
+<span class="token comment"># 启动容器时启动 tomcat 并查看 tomcat 日志信息</span>
+CMD <span class="token punctuation">[</span><span class="token string">&quot;/usr/local/tomcat/apache-tomcat-9.0.59/bin/catalina.sh&quot;</span>, <span class="token string">&quot;run&quot;</span><span class="token punctuation">]</span>
+
+</code></pre></div><p>将所需的资源包 <code>jdk</code> 和 <code>tomcat</code> 上传至 Dockerfile 同一目录</p> <p>创建目录并编写 <code>docker-compose.yml</code> 文件</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mycentos</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> . <span class="token comment"># 相对当前 docker-compose.yml 文件所在目录，基于名称为 Dockerfile 的文件构建镜像</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mycentos7 <span class="token comment"># 容器名称，默认为&quot;工程名称_服务条目名称_序号&quot;</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment"># 宿主机与容器的端口映射关系</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;8080:8080&quot;</span> <span class="token comment"># 左边宿主机端口:右边容器端口</span>
+
+</code></pre></div><p>然后通过 <code>docker-compose</code> 相关命令即可完成容器的创建，停止或删除等一系列操作</p> <h4 id="_2-3-3-context"><a href="#_2-3-3-context" class="header-anchor">#</a> 2.3.3 context</h4> <p>该选项可以是 Dockerfile 文件的绝对/相对路径，也可以是远程 Git 仓库的 URL，当提供的值是相对路径时，相对当前 docker-compose.yml 文件所在目录。</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">build</span><span class="token punctuation">:</span>
+  <span class="token key atrule">context</span><span class="token punctuation">:</span> . <span class="token comment"># 相对当前 docker-compose.yml 文件所在目录，基于名称为 Dockerfile 的文件构建镜像</span>
+</code></pre></div><h4 id="_2-3-4-dockerfile"><a href="#_2-3-4-dockerfile" class="header-anchor">#</a> 2.3.4 dockerfile</h4> <p>一般情况下，默认都基于文件名叫 Dockerfile 的文件构建镜像，当然也可以是自定义的文件名，使用 <code>dockerfile</code> 声明，不过这个选项只能声明文件名，文件所在路径还是要通过 centext 来声明</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">build</span><span class="token punctuation">:</span>
+  <span class="token key atrule">context</span><span class="token punctuation">:</span> . <span class="token comment"># 相对当前 docker-compose.yml 文件所在目录</span>
+  <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile<span class="token punctuation">-</span>alternate <span class="token comment"># 基于名称为 Dockerfile-alternate 的文件构建镜像</span>
+
+</code></pre></div><h4 id="_2-3-5-container-name"><a href="#_2-3-5-container-name" class="header-anchor">#</a> 2.3.5 container_name</h4> <p>Compose 创建的容器默认生成的名称格式为：<code>工程名称_服务条目名称_序号</code>。如果要使用自定义名称，使用 <code>container_name</code> 声明</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mycentos</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> .
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mycentos7 <span class="token comment"># 容器名称，默认为&quot;工程名称_服务条目名称_序号&quot;</span>
+
+</code></pre></div><p><strong>因为 Docker 容器名称必须是唯一的，所以如果指定了自定义名称，就不能将服务扩展至多个容器。这样做可能会导致错误</strong></p> <h4 id="_2-3-6-序号"><a href="#_2-3-6-序号" class="header-anchor">#</a> 2.3.6 序号</h4> <p>序号是干什么用的呢？</p> <p><code>docker-compose.yml</code> 文件内容如下</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">testseq</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> centos<span class="token punctuation">:</span><span class="token number">7</span>
+</code></pre></div><p>然后通过 <code>--scale</code> 指定 <code>testseq</code> 服务一次性启动 3 个</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker-compose</span> up -d --scale <span class="token assign-left variable">testseq</span><span class="token operator">=</span><span class="token number">3</span>
+</code></pre></div><p>通过下图可以看到有 3 个容器被创建，容器名称最后的<strong>序号</strong>是从 1 开始累加的，这就是序号的作用。所以如果指定了自定义名称，就不能将服务扩展至多个容器</p> <p><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/image-20220314221547321.png" alt="image-20220314221547321"></p> <h4 id="_2-3-7-depends-on"><a href="#_2-3-7-depends-on" class="header-anchor">#</a> 2.3.7 depends_on</h4> <p>使用 Compose 最大的好处就是敲最少的命令做更多的事情，但一般项目容器启动的顺序是有要求的，如果直接从上到下启动容器，必然会因为容器依赖问题而启动失败。例如在没有启动数据库容器的情况下启动了 Web 应用容器，应用容器会因为找不到数据库而退出。<code>depends_on</code> 就是用来解决容器依赖、启动先后问题的配置项</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> .
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> db
+      <span class="token punctuation">-</span> redis
+  <span class="token key atrule">redis</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> redis
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql
+
+</code></pre></div><p>上述 YAML 文件定义的容器会先启动 db 和 redis 两个服务，最后才启动 web 服务。</p> <h4 id="_2-3-8-port"><a href="#_2-3-8-port" class="header-anchor">#</a> 2.3.8 port</h4> <p>容器对外暴露的端口，格式：<code>左边宿主机端口:右边容器端口</code></p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">&quot;80:80&quot;</span>
+  <span class="token punctuation">-</span> <span class="token string">&quot;8080:8080&quot;</span>
+
+</code></pre></div><h4 id="_2-3-9-expose"><a href="#_2-3-9-expose" class="header-anchor">#</a> 2.3.9 expose</h4> <p>容器暴露的端口不映射到宿主机，只允许能被连接的服务访问</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">expose</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token string">&quot;80&quot;</span>
+  <span class="token punctuation">-</span> <span class="token string">&quot;8080&quot;</span>
+</code></pre></div><h4 id="_2-3-10-restart"><a href="#_2-3-10-restart" class="header-anchor">#</a> 2.3.10 restart</h4> <p>容器重启策略，简单的理解就是 Docker 重启以后容器要不要一起启动：</p> <ul><li><code>no</code>：默认的重启策略，在任何情况下都不会重启容器；</li> <li><code>on-failure</code>：容器非正常退出时，比如退出状态为<code>非0</code>(异常退出)，才会重启容器；</li> <li><code>always</code>：容器总是重新启动，即使容器被手动停止了，当 Docker 重启时容器也还是会一起启动；</li> <li><code>unless-stopped</code>：容器总是重新启动，除非容器被停止（手动或其他方式），那么 Docker 重启时容器则不会启动</li></ul> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mynginx
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;80:80&quot;</span>
+    <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+
+</code></pre></div><h4 id="_2-3-11-environment"><a href="#_2-3-11-environment" class="header-anchor">#</a> 2.3.11 environment</h4> <p>添加环境变量。可以使用数组也可以使用字典。布尔相关的值（true、false、yes、no）都需要用引号括起来，以确保 YML 解析器不会将它们转换为真或假</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+  <span class="token key atrule">RACK_ENV</span><span class="token punctuation">:</span> development
+  <span class="token key atrule">SHOW</span><span class="token punctuation">:</span> <span class="token string">'true'</span>
+  <span class="token key atrule">SESSION_SECRET</span><span class="token punctuation">:</span>
+
+</code></pre></div><p>或者以下格式：</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> RACK_ENV=development
+  <span class="token punctuation">-</span> SHOW=true
+  <span class="token punctuation">-</span> SESSION_SECRET
+
+</code></pre></div><h4 id="_2-3-12-env-file"><a href="#_2-3-12-env-file" class="header-anchor">#</a> 2.3.12 env_file</h4> <p>从文件中获取环境变量，可以指定一个或多个文件，其优先级低于 environment 指定的环境变量</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">env_file</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> /opt/runtime_opts.env <span class="token comment"># 绝对路径</span>
+  <span class="token punctuation">-</span> ./common.env <span class="token comment"># 相对路径，相对当前 docker-compose.yml 文件所在目录</span>
+  <span class="token punctuation">-</span> ./apps/web.env <span class="token comment"># 相对路径，相对当前 docker-compose.yml 文件所在目录</span>
+
+</code></pre></div><blockquote><p>注意：env 文件中的每一行需采用 <code>键=值</code> 格式。以 <code>#</code> 开头的行会被视为注释并被忽略。空行也会被忽略。</p></blockquote> <h4 id="_2-3-13-command"><a href="#_2-3-13-command" class="header-anchor">#</a> 2.3.13 command</h4> <p>覆盖容器启动后默认执行的命令</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">command</span><span class="token punctuation">:</span> echo &quot;helloworld&quot;
+</code></pre></div><p>该命令也可以是一个列表</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&quot;echo&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;helloworld&quot;</span><span class="token punctuation">]</span>
+</code></pre></div><h4 id="_2-3-14-volumes"><a href="#_2-3-14-volumes" class="header-anchor">#</a> 2.3.14 volumes</h4> <p>数据卷，用于实现目录挂载，支持<strong>指定目录挂载</strong>、<strong>匿名挂载</strong>、<strong>具名挂载</strong>。</p> <ul><li>指定目录挂载的格式为：<code>左边宿主机目录:右边容器目录</code>，或者<code>左边宿主机目录:右边容器目录:读写权限</code>；</li> <li>匿名挂载格式为：<code>容器目录即可</code>，或者<code>容器目录即可:读写权限</code>；</li> <li>具名挂载格式为：<code>数据卷条目名称:容器目录</code>，或者<code>数据卷条目名称:容器目录:读写权限</code>。</li></ul> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">8</span> <span class="token comment"># 创建容器时所需的镜像</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8 <span class="token comment"># 容器名称，默认为&quot;工程名称_服务条目名称_序号&quot;</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment"># 宿主机与容器的端口映射关系</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;3306:3306&quot;</span> <span class="token comment"># 左边宿主机端口:右边容器端口</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span> <span class="token comment"># 创建容器时所需的环境变量</span>
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> <span class="token number">1234</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token comment"># 绝对路径</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;/mnt/docker/docker_mysql/data:/var/lib/mysql&quot;</span>
+      <span class="token comment"># 相对路径，相对当前 docker-compose.yml 文件所在目录</span>
+      <span class="token punctuation">-</span> “./conf<span class="token punctuation">:</span>/etc/mysql/conf.d“
+      <span class="token comment"># 匿名挂载，匿名挂载只需要写容器目录即可，容器外对应的目录会在 /var/lib/docker/volume 中生成</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;/var/lib/mysql&quot;</span>
+      <span class="token comment"># 具名挂载，就是给数据卷起了个名字，容器外对应的目录会在 /var/lib/docker/volume 中生成</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;mysql-data-volume:/var/lib/mysql&quot;</span>
+
+<span class="token comment"># 定义数据卷，可以多个</span>
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql-data-volume</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体数据卷的条目名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql<span class="token punctuation">-</span>data<span class="token punctuation">-</span>volume <span class="token comment"># 数据卷名称，默认为&quot;工程名称_数据卷条目名称&quot;</span>
+
+</code></pre></div><h4 id="_2-3-15-network-mode"><a href="#_2-3-15-network-mode" class="header-anchor">#</a> 2.3.15 network_mode</h4> <p>设置网络模式，类似 <code>docker run</code> 时添加的参数 <code>--net host</code> 或者 <code>--network host</code> 的用法</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">&quot;bridge&quot;</span>
+<span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">&quot;host&quot;</span>
+<span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">&quot;none&quot;</span>
+<span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">&quot;service:[service name]&quot;</span>
+<span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">&quot;container:[container name/id]&quot;</span>
+
+</code></pre></div><h4 id="_2-3-16-networks"><a href="#_2-3-16-networks" class="header-anchor">#</a> 2.3.16 networks</h4> <p>配置容器连接的网络，引用顶级 networks 下的条目</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span> <span class="token comment"># 配置容器连接的网络，引用顶级 networks 下的条目</span>
+      <span class="token punctuation">-</span> nginx<span class="token punctuation">-</span>net <span class="token comment"># 一个具体网络的条目名称</span>
+
+<span class="token comment"># 定义网络，可以多个。如果不声明，默认会创建一个网络名称为&quot;工程名称_default&quot;的 bridge 网络</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体网络的条目名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>net <span class="token comment"># 网络名称，默认为&quot;工程名称_网络条目名称&quot;</span>
+    <span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge <span class="token comment"># 网络模式，默认为 bridge</span>
+
+</code></pre></div><h4 id="_2-3-17-aliases"><a href="#_2-3-17-aliases" class="header-anchor">#</a> 2.3.17 aliases</h4> <p>网络上此服务的别名。</p> <p>同一网络上的其他容器可以使用服务名或此别名连接到服务容器。</p> <p>同一服务在不同的网络上可以具有不同的别名</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span> <span class="token comment"># 服务名称</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span> <span class="token comment"># 配置容器连接的网络，引用顶级 networks 下的条目</span>
+      <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体网络的条目名称</span>
+        <span class="token key atrule">aliases</span><span class="token punctuation">:</span> <span class="token comment"># 服务别名，可以多个</span>
+          <span class="token punctuation">-</span> nginx1 <span class="token comment"># 同一网络上的其他容器可以使用服务名或此别名连接到服务容器</span>
+
+<span class="token comment"># 定义网络，可以多个。如果不声明，默认会创建一个网络名称为&quot;工程名称_default&quot;的 bridge 网络</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体网络的条目名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>net <span class="token comment"># 网络名称，默认为&quot;工程名称_网络条目名称&quot;</span>
+    <span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge <span class="token comment"># 网络模式，默认为 bridge</span>
+
+</code></pre></div><h3 id="_2-4-volumes"><a href="#_2-4-volumes" class="header-anchor">#</a> 2.4 volumes</h3> <p>以下方式的数据卷声明创建卷时会使用默认的名称：<code>&quot;工程名称_数据卷条目名称&quot;</code></p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">8</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;3306:3306&quot;</span>
+    environment
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> <span class="token number">1234</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token comment"># 具名挂载，就是给数据卷起了个名字，容器外对应的目录会在 /var/lib/docker/volume 中生成</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;mysql-data-volume:/var/lib/mysql&quot;</span>
+
+<span class="token comment"># 定义数据卷，可以多个</span>
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql-data-volume</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体数据卷的条目名称</span>
+
+</code></pre></div><p>以下方式的数据卷声明创建卷时会使用自定义的名称</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span><span class="token number">8</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql8
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;3306:3306&quot;</span>
+    environment
+      <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> <span class="token number">1234</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token comment"># 具名挂载，就是给数据卷起了个名字，容器外对应的目录会在 /var/lib/docker/volume 中生成</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;mysql-data-volume:/var/lib/mysql&quot;</span>
+
+<span class="token comment"># 定义数据卷，可以多个</span>
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mysql-data-volume</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体数据卷的条目名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> mysql<span class="token punctuation">-</span>data<span class="token punctuation">-</span>volume <span class="token comment"># 数据卷名称，默认为&quot;工程名称_数据卷条目名称&quot;</span>
+
+</code></pre></div><h3 id="_2-5-networks"><a href="#_2-5-networks" class="header-anchor">#</a> 2.5 networks</h3> <p>如果不声明网络，每个工程默认会创建一个网络名称为<code>&quot;工程名称_default&quot;</code>的 <code>bridge</code> 网络。</p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mynginx
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;80:80&quot;</span>
+
+<span class="token comment"># 定义网络，可以多个。如果不声明，默认会创建一个网络名称为&quot;工程名称_default&quot;的 bridge 网络</span>
+<span class="token comment">#networks:</span>
+
+</code></pre></div><p>以下方式的网络声明创建网络时会使用默认的名称：<code>&quot;工程名称_网络条目名称&quot;</code>，网络模式默认为 <code>bridge</code></p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mynginx
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;80:80&quot;</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span> <span class="token comment"># 配置容器连接的网络，引用顶级 networks 下的条目</span>
+      <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span>
+
+<span class="token comment"># 定义网络，可以多个</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体网络的条目名称</span>
+
+</code></pre></div><p>以下方式的网络声明创建网络时会使用自定义的名称，还可以通过 <code>driver</code> 选择网络模式，默认为 <code>bridge</code></p> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token comment"># 描述 Compose 文件的版本信息</span>
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">&quot;3.8&quot;</span>
+<span class="token comment"># 定义服务，可以多个</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mynginx
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token string">&quot;80:80&quot;</span>
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span> <span class="token comment"># 配置容器连接的网络，引用顶级 networks 下的条目</span>
+      <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span>
+
+<span class="token comment"># 定义网络，可以多个</span>
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nginx-net</span><span class="token punctuation">:</span> <span class="token comment"># 一个具体网络的条目名称</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>net <span class="token comment"># 网络名称，默认为&quot;工程名称_网络条目名称&quot;</span>
+    <span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge <span class="token comment"># 网络模式，默认为 bridge</span>
+
+</code></pre></div><h2 id="_3-compose-常用命令"><a href="#_3-compose-常用命令" class="header-anchor">#</a> 3. Compose 常用命令</h2> <p>官方文档：https://docs.docker.com/compose/reference/overview/</p> <p>为了更熟练的使用 Compose，以下常用命令大家多多练习，方可熟能生巧。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker-compose</span> <span class="token punctuation">[</span>-f <span class="token operator">&lt;</span>arg<span class="token operator">&gt;</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span> <span class="token punctuation">[</span>options<span class="token punctuation">]</span> <span class="token punctuation">[</span>COMMAND<span class="token punctuation">]</span> <span class="token punctuation">[</span>ARGS<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+</code></pre></div><p>部分命令选项如下：</p> <ul><li><code>-f，--file</code>：指定使用的 Compose 模板文件，默认为 <code>docker-compose.yml</code>，可以多次指定，指定多个 yml；</li> <li><code>-p, --project-name</code>：指定工程名称，默认使用 <code>docker-compose.yml</code> 文件所在目录的名称；</li> <li><code>-v</code>：打印版本并退出；</li> <li><code>--log-level</code>：定义日志等级（DEBUG, INFO, WARNING, ERROR, CRITICAL）。</li></ul> <h3 id="_3-1-help"><a href="#_3-1-help" class="header-anchor">#</a> 3.1 help</h3> <p><code>docker-compose -help</code> 查看帮助</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># docker-compose -help</span>
+Define and run multi-container applications with Docker.
+
+Usage:
+  <span class="token function">docker-compose</span> <span class="token punctuation">[</span>-f <span class="token operator">&lt;</span>arg<span class="token operator">&gt;</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span> <span class="token punctuation">[</span>options<span class="token punctuation">]</span> <span class="token punctuation">[</span>COMMAND<span class="token punctuation">]</span> <span class="token punctuation">[</span>ARGS<span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+  <span class="token function">docker-compose</span> -h<span class="token operator">|</span>--help
+
+Options:
+  -f, --file FILE             Specify an alternate compose <span class="token function">file</span>
+                              <span class="token punctuation">(</span>default: docker-compose.yml<span class="token punctuation">)</span>
+  -p, --project-name NAME     Specify an alternate project name
+                              <span class="token punctuation">(</span>default: directory name<span class="token punctuation">)</span>
+  -c, --context NAME          Specify a context name
+  --verbose                   Show <span class="token function">more</span> output
+  --log-level LEVEL           Set log level <span class="token punctuation">(</span>DEBUG, INFO, WARNING, ERROR, CRITICAL<span class="token punctuation">)</span>
+  --no-ansi                   Do not print ANSI control characters
+  -v, --version               Print version and <span class="token builtin class-name">exit</span>
+  -H, --host HOST             Daemon socket to connect to
+
+  --tls                       Use TLS<span class="token punctuation">;</span> implied by --tlsverify
+  --tlscacert CA_PATH         Trust certs signed only by this CA
+  --tlscert CLIENT_CERT_PATH  Path to TLS certificate <span class="token function">file</span>
+  --tlskey TLS_KEY_PATH       Path to TLS key <span class="token function">file</span>
+  --tlsverify                 Use TLS and verify the remote
+  --skip-hostname-check       Don<span class="token string">'t check the daemon'</span>s <span class="token function">hostname</span> against the
+                              name specified <span class="token keyword">in</span> the client certificate
+  --project-directory <span class="token environment constant">PATH</span>    Specify an alternate working directory
+                              <span class="token punctuation">(</span>default: the path of the Compose <span class="token function">file</span><span class="token punctuation">)</span>
+  --compatibility             If set, Compose will attempt to convert keys
+                              <span class="token keyword">in</span> v3 files to their non-Swarm equivalent
+  --env-file <span class="token environment constant">PATH</span>             Specify an alternate environment <span class="token function">file</span>
+
+Commands:
+  build              Build or rebuild services
+  config             Validate and view the Compose <span class="token function">file</span>
+  create             Create services
+  down               Stop and remove containers, networks, images, and volumes
+  events             Receive real <span class="token function">time</span> events from containers
+  <span class="token builtin class-name">exec</span>               Execute a <span class="token builtin class-name">command</span> <span class="token keyword">in</span> a running container
+  <span class="token builtin class-name">help</span>               Get <span class="token builtin class-name">help</span> on a <span class="token builtin class-name">command</span>
+  images             List images
+  <span class="token function">kill</span>               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port <span class="token keyword">for</span> a port binding
+  <span class="token function">ps</span>                 List containers
+  pull               Pull <span class="token function">service</span> images
+  push               Push <span class="token function">service</span> images
+  restart            Restart services
+  <span class="token function">rm</span>                 Remove stopped containers
+  run                Run a one-off <span class="token builtin class-name">command</span>
+  scale              Set number of containers <span class="token keyword">for</span> a <span class="token function">service</span>
+  start              Start services
+  stop               Stop services
+  <span class="token function">top</span>                Display the running processes
+  unpause            Unpause services
+  up                 Create and start containers
+  version            Show the Docker-Compose version information
+
+</code></pre></div><h3 id="_3-2-config"><a href="#_3-2-config" class="header-anchor">#</a> 3.2 config</h3> <p><code>docker-compose config -q</code> 验证 <code>docker-compose.yml</code> 文件。当配置正确时，不输出任何内容，当配置错误时，输出错误信息。</p> <h3 id="_3-3-pull"><a href="#_3-3-pull" class="header-anchor">#</a> 3.3 pull</h3> <p><code>docker-compose pull</code> 拉取服务依赖的镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 拉取工程中所有服务依赖的镜像</span>
+<span class="token function">docker-compose</span> pull
+<span class="token comment"># 拉取工程中 nginx 服务依赖的镜像</span>
+<span class="token function">docker-compose</span> pull nginx
+<span class="token comment"># 拉取镜像过程中不打印拉取进度信息</span>
+<span class="token function">docker-compose</span> pull -q
+
+</code></pre></div><h3 id="_3-4-up"><a href="#_3-4-up" class="header-anchor">#</a> 3.4 up</h3> <p><code>docker-compose up</code> 创建并启动所有服务的容器。指定多个 yml 加 <code>-f</code> 选项。以守护进程模式运行加 <code>-d</code> 选项。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 前台启动</span>
+<span class="token function">docker-compose</span> up
+<span class="token comment"># 后台启动</span>
+<span class="token function">docker-compose</span> up -d
+<span class="token comment"># -f 指定使用的 Compose 模板文件，默认为 docker-compose.yml，可以多次指定，指定多个 yml</span>
+<span class="token function">docker-compose</span> -f docker-compose.yml up -d 
+
+</code></pre></div><h3 id="_3-5-logs"><a href="#_3-5-logs" class="header-anchor">#</a> 3.5 logs</h3> <p><code>docker-compose logs</code> 查看服务容器的输出日志。默认情况下，docker-compose 将对不同的服务输出使用不同的颜色来区分。可以通过 <code>--no-color</code> 来关闭颜色</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 输出日志，不同的服务输出使用不同的颜色来区分</span>
+<span class="token function">docker-compose</span> logs
+<span class="token comment"># 跟踪日志输出</span>
+<span class="token function">docker-compose</span> logs -f
+<span class="token comment"># 关闭颜色</span>
+<span class="token function">docker-compose</span> logs --no-color
+
+</code></pre></div><h3 id="_3-6-ps"><a href="#_3-6-ps" class="header-anchor">#</a> 3.6 ps</h3> <p><code>docker-compose ps</code> 列出工程中所有服务的容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 列出工程中所有服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token function">ps</span>
+<span class="token comment"># 列出工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token function">ps</span> nginx
+
+</code></pre></div><h3 id="_3-7-run"><a href="#_3-7-run" class="header-anchor">#</a> 3.7 run</h3> <p><code>docker-compose run</code> 在指定服务容器上执行一个命令</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 在工程中指定服务的容器上执行 echo &quot;helloworld&quot;</span>
+<span class="token function">docker-compose</span> run nginx <span class="token builtin class-name">echo</span> <span class="token string">&quot;helloworld&quot;</span>
+</code></pre></div><h3 id="_3-8-exec"><a href="#_3-8-exec" class="header-anchor">#</a> 3.8 exec</h3> <p><code>docker-compose exec</code> 进入服务容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 进入工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token builtin class-name">exec</span> nginx <span class="token function">bash</span>
+<span class="token comment"># 当一个服务拥有多个容器时，可通过 --index 参数进入到该服务下的任何容器</span>
+<span class="token function">docker-compose</span> <span class="token builtin class-name">exec</span> --index<span class="token operator">=</span><span class="token number">1</span> nginx <span class="token function">bash</span>
+
+</code></pre></div><h3 id="_3-9-pause"><a href="#_3-9-pause" class="header-anchor">#</a> 3.9 pause</h3> <p><code>docker-compose pause</code> 暂停服务容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 暂停工程中所有服务的容器</span>
+<span class="token function">docker-compose</span> pause
+<span class="token comment"># 暂停工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> pause nginx
+
+</code></pre></div><h3 id="_3-10-unpause"><a href="#_3-10-unpause" class="header-anchor">#</a> 3.10 unpause</h3> <p><code>docker-compose unpause</code> 恢复服务容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 恢复工程中所有服务的容器</span>
+<span class="token function">docker-compose</span> unpause
+<span class="token comment"># 恢复工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> unpause nginx
+
+</code></pre></div><h3 id="_3-11-restart"><a href="#_3-11-restart" class="header-anchor">#</a> 3.11 restart</h3> <p><code>docker-compose restart</code> 重启服务容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 重启工程中所有服务的容器</span>
+<span class="token function">docker-compose</span> restart
+<span class="token comment"># 重启工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> restart nginx
+
+</code></pre></div><h3 id="_3-12-start"><a href="#_3-12-start" class="header-anchor">#</a> 3.12 start</h3> <p><code>docker-compose start</code> 启动服务容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 启动工程中所有服务的容器</span>
+<span class="token function">docker-compose</span> start
+<span class="token comment"># 启动工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> start nginx
+
+</code></pre></div><h3 id="_3-13-stop"><a href="#_3-13-stop" class="header-anchor">#</a> 3.13 stop</h3> <p><code>docker-compose stop</code> 停止服务容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 停止工程中所有服务的容器</span>
+<span class="token function">docker-compose</span> stop
+<span class="token comment"># 停止工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> stop nginx
+
+</code></pre></div><h3 id="_3-14-kill"><a href="#_3-14-kill" class="header-anchor">#</a> 3.14 kill</h3> <p><code>docker-compose kill</code> 通过发送 <code>SIGKILL</code> 信号停止指定服务的容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 通过发送 SIGKILL 信号停止工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token function">kill</span> nginx
+
+</code></pre></div><h3 id="_3-15-rm"><a href="#_3-15-rm" class="header-anchor">#</a> 3.15 rm</h3> <p><code>docker-compose rm</code> 删除服务（停止状态）容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 删除所有（停止状态）服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token function">rm</span>
+<span class="token comment"># 先停止所有服务的容器，再删除所有服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token function">rm</span> -s
+<span class="token comment"># 不询问是否删除，直接删除</span>
+<span class="token function">docker-compose</span> <span class="token function">rm</span> -f
+<span class="token comment"># 删除服务容器挂载的数据卷</span>
+<span class="token function">docker-compose</span> <span class="token function">rm</span> -v
+<span class="token comment"># 删除工程中指定服务的容器</span>
+<span class="token function">docker-compose</span> <span class="token function">rm</span> -sv nginx
+
+</code></pre></div><h3 id="_3-16-down"><a href="#_3-16-down" class="header-anchor">#</a> 3.16 down</h3> <p>停止并删除所有服务的容器、网络、镜像、数据卷</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 停止并删除工程中所有服务的容器、网络</span>
+<span class="token function">docker-compose</span> down
+<span class="token comment"># 停止并删除工程中所有服务的容器、网络、镜像</span>
+<span class="token function">docker-compose</span> down --rmi all
+<span class="token comment"># 停止并删除工程中所有服务的容器、网络、数据卷</span>
+<span class="token function">docker-compose</span> down -v
+
+</code></pre></div><h3 id="_3-17-create"><a href="#_3-17-create" class="header-anchor">#</a> 3.17 <s>create</s></h3> <p><code>docker-compose create</code> 为服务创建容器，已不推荐使用。推荐使用 <code>docker-compose up</code> 来实现该功能</p> <h3 id="_3-18-scale"><a href="#_3-18-scale" class="header-anchor">#</a> 3.18 <s>scale</s></h3> <p><code>docker-compose scale</code> 设置指定服务运行的容器个数，已不推荐使用</p> <p>推荐使用 <code>--scale service=num</code> 的参数来设置数量</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 通过 --scale 指定 helloworld 服务一次性启动 3 个</span>
+<span class="token function">docker-compose</span> up -d --scale <span class="token assign-left variable">helloworld</span><span class="token operator">=</span><span class="token number">3</span>
+</code></pre></div><h3 id="_3-19-images"><a href="#_3-19-images" class="header-anchor">#</a> 3.19 images</h3> <p><code>docker-compose images</code> 打印服务容器所对应的镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 打印所有服务的容器所对应的镜像</span>
+<span class="token function">docker-compose</span> images
+<span class="token comment"># 打印指定服务的容器所对应的镜像</span>
+<span class="token function">docker-compose</span> images nginx
+
+</code></pre></div><h3 id="_3-20-port"><a href="#_3-20-port" class="header-anchor">#</a> 3.20 port</h3> <p><code>docker-compose port</code> 打印指定服务容器的某个端口所映射的宿主机端口</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>root@localhost docker-nginx<span class="token punctuation">]</span><span class="token comment"># docker-compose port nginx 80</span>
+<span class="token number">0.0</span>.0.0:80
+</code></pre></div><h3 id="_3-21-top"><a href="#_3-21-top" class="header-anchor">#</a> 3.21 top</h3> <p><code>docker-compose top</code> 显示正在运行的进程</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment"># 显示工程中所有服务的容器正在运行的进程</span>
+<span class="token function">docker-compose</span> <span class="token function">top</span>
+<span class="token comment"># 显示工程中指定服务的容器正在运行的进程</span>
+<span class="token function">docker-compose</span> <span class="token function">top</span> nginx
+
+</code></pre></div></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2022/5/23 下午4:38:26</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/east-white/server_tools/docker/07/" class="prev">
+            7.容器通信
+          </a></span> <span class="next"><a href="/east-white/server_tools/docker/09/">
+            9.Docker Swarm
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_1-compose安装" class="sidebar-link reco-side-_1-compose安装" data-v-cb1513f6>1. Compose安装</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_2-docker-compose-yml文件详解" class="sidebar-link reco-side-_2-docker-compose-yml文件详解" data-v-cb1513f6>2. docker-compose.yml文件详解</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_2-1-案例" class="sidebar-link reco-side-_2-1-案例" data-v-cb1513f6>2.1 案例</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_2-2-version" class="sidebar-link reco-side-_2-2-version" data-v-cb1513f6>2.2 version</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_2-3-services" class="sidebar-link reco-side-_2-3-services" data-v-cb1513f6>2.3 services</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_2-4-volumes" class="sidebar-link reco-side-_2-4-volumes" data-v-cb1513f6>2.4 volumes</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_2-5-networks" class="sidebar-link reco-side-_2-5-networks" data-v-cb1513f6>2.5 networks</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-compose-常用命令" class="sidebar-link reco-side-_3-compose-常用命令" data-v-cb1513f6>3. Compose 常用命令</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-1-help" class="sidebar-link reco-side-_3-1-help" data-v-cb1513f6>3.1 help</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-2-config" class="sidebar-link reco-side-_3-2-config" data-v-cb1513f6>3.2 config</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-3-pull" class="sidebar-link reco-side-_3-3-pull" data-v-cb1513f6>3.3 pull</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-4-up" class="sidebar-link reco-side-_3-4-up" data-v-cb1513f6>3.4 up</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-5-logs" class="sidebar-link reco-side-_3-5-logs" data-v-cb1513f6>3.5 logs</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-6-ps" class="sidebar-link reco-side-_3-6-ps" data-v-cb1513f6>3.6 ps</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-7-run" class="sidebar-link reco-side-_3-7-run" data-v-cb1513f6>3.7 run</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-8-exec" class="sidebar-link reco-side-_3-8-exec" data-v-cb1513f6>3.8 exec</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-9-pause" class="sidebar-link reco-side-_3-9-pause" data-v-cb1513f6>3.9 pause</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-10-unpause" class="sidebar-link reco-side-_3-10-unpause" data-v-cb1513f6>3.10 unpause</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-11-restart" class="sidebar-link reco-side-_3-11-restart" data-v-cb1513f6>3.11 restart</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-12-start" class="sidebar-link reco-side-_3-12-start" data-v-cb1513f6>3.12 start</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-13-stop" class="sidebar-link reco-side-_3-13-stop" data-v-cb1513f6>3.13 stop</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-14-kill" class="sidebar-link reco-side-_3-14-kill" data-v-cb1513f6>3.14 kill</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-15-rm" class="sidebar-link reco-side-_3-15-rm" data-v-cb1513f6>3.15 rm</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-16-down" class="sidebar-link reco-side-_3-16-down" data-v-cb1513f6>3.16 down</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-17-create" class="sidebar-link reco-side-_3-17-create" data-v-cb1513f6>3.17 ~~create~~</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-18-scale" class="sidebar-link reco-side-_3-18-scale" data-v-cb1513f6>3.18 ~~scale~~</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-19-images" class="sidebar-link reco-side-_3-19-images" data-v-cb1513f6>3.19 images</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-20-port" class="sidebar-link reco-side-_3-20-port" data-v-cb1513f6>3.20 port</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/server_tools/docker/08/#_3-21-top" class="sidebar-link reco-side-_3-21-top" data-v-cb1513f6>3.21 top</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="https://www.ytmp3.cn/down/51750.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:10px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200" data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>River flows in you</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>Yiruma</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div><!----></div></div>
+    <script src="/east-white/assets/js/app.66c0ecb2.js" defer></script><script src="/east-white/assets/js/3.688d5389.js" defer></script><script src="/east-white/assets/js/1.66f91b48.js" defer></script><script src="/east-white/assets/js/189.a35aee38.js" defer></script>
+  </body>
+</html>

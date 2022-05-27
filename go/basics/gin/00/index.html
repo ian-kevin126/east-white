@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gin简明教程 | east-white</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="east-white&#39;s Blog">
+    
+    <link rel="preload" href="/east-white/assets/css/0.styles.8b454665.css" as="style"><link rel="preload" href="/east-white/assets/js/app.66c0ecb2.js" as="script"><link rel="preload" href="/east-white/assets/js/3.688d5389.js" as="script"><link rel="preload" href="/east-white/assets/js/1.66f91b48.js" as="script"><link rel="preload" href="/east-white/assets/js/67.0d5ee134.js" as="script"><link rel="prefetch" href="/east-white/assets/js/10.90295e74.js"><link rel="prefetch" href="/east-white/assets/js/100.fd613351.js"><link rel="prefetch" href="/east-white/assets/js/101.2f81bcdf.js"><link rel="prefetch" href="/east-white/assets/js/102.4dce3828.js"><link rel="prefetch" href="/east-white/assets/js/103.20d0eb5e.js"><link rel="prefetch" href="/east-white/assets/js/104.d45bfdf7.js"><link rel="prefetch" href="/east-white/assets/js/105.6dfabe59.js"><link rel="prefetch" href="/east-white/assets/js/106.0f9bbcce.js"><link rel="prefetch" href="/east-white/assets/js/107.a90a0f6a.js"><link rel="prefetch" href="/east-white/assets/js/108.9f211e81.js"><link rel="prefetch" href="/east-white/assets/js/109.1da389c6.js"><link rel="prefetch" href="/east-white/assets/js/11.bdf77d8b.js"><link rel="prefetch" href="/east-white/assets/js/110.ef3b7270.js"><link rel="prefetch" href="/east-white/assets/js/111.6515c5bd.js"><link rel="prefetch" href="/east-white/assets/js/112.8ae3f3eb.js"><link rel="prefetch" href="/east-white/assets/js/113.1d042c40.js"><link rel="prefetch" href="/east-white/assets/js/114.f27875f7.js"><link rel="prefetch" href="/east-white/assets/js/115.d03488be.js"><link rel="prefetch" href="/east-white/assets/js/116.d6f6f17e.js"><link rel="prefetch" href="/east-white/assets/js/117.2127938a.js"><link rel="prefetch" href="/east-white/assets/js/118.57f16ef5.js"><link rel="prefetch" href="/east-white/assets/js/119.8180ce9c.js"><link rel="prefetch" href="/east-white/assets/js/12.50cfb5a6.js"><link rel="prefetch" href="/east-white/assets/js/120.3d30999e.js"><link rel="prefetch" href="/east-white/assets/js/121.d4070915.js"><link rel="prefetch" href="/east-white/assets/js/122.2d3a08f6.js"><link rel="prefetch" href="/east-white/assets/js/123.2080f2dc.js"><link rel="prefetch" href="/east-white/assets/js/124.7523b048.js"><link rel="prefetch" href="/east-white/assets/js/125.32baddcf.js"><link rel="prefetch" href="/east-white/assets/js/126.f58d8453.js"><link rel="prefetch" href="/east-white/assets/js/127.8754d2b9.js"><link rel="prefetch" href="/east-white/assets/js/128.ed017e44.js"><link rel="prefetch" href="/east-white/assets/js/129.8a96087f.js"><link rel="prefetch" href="/east-white/assets/js/13.28a7ca23.js"><link rel="prefetch" href="/east-white/assets/js/130.7351ec6e.js"><link rel="prefetch" href="/east-white/assets/js/131.718b5b67.js"><link rel="prefetch" href="/east-white/assets/js/132.fca97ffc.js"><link rel="prefetch" href="/east-white/assets/js/133.bf9ae844.js"><link rel="prefetch" href="/east-white/assets/js/134.e5e49426.js"><link rel="prefetch" href="/east-white/assets/js/135.9fe6b311.js"><link rel="prefetch" href="/east-white/assets/js/136.f81faeac.js"><link rel="prefetch" href="/east-white/assets/js/137.89d42e06.js"><link rel="prefetch" href="/east-white/assets/js/138.cfd98542.js"><link rel="prefetch" href="/east-white/assets/js/139.0df86252.js"><link rel="prefetch" href="/east-white/assets/js/14.aa2ea755.js"><link rel="prefetch" href="/east-white/assets/js/140.8766eeef.js"><link rel="prefetch" href="/east-white/assets/js/141.f8c8c45a.js"><link rel="prefetch" href="/east-white/assets/js/142.e5da7edb.js"><link rel="prefetch" href="/east-white/assets/js/143.556b2a20.js"><link rel="prefetch" href="/east-white/assets/js/144.a3789514.js"><link rel="prefetch" href="/east-white/assets/js/145.383361ee.js"><link rel="prefetch" href="/east-white/assets/js/146.304e5f90.js"><link rel="prefetch" href="/east-white/assets/js/147.93106342.js"><link rel="prefetch" href="/east-white/assets/js/148.39437afb.js"><link rel="prefetch" href="/east-white/assets/js/149.a8eb49d1.js"><link rel="prefetch" href="/east-white/assets/js/15.9dcba448.js"><link rel="prefetch" href="/east-white/assets/js/150.99725288.js"><link rel="prefetch" href="/east-white/assets/js/151.36648ce4.js"><link rel="prefetch" href="/east-white/assets/js/152.c1d051d1.js"><link rel="prefetch" href="/east-white/assets/js/153.36b0ac53.js"><link rel="prefetch" href="/east-white/assets/js/154.a0e15732.js"><link rel="prefetch" href="/east-white/assets/js/155.3b7d510c.js"><link rel="prefetch" href="/east-white/assets/js/156.3774264a.js"><link rel="prefetch" href="/east-white/assets/js/157.994faff1.js"><link rel="prefetch" href="/east-white/assets/js/158.d09f4384.js"><link rel="prefetch" href="/east-white/assets/js/159.1bbf7ffa.js"><link rel="prefetch" href="/east-white/assets/js/16.bff3f4f9.js"><link rel="prefetch" href="/east-white/assets/js/160.54091f09.js"><link rel="prefetch" href="/east-white/assets/js/161.f78ede8d.js"><link rel="prefetch" href="/east-white/assets/js/162.4edfb0dd.js"><link rel="prefetch" href="/east-white/assets/js/163.6b5ecedb.js"><link rel="prefetch" href="/east-white/assets/js/164.93663ec4.js"><link rel="prefetch" href="/east-white/assets/js/165.7d3d6224.js"><link rel="prefetch" href="/east-white/assets/js/166.480586c3.js"><link rel="prefetch" href="/east-white/assets/js/167.f391f39e.js"><link rel="prefetch" href="/east-white/assets/js/168.f616ef23.js"><link rel="prefetch" href="/east-white/assets/js/169.3ee0114e.js"><link rel="prefetch" href="/east-white/assets/js/17.3bc44ae8.js"><link rel="prefetch" href="/east-white/assets/js/170.75020e42.js"><link rel="prefetch" href="/east-white/assets/js/171.3aad072c.js"><link rel="prefetch" href="/east-white/assets/js/172.0572dbc9.js"><link rel="prefetch" href="/east-white/assets/js/173.446e9807.js"><link rel="prefetch" href="/east-white/assets/js/174.5938e6a9.js"><link rel="prefetch" href="/east-white/assets/js/175.70f6f39d.js"><link rel="prefetch" href="/east-white/assets/js/176.addb9207.js"><link rel="prefetch" href="/east-white/assets/js/177.d32546cc.js"><link rel="prefetch" href="/east-white/assets/js/178.373fd62e.js"><link rel="prefetch" href="/east-white/assets/js/179.4611766c.js"><link rel="prefetch" href="/east-white/assets/js/18.7217c230.js"><link rel="prefetch" href="/east-white/assets/js/180.96a53152.js"><link rel="prefetch" href="/east-white/assets/js/181.d1272d5d.js"><link rel="prefetch" href="/east-white/assets/js/182.0117730f.js"><link rel="prefetch" href="/east-white/assets/js/183.c053e26d.js"><link rel="prefetch" href="/east-white/assets/js/184.69d97c74.js"><link rel="prefetch" href="/east-white/assets/js/185.265792c0.js"><link rel="prefetch" href="/east-white/assets/js/186.730ac08e.js"><link rel="prefetch" href="/east-white/assets/js/187.862b3b5b.js"><link rel="prefetch" href="/east-white/assets/js/188.377e6bae.js"><link rel="prefetch" href="/east-white/assets/js/189.a35aee38.js"><link rel="prefetch" href="/east-white/assets/js/19.8f0aea91.js"><link rel="prefetch" href="/east-white/assets/js/190.ac1adb8f.js"><link rel="prefetch" href="/east-white/assets/js/191.3b423e92.js"><link rel="prefetch" href="/east-white/assets/js/192.ea2ffc5d.js"><link rel="prefetch" href="/east-white/assets/js/193.8f88d54d.js"><link rel="prefetch" href="/east-white/assets/js/194.1b6adb54.js"><link rel="prefetch" href="/east-white/assets/js/195.48d5e9cc.js"><link rel="prefetch" href="/east-white/assets/js/196.36dbf938.js"><link rel="prefetch" href="/east-white/assets/js/20.f9263f99.js"><link rel="prefetch" href="/east-white/assets/js/21.b4dd0644.js"><link rel="prefetch" href="/east-white/assets/js/22.9807b31f.js"><link rel="prefetch" href="/east-white/assets/js/23.3bab2446.js"><link rel="prefetch" href="/east-white/assets/js/24.373e85fb.js"><link rel="prefetch" href="/east-white/assets/js/25.212a3d96.js"><link rel="prefetch" href="/east-white/assets/js/26.af082478.js"><link rel="prefetch" href="/east-white/assets/js/27.84f456f8.js"><link rel="prefetch" href="/east-white/assets/js/28.49f34d1c.js"><link rel="prefetch" href="/east-white/assets/js/29.3ba03f3e.js"><link rel="prefetch" href="/east-white/assets/js/30.769fb56c.js"><link rel="prefetch" href="/east-white/assets/js/31.a6b6994f.js"><link rel="prefetch" href="/east-white/assets/js/32.fa908d36.js"><link rel="prefetch" href="/east-white/assets/js/33.689123b5.js"><link rel="prefetch" href="/east-white/assets/js/34.42fe46e8.js"><link rel="prefetch" href="/east-white/assets/js/35.430c8c19.js"><link rel="prefetch" href="/east-white/assets/js/36.1bb20e4f.js"><link rel="prefetch" href="/east-white/assets/js/37.9d2007e5.js"><link rel="prefetch" href="/east-white/assets/js/38.37058a56.js"><link rel="prefetch" href="/east-white/assets/js/39.cf329565.js"><link rel="prefetch" href="/east-white/assets/js/4.2fc4b380.js"><link rel="prefetch" href="/east-white/assets/js/40.3e3d4327.js"><link rel="prefetch" href="/east-white/assets/js/41.7aeaa974.js"><link rel="prefetch" href="/east-white/assets/js/42.2b7e1b2a.js"><link rel="prefetch" href="/east-white/assets/js/43.67402789.js"><link rel="prefetch" href="/east-white/assets/js/44.0a198c19.js"><link rel="prefetch" href="/east-white/assets/js/45.4defb6d8.js"><link rel="prefetch" href="/east-white/assets/js/46.7f3e0779.js"><link rel="prefetch" href="/east-white/assets/js/47.020580cc.js"><link rel="prefetch" href="/east-white/assets/js/48.6b4a082c.js"><link rel="prefetch" href="/east-white/assets/js/49.4b39baf5.js"><link rel="prefetch" href="/east-white/assets/js/5.a026df5a.js"><link rel="prefetch" href="/east-white/assets/js/50.f72b3134.js"><link rel="prefetch" href="/east-white/assets/js/51.7e8e244f.js"><link rel="prefetch" href="/east-white/assets/js/52.26d293dd.js"><link rel="prefetch" href="/east-white/assets/js/53.3065c6fa.js"><link rel="prefetch" href="/east-white/assets/js/54.230bd290.js"><link rel="prefetch" href="/east-white/assets/js/55.ff844624.js"><link rel="prefetch" href="/east-white/assets/js/56.d0640c5b.js"><link rel="prefetch" href="/east-white/assets/js/57.4f07fee8.js"><link rel="prefetch" href="/east-white/assets/js/58.57e15989.js"><link rel="prefetch" href="/east-white/assets/js/59.ae0195a0.js"><link rel="prefetch" href="/east-white/assets/js/6.30fc13ff.js"><link rel="prefetch" href="/east-white/assets/js/60.5b1c572e.js"><link rel="prefetch" href="/east-white/assets/js/61.61db7a25.js"><link rel="prefetch" href="/east-white/assets/js/62.c5b337b8.js"><link rel="prefetch" href="/east-white/assets/js/63.281fd1b4.js"><link rel="prefetch" href="/east-white/assets/js/64.b4f130d6.js"><link rel="prefetch" href="/east-white/assets/js/65.953ee5f7.js"><link rel="prefetch" href="/east-white/assets/js/66.0f7ebfea.js"><link rel="prefetch" href="/east-white/assets/js/68.07467129.js"><link rel="prefetch" href="/east-white/assets/js/69.6d6b18a4.js"><link rel="prefetch" href="/east-white/assets/js/7.93a0a8f4.js"><link rel="prefetch" href="/east-white/assets/js/70.1f81162a.js"><link rel="prefetch" href="/east-white/assets/js/71.9c22b026.js"><link rel="prefetch" href="/east-white/assets/js/72.1aead595.js"><link rel="prefetch" href="/east-white/assets/js/73.9c504f82.js"><link rel="prefetch" href="/east-white/assets/js/74.ae863fb3.js"><link rel="prefetch" href="/east-white/assets/js/75.77b22ea3.js"><link rel="prefetch" href="/east-white/assets/js/76.3fb3e486.js"><link rel="prefetch" href="/east-white/assets/js/77.aaa2bb5d.js"><link rel="prefetch" href="/east-white/assets/js/78.ff8f12c6.js"><link rel="prefetch" href="/east-white/assets/js/79.be497966.js"><link rel="prefetch" href="/east-white/assets/js/8.a5a8db2f.js"><link rel="prefetch" href="/east-white/assets/js/80.58edd302.js"><link rel="prefetch" href="/east-white/assets/js/81.d9a83954.js"><link rel="prefetch" href="/east-white/assets/js/82.ea1b1ee7.js"><link rel="prefetch" href="/east-white/assets/js/83.0480b8eb.js"><link rel="prefetch" href="/east-white/assets/js/84.b6608fc3.js"><link rel="prefetch" href="/east-white/assets/js/85.dfbc6855.js"><link rel="prefetch" href="/east-white/assets/js/86.fdf8fc7e.js"><link rel="prefetch" href="/east-white/assets/js/87.45b4397e.js"><link rel="prefetch" href="/east-white/assets/js/88.87fd2edc.js"><link rel="prefetch" href="/east-white/assets/js/89.d96587d6.js"><link rel="prefetch" href="/east-white/assets/js/9.e6aa4f2a.js"><link rel="prefetch" href="/east-white/assets/js/90.f17e0868.js"><link rel="prefetch" href="/east-white/assets/js/91.9fd183a0.js"><link rel="prefetch" href="/east-white/assets/js/92.91d6817c.js"><link rel="prefetch" href="/east-white/assets/js/93.92cd98a0.js"><link rel="prefetch" href="/east-white/assets/js/94.320bb5f5.js"><link rel="prefetch" href="/east-white/assets/js/95.11c60ecb.js"><link rel="prefetch" href="/east-white/assets/js/96.51aad249.js"><link rel="prefetch" href="/east-white/assets/js/97.b42573c1.js"><link rel="prefetch" href="/east-white/assets/js/98.d5b115f6.js"><link rel="prefetch" href="/east-white/assets/js/99.6c49b2de.js">
+    <link rel="stylesheet" href="/east-white/assets/css/0.styles.8b454665.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-130b300a><div data-v-130b300a><div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-130b300a data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>east-white</h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2>east-white's Blog</p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-130b300a><header class="navbar" data-v-130b300a><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/east-white/" class="home-link router-link-active"><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/logo.png" alt="east-white" class="logo"> <span class="site-name">east-white</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link router-link-active"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-130b300a></div> <aside class="sidebar" data-v-130b300a><div class="personal-info-wrapper" data-v-39576ba9 data-v-130b300a><!----> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>184</h3> <h6 data-v-39576ba9>文章</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>0</h3> <h6 data-v-39576ba9>标签</h6></div></div> <ul class="social-links" data-v-39576ba9></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/east-white/" class="nav-link"><i class="undefined"></i>
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      FE
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>HTML</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/html/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/html/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>CSS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/css/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/css/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>JS</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/javascript/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/es6/" class="nav-link"><i class="undefined"></i>
+  ECMAScript
+</a></li><li class="dropdown-subitem"><a href="/east-white/javascript/ts/" class="nav-link"><i class="undefined"></i>
+  TypeScript
+</a></li></ul></li><li class="dropdown-item"><h4>React</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/react/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/react/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>Vue</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/vue/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/vue/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      App
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Flutter</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/flutter/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/flutter/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>RN</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/rn/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/rn/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>小程序</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/micro_app/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/micro_app/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>H5</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/h5/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/h5/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Server
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Go</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/go/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/basics/" class="nav-link router-link-active"><i class="undefined"></i>
+  基础
+</a></li><li class="dropdown-subitem"><a href="/east-white/go/advanced/" class="nav-link"><i class="undefined"></i>
+  进阶
+</a></li></ul></li><li class="dropdown-item"><h4>Node</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/node/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-subitem"><a href="/east-white/node/basics/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>生态</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/server_tools/" class="nav-link"><i class="undefined"></i>
+  必学
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Build
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/build/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/build/webpack/" class="nav-link"><i class="undefined"></i>
+  Webpack
+</a></li><li class="dropdown-subitem"><a href="/east-white/build/vite/" class="nav-link"><i class="undefined"></i>
+  Vite
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Algorithms
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/data_algo/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4>数据结构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/data/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li><li class="dropdown-item"><h4>算法</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/data_algo/algo/" class="nav-link"><i class="undefined"></i>
+  基础
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Architect
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/architect/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/architect/fe/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li><li class="dropdown-subitem"><a href="/east-white/architect/server/" class="nav-link"><i class="undefined"></i>
+  后端
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Life
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/east-white/life/source/" class="nav-link"><i class="undefined"></i>
+  资源
+</a></li><li class="dropdown-item"><h4></h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/life/handwriting/" class="nav-link"><i class="undefined"></i>
+  书法
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/movies/" class="nav-link"><i class="undefined"></i>
+  电影
+</a></li><li class="dropdown-subitem"><a href="/east-white/life/photos/" class="nav-link"><i class="undefined"></i>
+  摄影
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="undefined"></i>
+      Library
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>资源库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/js/" class="nav-link"><i class="undefined"></i>
+  JS
+</a></li></ul></li><li class="dropdown-item"><h4>工具库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/design/" class="nav-link"><i class="undefined"></i>
+  设计
+</a></li></ul></li><li class="dropdown-item"><h4>常用信息</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/east-white/library/tools/front_end/" class="nav-link"><i class="undefined"></i>
+  前端
+</a></li></ul></li><li class="dropdown-item"><h4>关于我</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://github.com/ian-kevin126" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="undefined"></i>
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Go基础</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>包(package)</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Go实战博客</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Gin基础</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Gin实战</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/east-white/go/basics/gin/00/" aria-current="page" class="active sidebar-link">Gin简明教程</a></li><li><a href="/east-white/go/basics/gin/01/" class="sidebar-link">1.开篇</a></li><li><a href="/east-white/go/basics/gin/02/" class="sidebar-link">2.配置管理</a></li><li><a href="/east-white/go/basics/gin/03/" class="sidebar-link">3.日志管理</a></li><li><a href="/east-white/go/basics/gin/04/" class="sidebar-link">4.Validator字段校验</a></li><li><a href="/east-white/go/basics/gin/05/" class="sidebar-link">5.Response统一封装</a></li><li><a href="/east-white/go/basics/gin/06/" class="sidebar-link">6.Gorm使用和用户列表接口开发</a></li><li><a href="/east-white/go/basics/gin/07/" class="sidebar-link">7.Redis接入与图形验证码</a></li><li><a href="/east-white/go/basics/gin/08/" class="sidebar-link">8.JWT验证与登录</a></li><li><a href="/east-white/go/basics/gin/09/" class="sidebar-link">9.常用中间件开发</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据库</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-130b300a><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>Gin简明教程</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-130b300a><main class="page"><section><div class="page-title"><h1 class="title">Gin简明教程</h1> <div data-v-f875f3fc><!----> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default"><h1 id="gin简明教程"><a href="#gin简明教程" class="header-anchor">#</a> Gin简明教程</h1> <h2 id="一、gin-的介绍"><a href="#一、gin-的介绍" class="header-anchor">#</a> 一、Gin 的介绍</h2> <p><a href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener noreferrer">Gin<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 是用 Go 编写的一个 Web 应用框架，对比其它主流的同类框架，他有更好的性能和更快的路由。由于其本身只是在官方 net/http 包的基础上做的完善，所以理解和上手很平滑。如果你现在开始做一套新的Api，我十分推荐你使用它。</p> <p>Gin 的性能怎么样，需要数据说话，我们来看官方给出的表格：</p> <div class="language- extra-class"><pre class="language-text"><code>| Benchmark name                 |       (1) |             (2) |          (3) |             (4) |
+| ------------------------------ | ---------:| ---------------:| ------------:| ---------------:|
+| BenchmarkGin_GithubAll         | **43550** | **27364 ns/op** |   **0 B/op** | **0 allocs/op** |
+| BenchmarkAce_GithubAll         |     40543 |     29670 ns/op |       0 B/op |     0 allocs/op |
+| BenchmarkAero_GithubAll        |     57632 |     20648 ns/op |       0 B/op |     0 allocs/op |
+| BenchmarkBear_GithubAll        |      9234 |    216179 ns/op |   86448 B/op |   943 allocs/op |
+| BenchmarkBeego_GithubAll       |      7407 |    243496 ns/op |   71456 B/op |   609 allocs/op |
+| BenchmarkBone_GithubAll        |       420 |   2922835 ns/op |  720160 B/op |  8620 allocs/op |
+| BenchmarkChi_GithubAll         |      7620 |    238331 ns/op |   87696 B/op |   609 allocs/op |
+| BenchmarkDenco_GithubAll       |     18355 |     64494 ns/op |   20224 B/op |   167 allocs/op |
+| BenchmarkEcho_GithubAll        |     31251 |     38479 ns/op |       0 B/op |     0 allocs/op |
+| BenchmarkGocraftWeb_GithubAll  |      4117 |    300062 ns/op |  131656 B/op |  1686 allocs/op |
+| BenchmarkGoji_GithubAll        |      3274 |    416158 ns/op |   56112 B/op |   334 allocs/op |
+| BenchmarkGojiv2_GithubAll      |      1402 |    870518 ns/op |  352720 B/op |  4321 allocs/op |
+| BenchmarkGoJsonRest_GithubAll  |      2976 |    401507 ns/op |  134371 B/op |  2737 allocs/op |
+| BenchmarkGoRestful_GithubAll   |       410 |   2913158 ns/op |  910144 B/op |  2938 allocs/op |
+| BenchmarkGorillaMux_GithubAll  |       346 |   3384987 ns/op |  251650 B/op |  1994 allocs/op |
+| BenchmarkGowwwRouter_GithubAll |     10000 |    143025 ns/op |   72144 B/op |   501 allocs/op |
+| BenchmarkHttpRouter_GithubAll  |     55938 |     21360 ns/op |       0 B/op |     0 allocs/op |
+| BenchmarkHttpTreeMux_GithubAll |     10000 |    153944 ns/op |   65856 B/op |   671 allocs/op |
+| BenchmarkKocha_GithubAll       |     10000 |    106315 ns/op |   23304 B/op |   843 allocs/op |
+| BenchmarkLARS_GithubAll        |     47779 |     25084 ns/op |       0 B/op |     0 allocs/op |
+| BenchmarkMacaron_GithubAll     |      3266 |    371907 ns/op |  149409 B/op |  1624 allocs/op |
+| BenchmarkMartini_GithubAll     |       331 |   3444706 ns/op |  226551 B/op |  2325 allocs/op |
+| BenchmarkPat_GithubAll         |       273 |   4381818 ns/op | 1483152 B/op | 26963 allocs/op |
+| BenchmarkPossum_GithubAll      |     10000 |    164367 ns/op |   84448 B/op |   609 allocs/op |
+| BenchmarkR2router_GithubAll    |     10000 |    160220 ns/op |   77328 B/op |   979 allocs/op |
+| BenchmarkRivet_GithubAll       |     14625 |     82453 ns/op |   16272 B/op |   167 allocs/op |
+| BenchmarkTango_GithubAll       |      6255 |    279611 ns/op |   63826 B/op |  1618 allocs/op |
+| BenchmarkTigerTonic_GithubAll  |      2008 |    687874 ns/op |  193856 B/op |  4474 allocs/op |
+| BenchmarkTraffic_GithubAll     |       355 |   3478508 ns/op |  820744 B/op | 14114 allocs/op |
+| BenchmarkVulcan_GithubAll      |      6885 |    193333 ns/op |   19894 B/op |   609 allocs/op |
+
+- (1): Total Repetitions achieved in constant time, higher means more confident result
+- (2): Single Repetition Duration (ns/op), lower is better
+- (3): Heap Memory (B/op), lower is better
+- (4): Average Allocations per Repetition (allocs/op), lower is better
+</code></pre></div><p>查看更多的数据，可以查看 <a href="https://github.com/gin-gonic/gin/blob/master/BENCHMARKS.md" target="_blank" rel="noopener noreferrer">Benchmarks<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> .</p> <p>数据很亮眼，在编程体验上 Gin 也是毫不逊色。你仅仅只需要引入包、定义路由、编写 Handler ，你的应用就搭建完成了。实际上你只需要对 gin.Context 这个结构有深刻认识，就可以使用 Gin 流畅的编写代码了。</p> <h2 id="二、gin-的使用"><a href="#二、gin-的使用" class="header-anchor">#</a> 二、Gin 的使用</h2> <h3 id="_1、安装和更新"><a href="#_1、安装和更新" class="header-anchor">#</a> 1、安装和更新</h3> <p>首次安装，使用 <code>go get</code>命令获取即可。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ go get github.com/gin-gonic/gin
+</code></pre></div><p>更新就是常规的 <code>go get -u</code>。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ go get -u github.com/gin-gonic/gin
+</code></pre></div><blockquote><p>如果你的 go 版本大于1.12, 强烈建议使用 <code>go mod</code> 管理项目依赖。</p></blockquote> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># basic usage of go mod</span>
+<span class="token comment"># cd your/project/root/folder</span>
+<span class="token comment"># init go.mod file</span>
+$ go mod init
+<span class="token comment"># will be created automatically go.mod file</span>
+<span class="token comment"># go.mod is a dependency description file, like package.json with npm</span>
+$ go build
+</code></pre></div><h3 id="_2、快速运行"><a href="#_2、快速运行" class="header-anchor">#</a> 2、快速运行</h3> <p>在你的 main 包中，引入 gin 包并初始化。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;github.com/gin-gonic/gin&quot;</span>
+    <span class="token string">&quot;net/http&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 初始化引擎</span>
+    engine <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 注册一个路由和处理函数</span>
+    engine<span class="token punctuation">.</span><span class="token function">Any</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> WebRoot<span class="token punctuation">)</span>
+    <span class="token comment">// 绑定端口，然后启动应用</span>
+    engine<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:9205&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+* 根请求处理函数
+* 所有本次请求相关的方法都在 context 中，完美
+* 输出响应 hello, world
+*/</span>
+<span class="token keyword">func</span> <span class="token function">WebRoot</span><span class="token punctuation">(</span>context <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    context<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">&quot;hello, world&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>一个最简单的应用就写好了，来运行下试试:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ go run
+<span class="token punctuation">[</span>GIN-debug<span class="token punctuation">]</span> Listening and serving HTTP on :9205
+</code></pre></div><p>访问 <a href="http://127.0.0.1:9205/" target="_blank" rel="noopener noreferrer">http://127.0.0.1:9205<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> ，就可以得到响应 “hello, world” 。</p> <h2 id="三、路由-router"><a href="#三、路由-router" class="header-anchor">#</a> 三、路由(Router)</h2> <h3 id="_1、restful-api"><a href="#_1、restful-api" class="header-anchor">#</a> 1、Restful Api</h3> <p>你可以注册路由方法有 GET, POST, PUT, PATCH, DELETE 和 OPTIONS.</p> <p>使用很简单，直接调用同名的方法即可。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/someGet&quot;</span><span class="token punctuation">,</span> getting<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/somePost&quot;</span><span class="token punctuation">,</span> posting<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">PUT</span><span class="token punctuation">(</span><span class="token string">&quot;/somePut&quot;</span><span class="token punctuation">,</span> putting<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">DELETE</span><span class="token punctuation">(</span><span class="token string">&quot;/someDelete&quot;</span><span class="token punctuation">,</span> deleting<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">PATCH</span><span class="token punctuation">(</span><span class="token string">&quot;/somePatch&quot;</span><span class="token punctuation">,</span> patching<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">HEAD</span><span class="token punctuation">(</span><span class="token string">&quot;/someHead&quot;</span><span class="token punctuation">,</span> head<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">OPTIONS</span><span class="token punctuation">(</span><span class="token string">&quot;/someOptions&quot;</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+
+    <span class="token comment">// 默认绑定 :8080</span>
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h3 id="_2、动态路由-参数路由"><a href="#_2、动态路由-参数路由" class="header-anchor">#</a> 2、动态路由（参数路由）</h3> <p>有时候我们需要动态的路由，如 <code>/user/:id</code>，通过调用的 url 来传入不同的 id .在 Gin 中很容易处理这种路由：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 注册一个动态路由</span>
+  	<span class="token comment">// 可以匹配 /user/joy</span>
+  	<span class="token comment">// 不能匹配 /user 和 /user/</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/user/:name&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 使用 c.Param(key) 获取 url 参数</span>
+        name <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Param</span><span class="token punctuation">(</span><span class="token string">&quot;name&quot;</span><span class="token punctuation">)</span>
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">&quot;Hello %s&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  	<span class="token comment">// 注册一个高级的动态路由</span>
+    <span class="token comment">// 该路由会匹配 /user/john/ 和 /user/john/send</span>
+    <span class="token comment">// 如果没有任何路由匹配到 /user/john, 那么他就会重定向到 /user/john/，从而被该方法匹配到</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/user/:name/*action&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        name <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Param</span><span class="token punctuation">(</span><span class="token string">&quot;name&quot;</span><span class="token punctuation">)</span>
+        action <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Param</span><span class="token punctuation">(</span><span class="token string">&quot;action&quot;</span><span class="token punctuation">)</span>
+        message <span class="token operator">:=</span> name <span class="token operator">+</span> <span class="token string">&quot; is &quot;</span> <span class="token operator">+</span> action
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> message<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h3 id="_3、路由组"><a href="#_3、路由组" class="header-anchor">#</a> 3、路由组</h3> <p>一些情况下，我们会有统一前缀的 url 的需求，典型的如 Api 接口版本号 <code>/v1/something</code>。Gin 可以使用 Group 方法统一归类到路由组中：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 定义一个组前缀</span>
+  	<span class="token comment">// /v1/login 就会匹配到这个组</span>
+    v1 <span class="token operator">:=</span> router<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">&quot;/v1&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        v1<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/login&quot;</span><span class="token punctuation">,</span> loginEndpoint<span class="token punctuation">)</span>
+        v1<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/submit&quot;</span><span class="token punctuation">,</span> submitEndpoint<span class="token punctuation">)</span>
+        v1<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/read&quot;</span><span class="token punctuation">,</span> readEndpoint<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 定义一个组前缀</span>
+  	<span class="token comment">// 不用花括号包起来也是可以的。上面那种只是看起来会统一一点。看你个人喜好</span>
+    v2 <span class="token operator">:=</span> router<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">&quot;/v2&quot;</span><span class="token punctuation">)</span>
+    v2<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/login&quot;</span><span class="token punctuation">,</span> loginEndpoint<span class="token punctuation">)</span>
+    v2<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/submit&quot;</span><span class="token punctuation">,</span> submitEndpoint<span class="token punctuation">)</span>
+    v2<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/read&quot;</span><span class="token punctuation">,</span> readEndpoint<span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h2 id="四、中间件-middleware"><a href="#四、中间件-middleware" class="header-anchor">#</a> 四、中间件(Middleware)</h2> <p>现代化的 Web 编程，中间件已经是必不可少的了。我们可以通过中间件的方式，验证 Auth 和身份鉴别，集中处理返回的数据等等。Gin 提供了 Middleware 的功能，并与路由紧紧相连。</p> <h3 id="_1、单个路由中间件"><a href="#_1、单个路由中间件" class="header-anchor">#</a> 1、单个路由中间件</h3> <p>单个路由使用中间件，只需要在注册路由的时候指定要执行的中间件即可。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 注册一个路由，使用了 middleware1，middleware2 两个中间件</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/someGet&quot;</span><span class="token punctuation">,</span> middleware1<span class="token punctuation">,</span> middleware2<span class="token punctuation">,</span> handler<span class="token punctuation">)</span>
+  
+    <span class="token comment">// 默认绑定 :8080</span>
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">handler</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;exec handler&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h3 id="_2、执行流程控制"><a href="#_2、执行流程控制" class="header-anchor">#</a> 2、执行流程控制</h3> <p>用上面的实例代码，我们来看一下中间件是怎么执行的。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">middleware1</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;exec middleware1&quot;</span><span class="token punctuation">)</span>
+  
+    <span class="token comment">//你可以写一些逻辑代码</span>
+  
+    <span class="token comment">// 执行该中间件之后的逻辑</span>
+    c<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><p>可以看出，中间件的写法和路由的 Handler 几乎是一样的，只是多调用 <code>c.Next()</code>。</p> <p>正是有个<code>c.Next()</code>，我们可以在中间件中控制调用逻辑的变化，看下面的 <code>middleware2</code> 代码。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">middleware2</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;arrive at middleware2&quot;</span><span class="token punctuation">)</span>
+    <span class="token comment">// 执行该中间件之前，先跳到流程的下一个方法</span>
+    c<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 流程中的其他逻辑已经执行完了</span>
+    log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;exec middleware2&quot;</span><span class="token punctuation">)</span>
+  
+    <span class="token comment">//你可以写一些逻辑代码</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><p>在 <code>middleware2</code>中，执行到 <code>c.Next()</code>时，Gin 会直接跳到流程的下一个方法中，等到这个方法执行完后，才会回来接着执行 <code>middleware2</code> 剩下的代码。</p> <p>所以请求上面注册的路由 url <code>/someGet</code> ，请求先到达<code>middleware1</code>，然后到达 <code>middleware2</code>，但此时 <code>middleware2</code>调用了 <code>c.Next()</code>，所以 <code>middleware2</code>的代码并没有执行，而是跳到了 <code>handler</code> ，等 <code>handler</code>执行完成后，跳回到 <code>middleware2</code>，执行 <code>middleware2</code>剩下的代码。</p> <p>所以我们可以在控制台上看到以下日志输出:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">exec</span> middleware1
+arrive at middleware2
+<span class="token builtin class-name">exec</span> handler
+<span class="token builtin class-name">exec</span> middleware2
+</code></pre></div><h3 id="_3、路由组使用中间件"><a href="#_3、路由组使用中间件" class="header-anchor">#</a> 3、路由组使用中间件</h3> <p>路由组使用中间件和单个路由类似，只不过是要把中间件放到 <code>Group</code> 上.</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 定义一个组前缀, 并使用 middleware1 中间件</span>
+  	<span class="token comment">// 访问 /v2/login 就会执行 middleware1 函数</span>
+    v2 <span class="token operator">:=</span> router<span class="token punctuation">.</span><span class="token function">Group</span><span class="token punctuation">(</span><span class="token string">&quot;/v2&quot;</span><span class="token punctuation">,</span> middleware1<span class="token punctuation">)</span>
+    v2<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/login&quot;</span><span class="token punctuation">,</span> loginEndpoint<span class="token punctuation">)</span>
+    v2<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/submit&quot;</span><span class="token punctuation">,</span> submitEndpoint<span class="token punctuation">)</span>
+    v2<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/read&quot;</span><span class="token punctuation">,</span> readEndpoint<span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h2 id="五、参数"><a href="#五、参数" class="header-anchor">#</a> 五、参数</h2> <h3 id="_1、url-查询参数"><a href="#_1、url-查询参数" class="header-anchor">#</a> 1、Url 查询参数</h3> <p>假定一个 url 为 <code>/welcome?firstname=Jane&amp;lastname=Doe</code>，我们想获取参数 <code>firstname</code> 的内容，可以使用<code>c.Query</code>方法。该方法始终返回一个 <code>string</code> 类型的数据。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 注册路由和Handler</span>
+    <span class="token comment">// url为 /welcome?firstname=Jane&amp;lastname=Doe</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/welcome&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 获取参数内容</span>
+        <span class="token comment">// 获取的所有参数内容的类型都是 string</span>
+        <span class="token comment">// 如果不存在，使用第二个当做默认内容</span>
+        firstname <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">DefaultQuery</span><span class="token punctuation">(</span><span class="token string">&quot;firstname&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Guest&quot;</span><span class="token punctuation">)</span>
+        <span class="token comment">// 获取参数内容，没有则返回空字符串</span>
+        lastname <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">Query</span><span class="token punctuation">(</span><span class="token string">&quot;lastname&quot;</span><span class="token punctuation">)</span> 
+
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> <span class="token string">&quot;Hello %s %s&quot;</span><span class="token punctuation">,</span> firstname<span class="token punctuation">,</span> lastname<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2、表单和body参数-multipart-urlencoded-form"><a href="#_2、表单和body参数-multipart-urlencoded-form" class="header-anchor">#</a> 2、表单和Body参数（Multipart/Urlencoded Form）</h3> <p>典型的如 <code>POST</code> 提交的数据，无论是 <code>multipart/form-data</code>格式还是<code>application/x-www-form-urlencoded</code>格式，都可以使用 <code>c.PostForm</code>获取到参数。该方法始终返回一个 <code>string</code> 类型的数据。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/form_post&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 获取post过来的message内容</span>
+        <span class="token comment">// 获取的所有参数内容的类型都是 string</span>
+        message <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">PostForm</span><span class="token punctuation">(</span><span class="token string">&quot;message&quot;</span><span class="token punctuation">)</span>
+        <span class="token comment">// 如果不存在，使用第二个当做默认内容</span>
+        nick <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">DefaultPostForm</span><span class="token punctuation">(</span><span class="token string">&quot;nick&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;anonymous&quot;</span><span class="token punctuation">)</span>
+
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span>
+            <span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span>  <span class="token string">&quot;posted&quot;</span><span class="token punctuation">,</span>
+            <span class="token string">&quot;message&quot;</span><span class="token punctuation">:</span> message<span class="token punctuation">,</span>
+            <span class="token string">&quot;nick&quot;</span><span class="token punctuation">:</span>    nick<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_3、上传文件"><a href="#_3、上传文件" class="header-anchor">#</a> 3、上传文件</h3> <p>Gin 对接受用户上传的文件做了友好的处理，在 Handler 中可以很简单的实现文件的接收。</p> <p>要注意的是，上传文件的大小有限制，通常是 <code>&lt;32MB</code>，你可以使用 <code>router.MaxMultipartMemory</code>更改它。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 设置文件上传大小 router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span>
+    <span class="token comment">// 处理单一的文件上传</span>
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/upload&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 拿到这个文件</span>
+        file<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">FormFile</span><span class="token punctuation">(</span><span class="token string">&quot;file&quot;</span><span class="token punctuation">)</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span>
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;'%s' uploaded!&quot;</span><span class="token punctuation">,</span> file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  
+    <span class="token comment">// 处理多个文件的上传</span>
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/uploads&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        form<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">MultipartForm</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment">// 拿到集合</span>
+        files <span class="token operator">:=</span> form<span class="token punctuation">.</span>File<span class="token punctuation">[</span><span class="token string">&quot;upload[]&quot;</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> file <span class="token operator">:=</span> <span class="token keyword">range</span> files <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span>Filename<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;%d files uploaded!&quot;</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>files<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>我们用 <code>curl</code> 工具测试一下：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 单一文件上传</span>
+$ <span class="token function">curl</span> -X POST http://localhost:8080/upload <span class="token punctuation">\</span>
+  -F <span class="token string">&quot;file=@/Users/appleboy/test.zip&quot;</span> <span class="token punctuation">\</span>
+  -H <span class="token string">&quot;Content-Type: multipart/form-data&quot;</span>
+
+<span class="token comment"># 多文件上传</span>
+$ <span class="token function">curl</span> -X POST http://localhost:8080/uploads <span class="token punctuation">\</span>
+  -F <span class="token string">&quot;upload[]=@/Users/appleboy/test1.zip&quot;</span> <span class="token punctuation">\</span>
+  -F <span class="token string">&quot;upload[]=@/Users/appleboy/test2.zip&quot;</span> <span class="token punctuation">\</span>
+  -H <span class="token string">&quot;Content-Type: multipart/form-data&quot;</span>
+</code></pre></div><h3 id="_4、其他格式的数据"><a href="#_4、其他格式的数据" class="header-anchor">#</a> 4、其他格式的数据</h3> <p>一些复杂的场景下，如用户直接 <code>POST</code>一段 <code>json</code>字符串到应用中，我们需要获取原始数据，这时需要用 <code>c.GetRawData</code>来获取原始字节。</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/post&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 获取原始字节</span>
+        d<span class="token punctuation">,</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">GetRawData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err<span class="token operator">!=</span><span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">Fatalln</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">&quot;ok&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>curl</code> 请求示例：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">curl</span> -v -X POST <span class="token punctuation">\</span>
+  http://localhost:8080/post <span class="token punctuation">\</span>
+  -H <span class="token string">'content-type: application/json'</span> <span class="token punctuation">\</span>
+  -d <span class="token string">'{ &quot;user&quot;: &quot;manu&quot; }'</span>
+</code></pre></div><h2 id="六、数据绑定"><a href="#六、数据绑定" class="header-anchor">#</a> 六、数据绑定</h2> <p>Gin 提供了非常方便的数据绑定功能，可以将用户传来的参数自动跟我们定义的结构体绑定在一起。</p> <h3 id="_1、绑定-url-查询参数-only-bind-query-string"><a href="#_1、绑定-url-查询参数-only-bind-query-string" class="header-anchor">#</a> 1、绑定 Url 查询参数（Only Bind Query String）</h3> <p>使用 <code>c.ShouldBindQuery</code>方法，可以自动绑定 Url 查询参数到 <code>struct</code>.</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;log&quot;</span>
+    <span class="token string">&quot;github.com/gin-gonic/gin&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 定义一个 Person 结构体，用来绑定 url query</span>
+<span class="token keyword">type</span> Person <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Name    <span class="token builtin">string</span> <span class="token string">`form:&quot;name&quot;`</span> <span class="token comment">// 使用成员变量标签定义对应的参数名</span>
+    Address <span class="token builtin">string</span> <span class="token string">`form:&quot;address&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    route <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    route<span class="token punctuation">.</span><span class="token function">Any</span><span class="token punctuation">(</span><span class="token string">&quot;/testing&quot;</span><span class="token punctuation">,</span> startPage<span class="token punctuation">)</span>
+    route<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8085&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">startPage</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> person Person
+    <span class="token comment">// 将 url 查询参数和person绑定在一起</span>
+    <span class="token keyword">if</span> c<span class="token punctuation">.</span><span class="token function">ShouldBindQuery</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>person<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;====== Only Bind By Query String ======&quot;</span><span class="token punctuation">)</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>person<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>person<span class="token punctuation">.</span>Address<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">&quot;Success&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2、绑定url查询参数和post参数"><a href="#_2、绑定url查询参数和post参数" class="header-anchor">#</a> 2、绑定url查询参数和POST参数</h3> <p>使用 <code>c.ShouldBind</code>方法，可以将参数自动绑定到 <code>struct</code>.该方法是会检查 Url 查询字符串和 POST 的数据，而且会根据 <code>content-type</code>类型，优先匹配<code>JSON</code>或者 <code>XML</code>,之后才是 <code>Form</code>. 有关详情查阅 <a href="https://github.com/gin-gonic/gin/blob/master/binding/binding.go#L48" target="_blank" rel="noopener noreferrer">这里<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">&quot;log&quot;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;github.com/gin-gonic/gin&quot;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;time&quot;</span>
+
+<span class="token comment">// 定义一个 Person 结构体，用来绑定数据</span>
+<span class="token keyword">type</span> Person <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Name     <span class="token builtin">string</span>    <span class="token string">`form:&quot;name&quot;`</span>
+    Address  <span class="token builtin">string</span>    <span class="token string">`form:&quot;address&quot;`</span>
+    Birthday time<span class="token punctuation">.</span>Time <span class="token string">`form:&quot;birthday&quot; time_format:&quot;2006-01-02&quot; time_utc:&quot;1&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    route <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    route<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/testing&quot;</span><span class="token punctuation">,</span> startPage<span class="token punctuation">)</span>
+    route<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8085&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">startPage</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> person Person
+    <span class="token comment">// 绑定到 person</span>
+    <span class="token keyword">if</span> c<span class="token punctuation">.</span><span class="token function">ShouldBind</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>person<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>person<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>person<span class="token punctuation">.</span>Address<span class="token punctuation">)</span>
+        log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>person<span class="token punctuation">.</span>Birthday<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">&quot;Success&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_3、其他数据绑定"><a href="#_3、其他数据绑定" class="header-anchor">#</a> 3、其他数据绑定</h3> <p>Gin 提供的数据绑定功能很强大，建议你仔细查阅官方文档，了解 <code>gin.Context</code>的 <code>Bind*</code>系列方法。这里就不再一一详述。</p> <h2 id="七、数据验证"><a href="#七、数据验证" class="header-anchor">#</a> 七、数据验证</h2> <p>永远不要相信用户任何的输入。对于获取的外来数据，我们要做的第一步就是校验和转换。对于这类基础并且常用的功能， Gin 很贴心的帮我们提供了数据校验的方法，省去我们重复判断的烦恼。</p> <p>Gin 的数据验证是和数据绑定结合在一起的。只需要在数据绑定的结构体成员变量的标签添加<code>binding</code>规则即可。详细的规则查阅 <a href="https://godoc.org/gopkg.in/go-playground/validator.v8#hdr-Baked_In_Validators_and_Tags" target="_blank" rel="noopener noreferrer">这里<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <p>来看官方给出的一段代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token comment">// 定义的 Login 结构体</span>
+<span class="token comment">// 该 struct 可以绑定在 Form 和 JSON 中</span>
+<span class="token comment">// binding:&quot;required&quot; 意思是必要参数。如果未提供，Bind 会返回 error</span>
+<span class="token keyword">type</span> Login <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    User     <span class="token builtin">string</span> <span class="token string">`form:&quot;user&quot; json:&quot;user&quot; binding:&quot;required&quot;`</span>
+    Password <span class="token builtin">string</span> <span class="token string">`form:&quot;password&quot; json:&quot;password&quot; binding:&quot;required&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// POST 到这个路由一段 JSON, 如 ({&quot;user&quot;: &quot;manu&quot;, &quot;password&quot;: &quot;123&quot;})</span>
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/loginJSON&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> json Login
+        <span class="token comment">// 验证数据并绑定</span>
+        <span class="token keyword">if</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">ShouldBindJSON</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>json<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> json<span class="token punctuation">.</span>User <span class="token operator">==</span> <span class="token string">&quot;manu&quot;</span> <span class="token operator">&amp;&amp;</span> json<span class="token punctuation">.</span>Password <span class="token operator">==</span> <span class="token string">&quot;123&quot;</span> <span class="token punctuation">{</span>
+                c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;you are logged in&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusUnauthorized<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;unauthorized&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusBadRequest<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;error&quot;</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// POST 到这个路由一个 Form 表单 (user=manu&amp;password=123)</span>
+    router<span class="token punctuation">.</span><span class="token function">POST</span><span class="token punctuation">(</span><span class="token string">&quot;/loginForm&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> form Login
+        <span class="token comment">// 验证数据并绑定</span>
+        <span class="token keyword">if</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">ShouldBind</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>form<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> form<span class="token punctuation">.</span>User <span class="token operator">==</span> <span class="token string">&quot;manu&quot;</span> <span class="token operator">&amp;&amp;</span> form<span class="token punctuation">.</span>Password <span class="token operator">==</span> <span class="token string">&quot;123&quot;</span> <span class="token punctuation">{</span>
+                c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;you are logged in&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusUnauthorized<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;unauthorized&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusBadRequest<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;error&quot;</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    router<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>除了绑定验证之外，你还可以注册自定义的验证器。</p> <p>我们来看这段完整的代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;net/http&quot;</span>
+    <span class="token string">&quot;reflect&quot;</span>
+    <span class="token string">&quot;time&quot;</span>
+    <span class="token string">&quot;github.com/gin-gonic/gin&quot;</span>
+    <span class="token string">&quot;github.com/gin-gonic/gin/binding&quot;</span>
+    <span class="token string">&quot;gopkg.in/go-playground/validator.v8&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// 定义的 Booking 结构体</span>
+<span class="token comment">// 注意成员变量CheckIn的标签 binding:&quot;required,bookabledate&quot;</span>
+<span class="token comment">// bookabledate 即下面自定义的验证函数</span>
+<span class="token comment">// 成员变量CheckOut的标签 binding:&quot;required,gtfield=CheckIn&quot;</span>
+<span class="token comment">// gtfield 是一个默认规则，意思是要大于某个字段的值</span>
+<span class="token keyword">type</span> Booking <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    CheckIn  time<span class="token punctuation">.</span>Time <span class="token string">`form:&quot;check_in&quot; binding:&quot;required,bookabledate&quot; time_format:&quot;2006-01-02&quot;`</span>
+    CheckOut time<span class="token punctuation">.</span>Time <span class="token string">`form:&quot;check_out&quot; binding:&quot;required,gtfield=CheckIn&quot; time_format:&quot;2006-01-02&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 定义一个验证方法，用来验证时间是否合法</span>
+<span class="token comment">// 验证方法返回值应该是个布尔值</span>
+<span class="token keyword">func</span> <span class="token function">bookableDate</span><span class="token punctuation">(</span>
+    v <span class="token operator">*</span>validator<span class="token punctuation">.</span>Validate<span class="token punctuation">,</span> topStruct reflect<span class="token punctuation">.</span>Value<span class="token punctuation">,</span> currentStructOrField reflect<span class="token punctuation">.</span>Value<span class="token punctuation">,</span>
+    field reflect<span class="token punctuation">.</span>Value<span class="token punctuation">,</span> fieldType reflect<span class="token punctuation">.</span>Type<span class="token punctuation">,</span> fieldKind reflect<span class="token punctuation">.</span>Kind<span class="token punctuation">,</span> param <span class="token builtin">string</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> date<span class="token punctuation">,</span> ok <span class="token operator">:=</span> field<span class="token punctuation">.</span><span class="token function">Interface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Time<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        today <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> today<span class="token punctuation">.</span><span class="token function">Year</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> date<span class="token punctuation">.</span><span class="token function">Year</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> today<span class="token punctuation">.</span><span class="token function">YearDay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> date<span class="token punctuation">.</span><span class="token function">YearDay</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    route <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 注册一个自定义验证方法 bookabledate</span>
+    binding<span class="token punctuation">.</span>Validator<span class="token punctuation">.</span><span class="token function">RegisterValidation</span><span class="token punctuation">(</span><span class="token string">&quot;bookabledate&quot;</span><span class="token punctuation">,</span> bookableDate<span class="token punctuation">)</span>
+    route<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/bookable&quot;</span><span class="token punctuation">,</span> getBookable<span class="token punctuation">)</span>
+    route<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8085&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">getBookable</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> b Booking
+    <span class="token comment">// 验证数据并绑定</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span><span class="token function">ShouldBindWith</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>b<span class="token punctuation">,</span> binding<span class="token punctuation">.</span>Query<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;message&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;Booking dates are valid!&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusBadRequest<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;error&quot;</span><span class="token punctuation">:</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Gin 提供的验证灰常灰常强大，可以帮我们很好的处理数据验证和省掉各种 <code>if else</code>的判断，建议各位使用 Gin 的道友一定要把这个东东吃透。</p> <h2 id="八、输出响应"><a href="#八、输出响应" class="header-anchor">#</a> 八、输出响应</h2> <p>Web 应用的目标之一就是输出响应。Gin 为我们提供了多种常见格式的输出，包括 <code>HTML</code>, <code>String</code>，<code>JSON</code>， <code>XML</code>， <code>YAML</code>。</p> <h3 id="_1、string"><a href="#_1、string" class="header-anchor">#</a> 1、String</h3> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">Handler</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 使用 String 方法即可</span>
+    c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">&quot;Success&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h3 id="_2、json、-xml、-yaml"><a href="#_2、json、-xml、-yaml" class="header-anchor">#</a> 2、JSON、 XML、 YAML</h3> <p>Gin 输出这三种格式非常方便，直接使用对用方法并赋值一个结构体给它就行了。</p> <p>你还可以使用<code>gin.H</code>。<code>gin.H</code> 是一个很巧妙的设计，你可以像<code>javascript</code>定义<code>json</code>一样，直接一层层写键值对，只需要在每一层加上 <code>gin.H</code>即可。看代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    r <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// gin.H 本质是 map[string]interface{}</span>
+    r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/someJSON&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 会输出头格式为 application/json; charset=UTF-8 的 json 字符串</span>
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;message&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;hey&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/moreJSON&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 直接使用结构体定义</span>
+        <span class="token keyword">var</span> msg <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+            Name    <span class="token builtin">string</span> <span class="token string">`json:&quot;user&quot;`</span>
+            Message <span class="token builtin">string</span>
+            Number  <span class="token builtin">int</span>
+        <span class="token punctuation">}</span>
+        msg<span class="token punctuation">.</span>Name <span class="token operator">=</span> <span class="token string">&quot;Lena&quot;</span>
+        msg<span class="token punctuation">.</span>Message <span class="token operator">=</span> <span class="token string">&quot;hey&quot;</span>
+        msg<span class="token punctuation">.</span>Number <span class="token operator">=</span> <span class="token number">123</span>
+        <span class="token comment">// 会输出  {&quot;user&quot;: &quot;Lena&quot;, &quot;Message&quot;: &quot;hey&quot;, &quot;Number&quot;: 123}</span>
+        c<span class="token punctuation">.</span><span class="token function">JSON</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> msg<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/someXML&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 会输出头格式为 text/xml; charset=UTF-8 的 xml 字符串</span>
+        c<span class="token punctuation">.</span><span class="token function">XML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;message&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;hey&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/someYAML&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 会输出头格式为 text/yaml; charset=UTF-8 的 yaml 字符串</span>
+        c<span class="token punctuation">.</span><span class="token function">YAML</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;message&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;hey&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;status&quot;</span><span class="token punctuation">:</span> http<span class="token punctuation">.</span>StatusOK<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    r<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 省略的代码 ...</span>
+</code></pre></div><h3 id="_3、html"><a href="#_3、html" class="header-anchor">#</a> 3、HTML</h3> <p>Gin 使用 Html 模板就是官方标准包<code>html/template</code>, 模板的用法没什么太多要说明的。这里给大家说一下如何在 gin 中输出 <code>html</code>。</p> <p>由于 Gin 并没有强制的文件夹命名规范，所以我们必须要告诉 Gin 我们的静态资源（如图片、Css、JS 脚本等）和我们的html 模板放在了哪里，看代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token string">&quot;github.com/gin-gonic/gin&quot;</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    engine <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    engine<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/html-test&quot;</span><span class="token punctuation">,</span> startPage<span class="token punctuation">)</span>
+    <span class="token comment">// 注册一个目录，gin 会把该目录当成一个静态的资源目录</span>
+    <span class="token comment">// 该目录下的资源看可以按照路径访问</span>
+    <span class="token comment">// 如 static 目录下有图片路径 index/logo.png , 你可以通过 GET /static/index/logo.png 访问到</span>
+    engine<span class="token punctuation">.</span><span class="token function">Static</span><span class="token punctuation">(</span><span class="token string">&quot;/static&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;./static&quot;</span><span class="token punctuation">)</span>
+    <span class="token comment">// 注册一个路径，gin 加载模板的时候会从该目录查找</span>
+    <span class="token comment">// 参数是一个匹配字符，如 views/*/* 的意思是 模板目录有两层</span>
+    <span class="token comment">// gin 在启动时会自动把该目录的文件编译一次缓存，不用担心效率问题</span>
+    engine<span class="token punctuation">.</span><span class="token function">LoadHTMLGlob</span><span class="token punctuation">(</span><span class="token string">&quot;views/*/*&quot;</span><span class="token punctuation">)</span>
+  
+    route<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:9205&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">startPage</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 输出 html</span>
+    <span class="token comment">// 三个参数，200 是http状态码</span>
+    <span class="token comment">// &quot;shop/search&quot; 要加载的模板路径，对应目录路径 views/shop/search.html</span>
+    <span class="token comment">// gin.H{&quot;keywords&quot;:&quot;macbook pro&quot;} 是模板变量</span>
+    c<span class="token punctuation">.</span><span class="token function">HTML</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">&quot;shop/search&quot;</span><span class="token punctuation">,</span> gin<span class="token punctuation">.</span>H<span class="token punctuation">{</span><span class="token string">&quot;keywords&quot;</span><span class="token punctuation">:</span><span class="token string">&quot;macbook pro&quot;</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>编译启动后访问 <code>/html-test</code>, 就可以看到编译后的模板字符串输出.</p> <h2 id="九、开发热更新"><a href="#九、开发热更新" class="header-anchor">#</a> 九、开发热更新</h2> <p>我们在开发代码时希望能够边改代码边运行看到结果，类似于 <code>PHP</code>脚本语言那样，但受限于 Go 的编译运行，自身无法实现，所以要借助一些第三方工具来解决这个问题。</p> <p>我使用 Go 开发了一个文件更新通知的软件 <code>fileboy</code>，可以很好的处理这类问题。该软件已开源，有兴趣的朋友可以在 <a href="https://github.com/dengsgo/fileboy" target="_blank" rel="noopener noreferrer">fileboy github <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>下载使用。</p> <p><code>gin</code> 项目的 <code>filegirl.yaml</code> 配置示例如下：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">core</span><span class="token punctuation">:</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token number">1</span>
+
+<span class="token key atrule">monitor</span><span class="token punctuation">:</span>
+    <span class="token key atrule">includeDirs</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> .<span class="token punctuation">,</span>*
+
+    <span class="token key atrule">exceptDirs</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> .idea
+        <span class="token punctuation">-</span> .git
+        <span class="token punctuation">-</span> .vscode
+        <span class="token punctuation">-</span> node_modules
+        <span class="token punctuation">-</span> vendor
+
+    <span class="token key atrule">types</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> .go
+        <span class="token punctuation">-</span> .html
+
+    <span class="token key atrule">events</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> write
+        <span class="token punctuation">-</span> rename
+        <span class="token punctuation">-</span> remove
+        <span class="token punctuation">-</span> create
+        <span class="token punctuation">-</span> chmod
+
+<span class="token key atrule">command</span><span class="token punctuation">:</span>
+    <span class="token key atrule">exec</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> go build <span class="token punctuation">-</span>o app.exe
+        <span class="token punctuation">-</span> ./app.exe
+
+    <span class="token key atrule">delayMillSecond</span><span class="token punctuation">:</span> <span class="token number">2000</span>
+
+<span class="token key atrule">notifier</span><span class="token punctuation">:</span>
+    <span class="token key atrule">callUrl</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+
+<span class="token key atrule">instruction</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> exec<span class="token punctuation">-</span>when<span class="token punctuation">-</span>start
+    <span class="token punctuation">-</span> ignore<span class="token punctuation">-</span>warn
+</code></pre></div><h2 id="十、测试"><a href="#十、测试" class="header-anchor">#</a> 十、测试</h2> <p>测试时一款健壮的应用程序不可或缺的一部分（虽然我们都不喜欢写这玩意）。Gin 是怎么解决这个环节的呢？</p> <p>呃。。。。好吧，实际上 Gin 并没有提供内置方法 （此处应有斜眼笑）.</p> <p>Gin 直接推荐使用 Go 官方包 <code>net/http/httptest</code> 来测试你的应用。</p> <blockquote><p>The <code>net/http/httptest</code> package is preferable way for HTTP testing.</p></blockquote> <p>假定有如下一段代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// 省略的代码 ...</span>
+
+<span class="token keyword">func</span> <span class="token function">setupRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>gin<span class="token punctuation">.</span>Engine <span class="token punctuation">{</span>
+    r <span class="token operator">:=</span> gin<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">&quot;/ping&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>c <span class="token operator">*</span>gin<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 以 200 的 http status 输出字符串 pong</span>
+        c<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token string">&quot;pong&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> r
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    r <span class="token operator">:=</span> <span class="token function">setupRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token string">&quot;:8080&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>那么我们可以这样编写测试代码：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">&quot;net/http&quot;</span>
+    <span class="token string">&quot;net/http/httptest&quot;</span>
+    <span class="token string">&quot;testing&quot;</span>
+
+    <span class="token string">&quot;github.com/stretchr/testify/assert&quot;</span> <span class="token comment">// 这是一个断言库，你也可以直接比较</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">TestPingRoute</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> <span class="token function">setupRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 获取一个请求实例</span>
+    w <span class="token operator">:=</span> httptest<span class="token punctuation">.</span><span class="token function">NewRecorder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// 构造请求</span>
+    <span class="token comment">// 参数依次是 请求方法、路由、参数</span>
+    req<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewRequest</span><span class="token punctuation">(</span><span class="token string">&quot;GET&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;/ping&quot;</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+    <span class="token comment">// 执行</span>
+    router<span class="token punctuation">.</span><span class="token function">ServeHTTP</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> req<span class="token punctuation">)</span>
+    <span class="token comment">// 断言</span>
+    assert<span class="token punctuation">.</span><span class="token function">Equal</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">,</span> w<span class="token punctuation">.</span>Code<span class="token punctuation">)</span>
+    assert<span class="token punctuation">.</span><span class="token function">Equal</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token string">&quot;pong&quot;</span><span class="token punctuation">,</span> w<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment">// 完了</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="参考"><a href="#参考" class="header-anchor">#</a> 参考</h2> <ul><li><a href="https://www.yoytang.com/go-gin-doc.html" target="_blank" rel="noopener noreferrer">Gin - 高性能 Golang Web 框架的介绍和使用<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/east-white/go/basics/gin_basics/07/" class="prev">
+            7.运行多个服务
+          </a></span> <span class="next"><a href="/east-white/go/basics/gin/01/">
+            1.开篇
+          </a></span></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#一、gin-的介绍" class="sidebar-link reco-side-一、gin-的介绍" data-v-cb1513f6>一、Gin 的介绍</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#二、gin-的使用" class="sidebar-link reco-side-二、gin-的使用" data-v-cb1513f6>二、Gin 的使用</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_1、安装和更新" class="sidebar-link reco-side-_1、安装和更新" data-v-cb1513f6>1、安装和更新</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_2、快速运行" class="sidebar-link reco-side-_2、快速运行" data-v-cb1513f6>2、快速运行</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#三、路由-router" class="sidebar-link reco-side-三、路由-router" data-v-cb1513f6>三、路由(Router)</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_1、restful-api" class="sidebar-link reco-side-_1、restful-api" data-v-cb1513f6>1、Restful Api</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_2、动态路由-参数路由" class="sidebar-link reco-side-_2、动态路由-参数路由" data-v-cb1513f6>2、动态路由（参数路由）</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_3、路由组" class="sidebar-link reco-side-_3、路由组" data-v-cb1513f6>3、路由组</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#四、中间件-middleware" class="sidebar-link reco-side-四、中间件-middleware" data-v-cb1513f6>四、中间件(Middleware)</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_1、单个路由中间件" class="sidebar-link reco-side-_1、单个路由中间件" data-v-cb1513f6>1、单个路由中间件</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_2、执行流程控制" class="sidebar-link reco-side-_2、执行流程控制" data-v-cb1513f6>2、执行流程控制</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_3、路由组使用中间件" class="sidebar-link reco-side-_3、路由组使用中间件" data-v-cb1513f6>3、路由组使用中间件</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#五、参数" class="sidebar-link reco-side-五、参数" data-v-cb1513f6>五、参数</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_1、url-查询参数" class="sidebar-link reco-side-_1、url-查询参数" data-v-cb1513f6>1、Url 查询参数</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_2、表单和body参数-multipart-urlencoded-form" class="sidebar-link reco-side-_2、表单和body参数-multipart-urlencoded-form" data-v-cb1513f6>2、表单和Body参数（Multipart/Urlencoded Form）</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_3、上传文件" class="sidebar-link reco-side-_3、上传文件" data-v-cb1513f6>3、上传文件</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_4、其他格式的数据" class="sidebar-link reco-side-_4、其他格式的数据" data-v-cb1513f6>4、其他格式的数据</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#六、数据绑定" class="sidebar-link reco-side-六、数据绑定" data-v-cb1513f6>六、数据绑定</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_1、绑定-url-查询参数-only-bind-query-string" class="sidebar-link reco-side-_1、绑定-url-查询参数-only-bind-query-string" data-v-cb1513f6>1、绑定 Url 查询参数（Only Bind Query String）</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_2、绑定url查询参数和post参数" class="sidebar-link reco-side-_2、绑定url查询参数和post参数" data-v-cb1513f6>2、绑定url查询参数和POST参数</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_3、其他数据绑定" class="sidebar-link reco-side-_3、其他数据绑定" data-v-cb1513f6>3、其他数据绑定</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#七、数据验证" class="sidebar-link reco-side-七、数据验证" data-v-cb1513f6>七、数据验证</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#八、输出响应" class="sidebar-link reco-side-八、输出响应" data-v-cb1513f6>八、输出响应</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_1、string" class="sidebar-link reco-side-_1、string" data-v-cb1513f6>1、String</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_2、json、-xml、-yaml" class="sidebar-link reco-side-_2、json、-xml、-yaml" data-v-cb1513f6>2、JSON、 XML、 YAML</a></li><li class="level-3" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#_3、html" class="sidebar-link reco-side-_3、html" data-v-cb1513f6>3、HTML</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#九、开发热更新" class="sidebar-link reco-side-九、开发热更新" data-v-cb1513f6>九、开发热更新</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#十、测试" class="sidebar-link reco-side-十、测试" data-v-cb1513f6>十、测试</a></li><li class="level-2" data-v-cb1513f6><a href="/east-white/go/basics/gin/00/#参考" class="sidebar-link reco-side-参考" data-v-cb1513f6>参考</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div><div class="reco-bgm-panel" data-v-b1d3339e><audio id="bgm" src="https://www.ytmp3.cn/down/51750.mp3" data-v-b1d3339e></audio> <div class="reco-float-box" style="bottom:10px;z-index:999999;display:none;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><img src="https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200" data-v-b1d3339e></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="reco-bgm-cover" style="background-image:url(https://ian-kevin.oss-cn-beijing.aliyuncs.com/img/east_white.jpeg?param=200y200);" data-v-b1d3339e><div class="mini-operation" style="display:none;" data-v-b1d3339e><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-b1d3339e></i></div> <div class="falut-message" style="display:none;" data-v-b1d3339e>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-music music" data-v-b1d3339e></i>River flows in you</div> <div class="info-box" data-v-b1d3339e><i class="reco-bgm reco-bgm-artist" data-v-b1d3339e></i>Yiruma</div> <div class="reco-bgm-progress" data-v-b1d3339e><div class="progress-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div> <div class="reco-bgm-operation" data-v-b1d3339e><i class="reco-bgm reco-bgm-last last" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-play play" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-next next" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-b1d3339e></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-b1d3339e></i> <div class="volume-bar" data-v-b1d3339e><div class="bar" data-v-b1d3339e></div></div></div></div> <div class="reco-bgm-left-box" data-v-b1d3339e data-v-41bcba48 data-v-b1d3339e><i class="reco-bgm reco-bgm-left" data-v-b1d3339e></i></div></div></div><!----></div></div>
+    <script src="/east-white/assets/js/app.66c0ecb2.js" defer></script><script src="/east-white/assets/js/3.688d5389.js" defer></script><script src="/east-white/assets/js/1.66f91b48.js" defer></script><script src="/east-white/assets/js/67.0d5ee134.js" defer></script>
+  </body>
+</html>
